@@ -6,5 +6,18 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app';
+  title = 'Hangpy';
+  myobject = {
+    gender:'male',
+    age:'27',
+    location:'Sweden'
+  };
+
+  myArr = ["him", "me","some"];
+
+  angularLogo = 'http://www.freepngimg.com/download/light/2-2-light-free-download-png.png'
+
+  buttonStatus = true;
+  buttonStatus2 = false;
+  buttonStatus3 = 'hi';
 }
