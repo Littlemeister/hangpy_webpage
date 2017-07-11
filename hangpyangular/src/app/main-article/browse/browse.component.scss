@@ -1,0 +1,11 @@
+.discover_btn{
+  width: 12%;
+  height: 40px;
+  margin-left:1%;
+  background-color:white;
+  border:none;
+  margin-top: 15px;
+  box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, 0.75);
+  cursor:pointer;
+  outline: none; /*otherwise creates a outline when button is pressed*/
+}

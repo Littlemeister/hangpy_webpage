@@ -1,0 +1,13 @@
+.search_main_articles{
+    width: 30%;
+    height: 40px;
+    border:none;
+    margin-top: 15px;
+    box-shadow: 1px 1px 3px 0px rgba(0,0,0,0.75);
+    outline: none; /*otherwise creates a outline when button is pressed*/
+    background-image: url('pic/magnify2.png');
+    background-size: 30px;
+    background-repeat: no-repeat;
+    background-position: 98%;
+    text-indent: 10px;
+}
