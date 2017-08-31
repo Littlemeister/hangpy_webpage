@@ -1,0 +1,28 @@
+@import "~variables.scss";
+
+.main_article{
+  margin-left: 15px;
+  width: calc(50% - 23px);
+  margin-bottom: 15px;
+  display: inline-block;
+  position: relative;
+}
+.main_article img{
+  height:100%;
+  width: 100%;
+}
+.main_article h2, .main_article p{
+  position: absolute;
+  margin-left:5px;
+}
+.main_article p:nth-child(2){
+  margin-top: 30px;
+}
+.main_article p:nth-child(3){
+  margin-top: 50px;
+}
+.main_article p:nth-child(4){
+  left: 5px;
+  margin: 0px;
+  bottom: 5px;
+}

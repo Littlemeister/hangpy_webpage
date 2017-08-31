@@ -1,0 +1,199 @@
+.creationWrapper{
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0,0,0,0.7);
+  z-index: 10;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  position: fixed;
+  cursor: pointer;
+}
+
+.creationDiv{
+  background-color:#93DADB;
+  z-index: 11;
+  position: fixed;
+  top:10%;
+  right:15%;
+  left:15%;
+  bottom:10%;
+  border-radius: 2px;
+  font-size: 20px;
+  cursor: auto;
+}
+
+////////////////
+// FORM INPUT //
+////////////////
+#creationForm legend{
+  font-size: 2em;
+  margin-top: 20px;
+  text-align: center;
+}
+#creationForm h2{
+  font-weight: normal;
+  text-align: center;
+  margin-top: 25px;
+}
+.wrapProceedBtn{
+  position: absolute;
+  font-size: 1.5em;
+  right: 0;
+  left: 0;
+  text-align: center;
+  bottom:15px;
+}
+.wrapProceedBtn input{
+  height: 40px;
+  line-height: 40px;
+  width: 160px;
+  border:none;
+  background-color:white;
+  border-radius: 5px;
+  margin: 7.5px;
+  cursor:pointer;
+}
+#proceed{
+  bottom:15px;
+  background-color:white;
+  cursor: pointer;
+  border:solid rgba(100,100,100,0.55) 1px;
+}
+.createEventStep4 h3{
+  text-align: center;
+}
+.description{
+  height: 15%;
+  width: 70%;
+  display: block;
+  position: absolute;
+  margin: auto;
+  right: 0;
+  left: 0;
+  text-indent: 5px;
+}
+.step2btn{
+  margin:auto;
+  display: block;
+}
+#datepicker{
+  width: 200px;
+}
+.invite{
+  position: absolute;
+  right: 0;
+  left: 0;
+  bottom: 30%;
+}
+
+//////////////////
+// CLOSE BUTTON //
+//////////////////
+
+.close-button {
+  display: inline-block;
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  position: absolute;
+  right: -0.15em;
+  top: -0.15em;
+  width: 0.50em;
+  height: 0.50em;
+  border: none;
+  -webkit-border-radius: 1em;
+  border-radius: 1em;
+  font: normal 8em/normal Arial, Helvetica, sans-serif;
+  color: rgba(0,0,0,1);
+  -o-text-overflow: clip;
+  text-overflow: clip;
+  background: #1abc9c;
+  cursor: pointer;
+}
+
+.close-button::before {
+  display: inline-block;
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  width: 0.33em;
+  height: 0.09em;
+  position: absolute;
+  content: "";
+  top: 0.205em;
+  left: 0.09em;
+  border: none;
+  font: normal 100%/normal Arial, Helvetica, sans-serif;
+  color: rgba(0,0,0,1);
+  -o-text-overflow: clip;
+  text-overflow: clip;
+  background: #ffffff;
+  text-shadow: none;
+  -webkit-transform: rotateZ(45deg);
+  transform: rotateZ(45deg);
+  cursor: pointer;
+}
+
+.close-button::after {
+  display: inline-block;
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  width: 0.33em;
+  height: 0.09em;
+  position: absolute;
+  content: "";
+  top: 0.205em;
+  left: 0.09em;
+  border: none;
+  font: normal 100%/normal Arial, Helvetica, sans-serif;
+  color: rgba(0,0,0,1);
+  -o-text-overflow: clip;
+  text-overflow: clip;
+  background: #ffffff;
+  text-shadow: none;
+  -webkit-transform: rotateZ(-45deg);
+  transform: rotateZ(-45deg);
+  cursor: pointer;
+}
+
+/*----------------*/
+/*-- DatePicker --*/
+/*----------------*/
+.wrapdate{
+  right: 15px;
+  left: 15px;
+  position: relative;
+  margin-top:15px;
+}
+.startdate, .enddate {
+  display: inline-block;
+  width: 48%;
+  text-align: center;
+}
+.startdate input, .enddate input{
+  width: 49%;
+}
+
+[type="date"] {
+  background:#fff url(https://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/calendar_2.png)  97% 50% no-repeat ;
+}
+[type="date"]::-webkit-inner-spin-button {
+  display: none;
+}
+[type="date"]::-webkit-calendar-picker-indicator {
+  opacity: 0;
+}
+
+label {
+  display: block;
+}
+.wrapdate  input {
+  border: 1px solid #c4c4c4;
+  border-radius: 5px;
+  background-color: #fff;
+  padding: 3px 5px;
+  box-shadow: inset 0 3px 6px rgba(0,0,0,0.1);
+}

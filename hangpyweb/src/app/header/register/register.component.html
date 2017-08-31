@@ -1,0 +1,20 @@
+<div routerLink="/" *ngIf="showRegister" (click)="closeRegister()" class="registerWrapper">
+  <div (click)="$event.stopPropagation()" class="registerForm">
+    <div routerLink="/" (click)="closeRegister()" class=close-button></div>
+
+    <form id='login' action='login.php' method='post' accept-charset='UTF-8'>
+      <legend>Register</legend>
+
+      <input type='text' name='tel' id='tel' maxlength="150" placeholder="Enter your Telephone number" (keyup.enter)="onKeyUp()" >
+
+    <!--  <label for='username'></label>
+      <input type='text' name='username' id='username' maxlength="150" placeholder="Email or Username">
+
+      <label for='password'></label>
+      <input type='password' name='password' id='password' maxlength="150"> -->
+
+      <input id='proceed' type='submit' name='Submit' value='Proceed'>
+    </form>
+
+  </div>
+</div>

@@ -1,0 +1,36 @@
+@import "~variables.scss";
+
+/* Start - Making the header responsive design, with compability IE6+*/
+header img{
+  height:80px;
+  margin-top:10px;
+}
+header{
+  width:100%;
+  position: relative;
+
+  text-align: center;
+
+  max-width: 650px;
+  max-height: 430px;
+  margin: auto;
+  height: 100px;
+}
+/* End - Making the header responsive design, with compability IE6+*/
+
+#register, header button{
+  /* Start - Making the header responsive design, with compability IE6+*/
+  position: relative;
+  top: 20px;
+  margin-left:10%;
+  /* End - Making the header responsive design, with compability IE6+*/
+
+  font-size:2em;
+  color:white;
+  /* start - to make the button transparent */
+  background-color: Transparent;
+  border: none;
+  cursor:pointer;
+  outline:none;
+  /* end - to make the button transparent */
+}

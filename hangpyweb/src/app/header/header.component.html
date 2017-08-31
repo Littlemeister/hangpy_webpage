@@ -1,0 +1,8 @@
+<app-register *ngIf="showHideRegister" [(showRegister)]="showHideRegister"></app-register>
+<app-login-form *ngIf="showHideLogin" [(showLogin)]="showHideLogin"></app-login-form>
+
+<header>
+    <img src="assets/hangpylogo.png" alt="Hangpy logo">
+    <button routerLink="/Register" id="register" label="Click" (click)="toggleRegister()">Register</button>
+    <button routerLink="/Login" label="Click" (click)="toggleChild()">Login</button>
+</header>
