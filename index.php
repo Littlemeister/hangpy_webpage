@@ -22,9 +22,7 @@ require_once 'lib/backend_com.php';
     </div>
     
     <?php
-    
     require 'scripts.php';
-    
     ?>
     <script src="scripts/events.js"></script>
     

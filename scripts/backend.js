@@ -14,10 +14,6 @@ Backend.request = function(queryString, post = null, callback) {
     var url = Backend.BASE_URL + queryString;
     var user = User.current;
     
-    //  Debug
-    user.phoneNumber = "+46721521129";
-    user.authToken = "qTyiOC27RzWeOM54CuoD2ThswK4rU0Hl";
-    
     if (user.phoneNumber) {
         url += "&user=" + encodeURIComponent(user.phoneNumber);
     }

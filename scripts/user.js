@@ -23,19 +23,15 @@ User.parseCookies = function(){
         user = user[1];
         
         var authToken = cookie.match(/auth_token=(.+)&/);
+        authToken = "qTyiOC27RzWeOM54CuoD2ThswK4rU0Hl";
         
         if (authToken.length > 1){
             User.current.phoneNumber = user;
             User.current.authToken = authToken;
+            
+            $('#_user').html("User: " + user + ", token: " + authToken);
         }
     }
-}
-
-/**
-*   Fetches user-specific data.
-*/
-User.fetchData = function() {
-    Backend.request('out=user_data');
 }
 
 /**
@@ -51,7 +47,7 @@ User.queueVerification = function(phoneNumber) {
     }, function(response){
         
         if (response == SUCCESS) {
-            onQueuedVerification();
+            User.onQueuedVerification();
         }
         
     });
@@ -61,12 +57,13 @@ User.queueVerification = function(phoneNumber) {
 *   Called once successfully queued verification.
 */
 User.onQueuedVerification = function() {
+    $('#_verif-status').html('Successfully queued verification');
 }
 
 /**
 *   Checks a verification code associated with this user.
 */
-User.checkVerificationCode = function(code) {
+User.checkVerification = function(code) {
     var user = User.current;
     
     Backend.request('action=check_verification', {
@@ -74,8 +71,7 @@ User.checkVerificationCode = function(code) {
         phone_num: user.phoneNumber,
         verif_code: code
         
-        
-    }, parseCheckVerification);
+    }, User.parseCheckVerification);
 }
 
 /**
@@ -95,6 +91,9 @@ User.parseCheckVerification = function(response) {
     var user = User.current;
     user.authToken = obj.auth_token;
     
+    $('#_user').html('Respose: ' + response);
+    $('#_verif-status').html('Correct verification. Auth token: ' + obj.auth_token);
+    
     if (obj.already_signed_up) {
         User.fetchData();
     } else {
@@ -104,7 +103,7 @@ User.parseCheckVerification = function(response) {
 }
 
 User.onInvalidVerification = function(){
-    
+    $('#_verif-status').html('Invalid verification');
 }
 
 /**
@@ -112,7 +111,36 @@ User.onInvalidVerification = function(){
 *   to set up profile data.
 */
 User.onFirstSignIn = function(){
+    $('#_user-data').html("First sign-in, needs to complete profile");
+}
+
+/**
+*   Update user profile data. Callback is optional.
+*
+*   Valid data fields are:
+*       full_name : User's full name. May only be set once.
+*/
+User.updateProfile = function(dirtyData, callback) {
+    Backend.request('action=update_data', dirtyData, callback);
+}
+
+/**
+*   Fetches user-specific data.
+*/
+User.fetchData = function() {
+    Backend.request('out=user_data', null, User.parseData);
+}
+
+User.parseData = function(response) {
+    $('#_user-data').html("User data: " + response);
+}
+
+User.setCookies = function(){
+    let user = User.current;
     
+    let cookieExpire = "expires=Thu, 01 Jan 2099 12:00:00 UTC";
+    document.cookie = "user=" + user.phoneNumber + ';' + cookieExpire;
+    document.cookie = "auth_token=" + user.authToken + ';' + cookieExpire;
 }
 
 User.parseCookies();
