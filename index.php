@@ -13,21 +13,18 @@ require 'lib/user.php';
 //  Backend communication
 require_once 'lib/backend_com.php';
 
-
-
 ?>
 
 <!DOCTYPE html>
 
-<<<<<<< HEAD
 <html lang="sv">
 
 <head>
-  <meta charset="utf-8"> <!-- What charset character set to be used -->
+  <meta charset="utf-8">
 
-  <title>Hangpy</title> <!-- The pages title -->
+  <title>Hangpy</title>
 
-  <meta name="description" content="Fun events">                  <!-- Specifies a description of the page. Search engines can pick up this description to show with the results of searches. -->
+  <meta name="description" content="Fun events">                        <!-- Specifies a description of the page. Search engines can pick up this description to show with the results of searches. -->
   <meta name="keywords" content="fun,event,events,spontant,hitta på, vad händer,">                    <!-- Specifies a comma-separated list of keywords - relevant to the page (Informs search engines what the page is about). -->
   <meta name="application-name" content="Hangpy">                       <!-- Specifies the name of the Web application that the page represents -->
 
@@ -35,12 +32,7 @@ require_once 'lib/backend_com.php';
   <meta name="viewport" content="width=device-width, initial-scale=1">  <!-- Specifies the scaling of the site when in mobile resulution so text and pictures doesnt get to small -->
 
   <!-- Link stylecheat -->
-  <link rel="stylesheet" href="style.css"> <!-- Link stylecheat -->
-
-  <!-- javascript -->
-  <script src="scripts/main.js"></script>
-  <script src="scripts/events.js"></script>
-  <script>Events.fetch();</script>
+  <link rel="stylesheet" href="style.css">
 
   </head>
 
@@ -51,26 +43,14 @@ require_once 'lib/backend_com.php';
 
       <?php
         require 'scripts.php';
+
+    	  // Profile section
+        include 'profile.php';
       ?>
+
+      <script src="scripts/events.js"></script>
+      <script>Events.fetch();</script>
+      <script src="scripts/main.js"></script>
   </body>
 
 </html>
-=======
-<html>
-    
-<body>
-    
-    <?php
-    
-    require 'scripts.php';
-	
-	//	Profile section
-    include 'profile.php';
-    
-    ?>
-    
-    <script src="scripts/events.js"></script>
-</body>
-
-</html>
->>>>>>> a160b773ee66be583bb318978f399d862ce402bc
