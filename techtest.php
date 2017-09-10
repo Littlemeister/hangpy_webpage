@@ -144,6 +144,14 @@ require_once 'lib/backend_com.php';
     </div>
     <button onclick="Categories.fetchSuggested($('#category-sugg-input').val())">Suggest categories</button>
     <p id="_category-sugg-status"></p>
+    <div>
+        <h4>Default category image</h4>
+        <label for="category-img-input">Category</label>
+        <input id="category-img-input" type="text" maxlength="255">
+    </div>
+    <button onclick="Categories.fetchDefaultImage($('#category-img-input').val())">Fetch default image</button>
+    <img id="_category-img" style="width:400px;"/>
+    <p id="_category-img-status"></p>
     
     <script>
         function submitEvent(){
