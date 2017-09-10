@@ -45,6 +45,8 @@ require_once 'lib/backend_com.php';
       <?php
         require 'scripts.php';
 
+        // header section
+        include 'components/header.php';
     	  // Profile section
         include 'components/profile.php';
       ?>
