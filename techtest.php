@@ -178,7 +178,7 @@ require_once 'lib/backend_com.php';
     include 'profile.php';
     
     ?>
-        <button onclick="Profile.save()">Save profile</button>
+	<button onclick="Profile.save()">Save profile</button>
     <script src="scripts/events.js"></script>
     <script src="scripts/create_event.js"></script>
 </body>
