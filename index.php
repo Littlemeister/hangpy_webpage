@@ -33,11 +33,13 @@ require_once 'lib/backend_com.php';
 
     <!-- Link stylecheat -->
     <link rel="stylesheet" href="style.css">                    <!-- Global style -->
-    <link rel="stylesheet" href="styles/header_style.css">   <!-- Style for header/global menu -->
+    <link rel="stylesheet" href="styles/header.css">   <!-- Style for header/global menu -->
+    <link rel="stylesheet" href="styles/footer.css">   <!-- Style for sticky footer -->
 
   </head>
 
   <body>
+    <div class="page-wrap"> <!-- used for the sticky footer ie8+ support -->
       Events:
       <div id="events">
       </div>
@@ -45,14 +47,20 @@ require_once 'lib/backend_com.php';
       <?php
         require 'scripts.php';
 
-        // header section
+        // Header section
         include 'components/header.php';
-    	  // Profile section
+        // Profile section
         include 'components/profile.php';
       ?>
+    </div>
 
-      <script src="scripts/events.js"></script>
-      <script>Events.fetch();</script>
+    <!-- Sticky footer - have to be outside of page-wrap -->
+    <?php
+      include_once 'components/footer.php';
+    ?>
+
+    <script src="scripts/events.js"></script>
+    <script>Events.fetch();</script>
   </body>
 
 </html>

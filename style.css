@@ -1,6 +1,11 @@
 /* Global styles */
 
+html{
+  height: 100%; /* Used to make the sticky footer work */
+}
+
 body{
   margin:0;
   background-color:#93dadb;
+  height: 100%;
 }
