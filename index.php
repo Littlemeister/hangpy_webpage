@@ -17,16 +17,14 @@ require_once 'lib/backend_com.php';
 <html>
     
 <body>
-    Events:
-    <div id="events">
-    </div>
     
     <?php
+    
     require 'scripts.php';
+    include 'profile.php';
+    
     ?>
     <script src="scripts/events.js"></script>
-    
-    <script>Events.fetch();</script>
 </body>
 
 </html>

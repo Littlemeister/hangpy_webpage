@@ -94,8 +94,18 @@ require_once 'lib/backend_com.php';
     <button onclick="Events.createUserPost($('#event-data').val(), $('#post-message-input').val(), 0)">Create post</button>
     <p id="_event-posts-create-status"></p>
     
+    <!-- Fetch other user -->
+    <h2 style="margin-top: 96px">5. Fetch other user</h2>
+    <!-- Specific event -->
+    <div>
+        <label for="user-id">Fetch user data (other user)</label>
+        <input id="user-id" type="text" maxlength="3" placeholder="User ID">
+    </div>
+    <button onclick="User.fetchDataById($('#user-id').val())">Fetch user data</button>
+    <p id="_user-data-id-status"></p>
     
-    <h2 style="margin-top: 96px">5. Create event</h2>
+    
+    <h2 style="margin-top: 96px">6. Create event</h2>
     <!-- Create event -->
     <div>
         <label for="cr-event-name">Event name</label>
@@ -126,6 +136,15 @@ require_once 'lib/backend_com.php';
         <input id="cr-event-description" type="text" maxlength="255">
     </div>
     <button onclick="submitEvent()">Submit event</button>
+    
+    <div style="margin-top: 48px">
+        <h4>Category suggestion</h4>
+        <label for="category-sugg-input">Category</label>
+        <input id="category-sugg-input" type="text" maxlength="255">
+    </div>
+    <button onclick="Categories.fetchSuggested($('#category-sugg-input').val())">Suggest categories</button>
+    <p id="_category-sugg-status"></p>
+    
     <script>
         function submitEvent(){
             Events.createEvent({
@@ -144,7 +163,14 @@ require_once 'lib/backend_com.php';
     
     
     
-    <?php require 'scripts.php';?>
+    <h2 style="margin-top: 96px">7. User profile</h2>
+    <?php
+    
+    require 'scripts.php';
+    include 'profile.php';
+    
+    ?>
+        <button onclick="Profile.save()">Save profile</button>
     <script src="scripts/events.js"></script>
     <script src="scripts/create_event.js"></script>
 </body>

@@ -125,14 +125,50 @@ User.updateProfile = function(dirtyData, callback) {
 }
 
 /**
-*   Fetches user-specific data.
+*   Fetches user-specific data. Leave userId undefined to fetch own user data.
 */
 User.fetchData = function() {
     Backend.request('out=user_data', null, User.parseData);
 }
 
 User.parseData = function(response) {
+    var obj = JSON.parse(response);
+    
+    $.extend(User.current, obj);
+    
+    Profile.setupElements();
+    
     $('#_user-data').html("User data: " + response);
+}
+
+/**
+*   Fetches user-specific data. Will contain less data than own user data.
+*/
+User.fetchDataById = function(userId) {
+    Backend.request('out=user_data&user_id=' + userId, null, function(response){
+        User.parseDataById(response, userId);
+    });
+}
+
+User.parseDataById = function(response, userId) {
+    var obj = JSON.parse(response);
+    
+    $('#_user-data-id-status').html("User data: " + response);
+}
+
+
+/**
+*   Fetches the user's "My events".
+*/
+User.fetchMyEvents = function() {
+    Backend.request('out=my_events', null, User.parseMyEvents);
+}
+
+User.parseMyEvents = function(response) {
+    var obj = JSON.parse(response);
+    
+    var events = obj.events;
+    User.convertMyEventsToHtml(events);
 }
 
 User.setCookies = function(){
@@ -144,3 +180,36 @@ User.setCookies = function(){
 }
 
 User.parseCookies();
+
+/**
+*   Requests to delete the user's account. Does NOT ask for confimation.
+*   The profile won't get immediately deleted but rather temporarily removed, then deleted.
+*/
+User.deleteAccount = function(){
+    Backend.request('action=delete_account', null, function(response){
+        Profile.onDeletedAccount();
+    });
+}
+
+/**
+*   Called once the user has "deleted" their account.
+*/
+User.onDeletedAccount = function(){
+    User.onSignedOut();
+}
+
+/**
+*   Clears user-specific cookies and signs out.
+*/
+User.signOut = function(){
+    Backend.request('action=delete_account', null, function(response){
+        Profile.onSignedOut();
+    });
+}
+
+/**
+*   Called once the user has signed out.
+*/
+User.onSignedOut = function(){
+    User.current = {};
+}
