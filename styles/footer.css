@@ -1,15 +1,23 @@
 .page-wrap {
   min-height: 100%;
   /* equal to footer height */
-  margin-bottom: -142px;
+  margin-bottom: -140px;
 }
 .page-wrap:after {
   content: "";
   display: block;
 }
 footer, .page-wrap:after {
-  height: 142px;
+  height: 140px;
 }
 footer {
   background: orange;
+}
+
+.footer_inside_content_wrapper{
+  width: 80%;
+}
+
+.footer_content_1{
+  
 }

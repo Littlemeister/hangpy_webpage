@@ -32,7 +32,7 @@ require_once 'lib/backend_com.php';
     <meta name="viewport" content="width=device-width, initial-scale=1">  <!-- Specifies the scaling of the site when in mobile resulution so text and pictures doesnt get to small -->
 
     <!-- Link stylecheat -->
-    <link rel="stylesheet" href="style.css">                    <!-- Global style -->
+    <link rel="stylesheet" href="style.css">           <!-- Global style -->
     <link rel="stylesheet" href="styles/header.css">   <!-- Style for header/global menu -->
     <link rel="stylesheet" href="styles/footer.css">   <!-- Style for sticky footer -->
 
