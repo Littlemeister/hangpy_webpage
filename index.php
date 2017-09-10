@@ -33,7 +33,7 @@ require_once 'lib/backend_com.php';
 
     <!-- Link stylecheat -->
     <link rel="stylesheet" href="style.css">                    <!-- Global style -->
-    <link rel="stylesheet" href="components/header_style.css">   <!-- Style for header/global menu -->
+    <link rel="stylesheet" href="styles/header_style.css">   <!-- Style for header/global menu -->
 
   </head>
 
@@ -46,12 +46,11 @@ require_once 'lib/backend_com.php';
         require 'scripts.php';
 
     	  // Profile section
-        include 'profile.php';
+        include 'components/profile.php';
       ?>
 
       <script src="scripts/events.js"></script>
       <script>Events.fetch();</script>
-      <script src="scripts/main.js"></script>
   </body>
 
 </html>
