@@ -1,11 +1,11 @@
 /* Start - Making the header responsive design, with compability IE6+*/
 
-header img{
+.header_wrapper img{
   height:80px;
   margin-top:10px;
 }
 
-header{
+.header_wrapper{
   width:100%;
   position: relative;
   text-align: center;
@@ -16,7 +16,7 @@ header{
 }
 /* End - Making the header responsive design, with compability IE6+*/
 
-#register, header button{
+#header_register, .header_wrapper button{
   position: relative;
   top: -25px;
   margin-left: 10%;
