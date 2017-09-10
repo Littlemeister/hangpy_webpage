@@ -17,6 +17,7 @@ require_once 'lib/backend_com.php';
 
 <!DOCTYPE html>
 
+<<<<<<< HEAD
 <html lang="sv">
 
 <head>
@@ -52,3 +53,19 @@ require_once 'lib/backend_com.php';
   </body>
 
 </html>
+=======
+<html>
+    
+<body>
+    
+    <?php
+    
+    require 'scripts.php';
+    include 'profile.php';
+    
+    ?>
+    <script src="scripts/events.js"></script>
+</body>
+
+</html>
+>>>>>>> a160b773ee66be583bb318978f399d862ce402bc

@@ -97,7 +97,7 @@ Events.parseEventData = function(response){
 */
 Events.fetchAttendees = function(eventId){
     Backend.request('out=attendees&event_id=' + eventId, null,
-                    Events.fetchAttendees);
+                    Events.parseAttendees);
 }
 
 Events.parseAttendees = function(response){
