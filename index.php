@@ -32,31 +32,43 @@ require_once 'lib/backend_com.php';
     <meta name="viewport" content="width=device-width, initial-scale=1">  <!-- Specifies the scaling of the site when in mobile resulution so text and pictures doesnt get to small -->
 
     <!-- Link stylecheat -->
-    <link rel="stylesheet" href="style.css">                    <!-- Global style -->
-    <link rel="stylesheet" href="styles/header.css">   <!-- Style for header/global menu -->
-    <link rel="stylesheet" href="styles/footer.css">   <!-- Style for sticky footer -->
+    <link rel="stylesheet" href="style.css">              <!-- Global style -->
+    <link rel="stylesheet" href="styles/header.css">      <!-- Style for header/global menu -->
+    <link rel="stylesheet" href="styles/footer.css">      <!-- Style for sticky footer -->
+    <link rel="stylesheet" href="styles/first_page.css">  <!-- Style for first_page -->
 
   </head>
 
   <body>
-    <div class="page-wrap"> <!-- used for the sticky footer ie8+ support -->
-      Events:
-      <div id="events">
-      </div>
+    <div class="page-wrap"> <!-- used becouse of the sticky footer ie8+ support -->
 
-      <?php
-        require 'scripts.php';
-
-        // Header section
-        include 'components/header.php';
-        // Profile section
-        include 'components/profile.php';
+      <?php // Header section
+        require_once 'components/header.php';
       ?>
+
+      <div class="main_content">
+
+        <?php // first_page section
+          require 'components/first_page.php';
+        ?>
+
+        <?php // Profile section
+          //include 'components/profile.php';
+        ?>
+
+        <?php // event_info section
+          //include 'components/profile.php';
+        ?>
+
+        <?php
+          require 'scripts.php';
+        ?>
+      </div>
     </div>
 
     <!-- Sticky footer - have to be outside of page-wrap -->
     <?php
-      include_once 'components/footer.php';
+      require_once 'components/footer.php';
     ?>
 
     <script src="scripts/events.js"></script>

@@ -5,7 +5,16 @@ html{
 }
 
 body{
-  margin:0;
+  margin: 0;
   background-color:#93dadb;
-  height: 100%;
+  height: 100%; /* Used to make the sticky footer work */
+}
+
+/* ------------------------ */
+/* Main Content on the site */
+/* ------------------------ */
+.main_content{
+  max-width: 1040px;
+  width: 100%;
+  margin: auto;
 }

@@ -1,15 +1,37 @@
 .page-wrap {
   min-height: 100%;
   /* equal to footer height */
-  margin-bottom: -142px;
+  margin-bottom: -155px;
 }
 .page-wrap:after {
   content: "";
   display: block;
 }
 footer, .page-wrap:after {
-  height: 142px;
+  height: 155px;
 }
 footer {
   background: orange;
+}
+
+.footer_inside_content_wrapper{
+  max-width: 1040px;
+  margin:auto;
+}
+
+.footer_content_1, .footer_content_2, .footer_content_3{
+  width: 33.33%;
+  float:left;
+}
+.footer_inside_content_wrapper h3, .footer_content_2 {
+  text-align: center;
+}
+
+.footer_content_2 button{
+  background-color: wheat;
+  border: none;
+  height: 30px;
+  width: 40%;
+  border-radius: 5px;
+  cursor: pointer;
 }
