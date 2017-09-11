@@ -29,9 +29,9 @@ footer {
 
 .footer_content_2 button{
   background-color: wheat;
-    border: none;
-    height: 30px;
-    width: 40%;
-    border-radius: 5px;
-    cursor: pointer;
+  border: none;
+  height: 30px;
+  width: 40%;
+  border-radius: 5px;
+  cursor: pointer;
 }

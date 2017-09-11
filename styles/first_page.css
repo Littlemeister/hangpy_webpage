@@ -1,0 +1,162 @@
+/* --------------------- */
+/* Main and pay articles */
+/* --------------------- */
+
+/* Main articles */
+.first_page_main_articles_wrapper{
+  width: calc(66.66% - 15px);
+  background-color: white;
+  display: inline-block;
+  padding-bottom: 12px;
+  margin-bottom: 15px;
+}
+/* Specific for pay articles wrapper */
+.first_page_pay_article_wrapper{
+  width: 33.33%;
+  background-color: white;
+  display: inline-block;
+  float: right;
+  margin-bottom: 15px;
+  padding-bottom: 12px;
+}
+.first_page_article{
+  margin-left: 15px;
+  width: calc(50% - 22.5px);
+  margin-top: 12px;
+  float: left;
+}
+.first_page_article img, .first_page_pay_article img{
+  height:100%;
+  width: 100%;
+}
+.first_page_article h2, .first_page_article p, .first_page_pay_article h2, .first_page_pay_article p{
+  position: absolute;
+  margin-left:5px;
+  margin-top: 7px;
+}
+.first_page_article p:nth-child(2), .first_page_pay_article p:nth-child(2){
+  margin-top: 45px;
+}
+.first_page_article p:nth-child(3), .first_page_pay_article p:nth-child(3){
+  margin-top: 70px;
+}
+.first_page_article p:nth-child(4), .first_page_pay_article p:nth-child(4){
+  margin-top: 95px;
+}
+
+/* Specific for pay article */
+.first_page_pay_article{
+  margin-left: 15px;
+  margin-top: 12px;
+  margin-right: 15px;
+}
+.first_page_pay_article_wrapper > h1{
+  display: inline-block;
+  margin-left:15px;
+  font-size: 1.8em;
+}
+.first_page_pay_article_wrapper > input{
+  float:right;
+  margin-top: 20px;
+  margin-right: 15px;
+  font-size: 1.8em;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  background-color:aliceblue;
+}
+.first_page_pay_article_wrapper > input:focus{
+  outline:0px;
+}
+/* ------------------------ */
+/* first_page_more_articles tools */
+/* ------------------------ */
+.first_page_more_articles{
+  background-color: white;
+  text-align: right;
+  margin-right: 15px;
+}
+.first_page_more_articles ul, .first_page_more_articles li{
+  display: inline-block;
+  padding: 0;
+  cursor: pointer;
+  margin:5px;
+  font-size: 1.1em;
+}
+.first_page_more_articles button{
+  display: inline-block;
+  height: 25px;
+  border: 0;
+  background-color: rgba(0,0,0,0);
+  cursor: pointer;
+  font-size: 1.1em;
+  margin-right: -5px;
+  margin-top: 15px;
+}
+
+/* ---------------- */
+/* first_page_tools */
+/* ---------------- */
+
+.first_page_inside_tools{
+  width: calc(100% - 15px);
+  margin-left:15px;
+}
+.first_page_main_articles_wrapper h1{
+  display: inline-block;
+  font-size:1.8em;
+}
+.first_page_inside_tools button{
+  float: right;
+  margin-top: 25px;
+  margin-right: 15px;
+  width: 20%;
+  height: 35px;
+  background-color: aliceblue;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.first_page_inside_tools button:focus{
+  outline: none;
+}
+.first_page_outside_tools{
+  width: calc(66.66% - 15px);
+  height: 35px;
+  margin-right: 100%;
+  margin-bottom: 15px;
+  margin-top: 15px;
+}
+.first_page_tool_search_wrapper{
+  float: left;
+  width: 50%;
+  position: relative;
+}
+#first_page_tool_search{
+  text-indent: 15px;
+  width: 100%;
+  cursor:auto;
+}
+#first_page_search_icon{
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+  position: absolute;
+  right: 5px;
+  margin-top:5px;
+}
+.first_page_outside_tools input{
+  height: 35px;
+  width: calc(25% - 15px);
+  float: right;
+  padding: 0;
+  border: 0;
+  cursor: pointer;
+  background-color:white;
+}
+.first_page_outside_tools input:focus{
+  outline: none;
+}
+.first_page_outside_tools input:nth-child(2){
+  margin-left: 15px;
+}
