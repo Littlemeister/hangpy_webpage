@@ -23,14 +23,22 @@ Backend.request = function(queryString, post = null, callback) {
     
     var usePost = post ? true : false;
     
-    $.ajax({
+    var request = {
         url: url,
         method: usePost ? 'POST' : 'GET',
         data: usePost ? post : null,
         success: function(response) {
             callback(response);
         },
-    })
+    };
+    
+    if (post instanceof FormData) {
+        //  Sending form data
+        request.contentType = false;
+        request.processData = false;
+    }
+    
+    $.ajax(request);
 }
 
 Backend.BASE_URL = "http://partlight.tech/scripts/hangpy/backend.php?";

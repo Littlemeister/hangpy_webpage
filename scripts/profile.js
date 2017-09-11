@@ -43,10 +43,10 @@ Profile.onSaved = function(){
 Profile.setupElements = function(){
     var data = User.current;
     
-    $('#profile-picture').attr('src', data.picture_url);
-    $('#display-name').text(data.display_name);
-    $('#full-name').text(data.name);
-    $('#phone-num-hidden').attr('checked', data.phone_num_hidden);
+    $('#profile_picture').attr('src', data.picture_url);
+    $('#display_name').text(data.display_name);
+    $('#full_name').text(data.name);
+    $('#phone_num_hidden').attr('checked', data.phone_num_hidden);
     
     //  Profile.dirty has underscores so it can be passed in POST
     
@@ -66,6 +66,31 @@ Profile.setupElements = function(){
     $('#snapchat-input').val(data.snapchat_username || '').change(function(){
         Profile.dirty.snapchat_username = $(this).val();
     });
+}
+
+/**
+*   Changes the profile picture image and uploads the picture.
+*/
+Profile.changeProfilePicture = function(pictureFile) {
+    var fileReader = new FileReader();
+    
+    fileReader.onload = function(){
+        //  Update image
+        
+    };
+    
+    fileReader.readAsDataURL(pictureFile);
+    
+    var formData = new FormData();
+    formData.append('uploaded_file', pictureFile);
+    
+    Backend.request('action=change_profile_picture', formData, Profile.onProfilePictureUploaded);
+}
+
+/**
+*   Changes the profile picture image and uploads the picture.
+*/
+Profile.onProfilePictureUploaded = function() {
 }
 
 /**

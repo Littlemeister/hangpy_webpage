@@ -169,15 +169,15 @@ require_once 'lib/backend_com.php';
     
     <p id="_create-event-status"></p>
     
-    
-    
     <h2 style="margin-top: 96px">7. User profile</h2>
+    
     <?php
     
     require 'scripts.php';
     include 'profile.php';
     
     ?>
+    
 	<button onclick="Profile.save()">Save profile</button>
     <script src="scripts/events.js"></script>
     <script src="scripts/create_event.js"></script>
