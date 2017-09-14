@@ -10,6 +10,15 @@ body{
   height: 100%; /* Used to make the sticky footer work */
 }
 
+a,
+p,
+h1,
+h2,
+input {
+  font-family: bpreplay, sans-serif;
+}
+
+
 /* ------------------------ */
 /* Main Content on the site */
 /* ------------------------ */
@@ -17,4 +26,10 @@ body{
   max-width: 1040px;
   width: 100%;
   margin: auto;
+}
+
+/* Main font */
+@font-face {
+  font-family: bpreplay;
+  src: url('assets/fonts/bpreplay.regular.ttf');
 }

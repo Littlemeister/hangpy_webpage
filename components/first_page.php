@@ -22,54 +22,12 @@
       <!-- Filter articles -->
       <button type="button" name="button">Filter</button>
     </div>
-
-    <article class="first_page_article">
-      <h2>title</h2>
-      <p>distance</p>
-      <p>time</p>
-      <p>catagory</p>
-      <img src="pic/football.jpg" alt="Hangpy Article">
-    </article>
-
-    <article class="first_page_article">
-      <h2>title</h2>
-      <p>distance</p>
-      <p>time</p>
-      <p>catagory</p>
-      <img src="pic/football.jpg" alt="Hangpy Article">
-    </article>
-
-    <article class="first_page_article">
-      <h2>title</h2>
-      <p>distance</p>
-      <p>time</p>
-      <p>catagory</p>
-      <img src="pic/football.jpg" alt="Hangpy Article">
-    </article>
-
-    <article class="first_page_article">
-      <h2>title</h2>
-      <p>distance</p>
-      <p>time</p>
-      <p>catagory</p>
-      <img src="pic/football.jpg" alt="Hangpy Article">
-    </article>
-
-    <article class="first_page_article">
-      <h2>title</h2>
-      <p>distance</p>
-      <p>time</p>
-      <p>catagory</p>
-      <img src="pic/football.jpg" alt="Hangpy Article">
-    </article>
-
-    <article class="first_page_article">
-      <h2>title</h2>
-      <p>distance</p>
-      <p>time</p>
-      <p>catagory</p>
-      <img src="pic/football.jpg" alt="Hangpy Article">
-    </article>
+    
+    <div id="first_page_articles">
+      
+    </div>
+    
+    <?php $loading_id = 'events_loading'; require 'loading.php'; ?>
 
     <div class="first_page_more_articles">
       <button type="button" name="button">Föregående</button>

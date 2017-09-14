@@ -20,7 +20,7 @@ Events.fetch = function(page = 0){
 */
 Events.fetchWithLocation = function(latitude = 0.0, longitude = 0.0,
                                      distance = 0.0, page = 0) {
-    
+	
     var queryString = 'out=events';
     var filters = Events.filters;
     
@@ -52,11 +52,14 @@ Events.fetchWithLocation = function(latitude = 0.0, longitude = 0.0,
         queryString += "&distance=" + distance;
     }
     
-    
+    $('#events_loading').removeClass('hidden');
+	
     Backend.request(queryString, null, Events.parseEvents);
 }
 
-Events.parseEvents = function(response, page){
+Events.parseEvents = function(response, page) {
+	$('#events_loading').addClass('hidden');
+	
     if (response == UNAUTHORIZED) {
         $('#_events').html('Can\'t fetch events: unauthorized');
         return;
@@ -69,6 +72,17 @@ Events.parseEvents = function(response, page){
     if (events.length == 0 && page == 0){
         Events.onNoEvents();
         return;
+    }
+    
+    var eventsContainer = $('#first_page_articles');
+    for (let event of events) {
+		$('<article class="first_page_article">').
+			append(
+        		$('<h2></h2>').text(event.name)
+			).append(
+				$('<img>').attr('alt', 'Hangpy article').
+					attr('src', obj.base_image_url + event.cover_image)
+			).appendTo(eventsContainer);
     }
     
     $('#_events').html(JSON.stringify(events));
