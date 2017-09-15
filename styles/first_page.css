@@ -2,6 +2,10 @@
 /* Main and pay articles */
 /* --------------------- */
 
+.main_content main{
+  display: inline-block;
+}
+
 /* Main articles */
 .first_page_main_articles_wrapper{
   width: calc(66.66% - 15px);
