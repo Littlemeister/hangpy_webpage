@@ -23,15 +23,21 @@
   margin-bottom: 15px;
   padding-bottom: 12px;
 }
+
 .first_page_article{
   margin-left: 15px;
   width: calc(50% - 22.5px);
   margin-top: 12px;
   float: left;
+  height: 182px;  /* Fiendly before img has loaded */
 }
-.first_page_article img, .first_page_pay_article img{
+
+/* Cover photo */
+.first_page_article .cover, .first_page_pay_article .cover{
   height:100%;
   width: 100%;
+  background-size: cover;
+  background-position: center;
 }
 .first_page_article h2, .first_page_article p, .first_page_pay_article h2, .first_page_pay_article p{
   position: absolute;

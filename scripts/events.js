@@ -21,7 +21,9 @@ Events.fetch = function(page = 0){
 Events.fetchWithLocation = function(latitude = 0.0, longitude = 0.0,
                                      distance = 0.0, page = 0) {
 	
-    var queryString = 'out=events';
+	//	inject_special=0 provides a desktop layout
+    var queryString = 'out=events&inject_special=0';
+	
     var filters = Events.filters;
     
     //  Perform filtering
@@ -61,7 +63,7 @@ Events.parseEvents = function(response, page) {
 	$('#events_loading').addClass('hidden');
 	
     if (response == UNAUTHORIZED) {
-        $('#_events').html('Can\'t fetch events: unauthorized');
+        //$('#_events').html('Can\'t fetch events: unauthorized');
         return;
     }
     
@@ -80,8 +82,8 @@ Events.parseEvents = function(response, page) {
 			append(
         		$('<h2></h2>').text(event.name)
 			).append(
-				$('<img>').attr('alt', 'Hangpy article').
-					attr('src', obj.base_image_url + event.cover_image)
+				$('<div class="cover">').
+                	css('background-image', 'url("' + obj.base_image_url + event.cover_image + '")')
 			).appendTo(eventsContainer);
     }
     
