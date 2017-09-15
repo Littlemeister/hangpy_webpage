@@ -1,0 +1,17 @@
+//  This is the first SCSS file read upon compilation to CSS. Use it to link other SCSS or
+//  CSS documents.
+
+//  Global stylesheet
+@import "global";
+
+//  Footer stylesheet
+@import "footer";
+
+//  Header stylesheet
+@import "header";
+
+//  Loading stylesheet
+@import "loading";
+
+//  First page stylesheet
+@import "first_page";

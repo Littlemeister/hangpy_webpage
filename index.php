@@ -13,6 +13,13 @@ require 'lib/user.php';
 //  Backend communication
 require_once 'lib/backend_com.php';
 
+//  Whether to compile SCSS upon script execution. May cost some performance!
+$compile_scss = true;
+
+if ($compile_scss) {
+  exec(__DIR__ . '/compile_scss.bat');
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -30,13 +37,8 @@ require_once 'lib/backend_com.php';
 
     <!-- Responsive design thingy -->
     <meta name="viewport" content="width=device-width, initial-scale=1">  <!-- Specifies the scaling of the site when in mobile resulution so text and pictures doesnt get to small -->
-
-    <!-- Link stylecheat -->
-    <link rel="stylesheet" href="styles/loading.css">
-    <link rel="stylesheet" href="style.css">              <!-- Global style -->
-    <link rel="stylesheet" href="styles/header.css">      <!-- Style for header/global menu -->
-    <link rel="stylesheet" href="styles/footer.css">      <!-- Style for sticky footer -->
-    <link rel="stylesheet" href="styles/first_page.css">  <!-- Style for first_page -->
+    
+    <link rel="stylesheet" href="styles.css">
 
   </head>
 
