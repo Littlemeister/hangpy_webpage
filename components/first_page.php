@@ -20,14 +20,37 @@
     <div class="first_page_inside_tools">
       <h1>Main events</h1>
       <!-- Filter articles -->
-      <button type="button" name="button">Filter</button>
+      <button id="event_filters_btn">Filter</button>
+      
+      <ul id="event_filters">
+        <li id="filter_location">
+          <figure>
+            <figcaption>Location</figcaption>
+          </figure>
+        </li>
+        <li id="filter_attendees">
+          <figure>
+            <figcaption>Attendees</figcaption>
+          </figure>
+        </li>
+        <li id="filter_start_time">
+          <figure>
+            <figcaption>Starts</figcaption>
+          </figure>
+        </li>
+      </ul>
     </div>
     
     <div id="first_page_articles">
       
     </div>
     
-    <?php $loading_id = 'events_loading'; require 'loading.php'; ?>
+    <?php
+      //  Loading indicator element
+    
+      $loading_id = 'events_loading';
+      require 'loading.php';
+    ?>
 
     <div class="first_page_more_articles">
       <button type="button" name="button">Föregående</button>

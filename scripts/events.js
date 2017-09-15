@@ -9,6 +9,13 @@ function Events(){}
 Events.filters = {};
 
 /**
+*   Clears fetched events HTML.
+*/
+Events.clear = function(){
+    $('#first_page_articles').html('');
+}
+
+/**
 *   Fetches event without location filtering.
 */
 Events.fetch = function(page = 0){
@@ -177,3 +184,20 @@ Events.rejectEvent = function(eventId){
 Events.parseApproveOrRejectEvent = function(response) {
     $('#_event-react-status').html("Response: " + response);
 }
+
+$(function(){
+	var prefix = '#first_page_';
+	
+	//	Listen for search filter
+	$(prefix + 'search_icon').click(function(){
+		Events.filters.searchQuery = $(prefix + 'tool_search').val();
+		Events.clear();
+		Events.fetch();
+	});
+	
+	//	Filter button
+	$('#event_filters_btn').click(function(){
+		//	Show filters
+		$('#event_filters').removeClass('hiding').addClass('visible');
+	});
+});
