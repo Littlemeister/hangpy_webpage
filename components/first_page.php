@@ -11,14 +11,14 @@
     <input type="button" value="Create">
 
     <!-- Discover articles -->
-    <input type="button" value="Discover">
+    <input id="discover_categories_btn" type="button" value="Discover">
 
   </div>
 
   <!-- Main articles -->
   <div class="first_page_main_articles_wrapper">
     <div class="first_page_inside_tools">
-      <h1>Main events</h1>
+      <h1 id="events_header">Main events</h1>
       <!-- Filter articles -->
       <button id="event_filters_btn">Filter</button>
       
@@ -45,22 +45,14 @@
       
     </div>
     
+    <button id="fetch_next_page">Load more</button>
+    
     <?php
       //  Loading indicator element
     
       $loading_id = 'events_loading';
       require 'loading.php';
     ?>
-
-    <div class="first_page_more_articles">
-      <button type="button" name="button">Föregående</button>
-      <ul>
-        <li class="first_page_nav">1</li>
-        <li class="first_page_nav">2</li>
-        <li class="first_page_nav">3</li>
-      </ul>
-      <button type="button" name="button">Framåt</button>
-    </div>
 
   </div>
 
@@ -97,5 +89,9 @@
       <img src="pic/football.jpg" alt="Hangpy Article">
     </article>
   </div>
+	
+  <?php // Trending categories modal dialog
+    require 'components/trending_categories.php';
+  ?>
 
 </main>

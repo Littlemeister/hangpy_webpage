@@ -29,12 +29,12 @@ $event_filters_radius: $event_filters_height / 2;
 
 /* Showing */
 #event_filters.visible:not(.hiding){
-	animation: event_filters_show 300ms ease-out;
+	animation: event_filters_show 250ms $ease_out;
 }
 
 /* Hiding */
 #event_filters.visible.hiding {
-	animation: event_filters_hide 300ms ease-out;
+	animation: event_filters_hide 250ms $ease_out;
 }
 
 #event_filters li {
@@ -59,4 +59,78 @@ $event_filters_radius: $event_filters_height / 2;
 		transform: scale(0.6);
 		opacity: 0;
 	}
+}
+
+/* Common confirm button */
+.confirm_btn {
+	margin-top: 24px;
+}
+
+/* ATTENDEES DIALOG */
+
+#attendees_filter_dialog,
+#location_filter_dialog {
+	div,
+	p,
+	h2 {
+		text-align: center;	
+	}
+}
+
+
+/* Between max and min input */
+#attendees_filter_min + p {
+	display: inline-block;
+	margin: 0 24px;
+}
+
+
+/* START DIALOG */
+
+#start_filter_dialog {
+	div,
+	p,
+	h2 {
+		text-align: center;	
+	}
+}
+
+#start_filter_input_c {
+	display: inline-block;
+	p {
+		display: inline-block;
+	}
+}
+
+/* Days dropdown */
+#start_filter_days {
+	margin: 0 18px;
+}
+
+
+/* LOCATION DIALOG */
+
+#location_filter_dialog {
+	padding: 24px;
+	
+	h2 {
+		margin: 36px 0 18px 0;
+	}
+}
+
+/* Distance label */
+#distance_label {
+	font-size: 20px;
+	margin-bottom: 18px;
+}
+
+/* Map */
+#location_filter_map {
+	width: 800px;
+	height: 450px;
+}
+
+/* Distance input */
+#location_distance_input {
+	width: 380px;
 }

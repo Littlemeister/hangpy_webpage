@@ -61,11 +61,18 @@
   margin-top: 12px;
   margin-right: 15px;
 }
-.first_page_pay_article_wrapper > h1{
+
+#events_header{
   display: inline-block;
   margin-left:15px;
   font-size: 1.8em;
 }
+
+/* Selected category */
+#events_header span {
+	color: $primary_dark;
+}
+
 .first_page_pay_article_wrapper > input{
   float:right;
   margin-top: 20px;
@@ -170,4 +177,9 @@
 }
 .first_page_outside_tools input:nth-child(2){
   margin-left: 15px;
+}
+
+/* Trending categories dialog */
+#trending_cat_dialog {
+  background: $primary_dark;
 }

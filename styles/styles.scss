@@ -1,6 +1,16 @@
 //  This is the first SCSS file read upon compilation to CSS. Use it to link other SCSS or
 //  CSS documents.
 
+$primary: #93dadc;
+$primary_dark: #469ea0;
+
+$ease: cubic-bezier(0.645, 0.045, 0.355, 1);
+$ease_in: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+$ease_out: cubic-bezier(0.215, 0.610, 0.355, 1);
+
+//	Border radius for dialogs
+$dialog_radius: 18px;
+
 //  Global stylesheet
 @import "global";
 
@@ -18,3 +28,9 @@
 
 //  Event filters (first page) stylesheet
 @import "event_filters";
+
+//  Modal dialog
+@import "modal_dialog";
+
+//  Login dialog
+@import "login";

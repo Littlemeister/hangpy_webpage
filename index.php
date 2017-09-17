@@ -63,6 +63,14 @@ if ($compile_scss) {
           //include 'components/profile.php';
         ?>
 
+        <?php // Event filters
+          include 'components/event_filters.php';
+        ?>
+
+        <?php // Login
+          include 'components/login.php';
+        ?>
+        
         <?php
           require 'scripts.php';
         ?>
@@ -73,9 +81,10 @@ if ($compile_scss) {
     <?php
       require_once 'components/footer.php';
     ?>
+    
+    <!-- Notification -->
+    <p id="notification" style="display:none"></p>
 
-    <script src="scripts/events.js"></script>
-    <script>Events.fetch();</script>
   </body>
 
 </html>

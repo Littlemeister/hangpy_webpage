@@ -5,7 +5,7 @@
 */
 
 /* Screen-fixed background */
-.modal-bg {
+.modal_bg {
 	position: fixed;
 	left: 0;
 	top: 0;
@@ -15,6 +15,18 @@
 	display: none;
 }
 
-.modal-bg.visible {
+.modal_bg.visible {
 	display: initial;
+}
+
+.modal_bg .dialog {
+	position: fixed;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	padding: 36px;
+	background: #FAFAFA;
+	border-radius: $dialog_radius;
+	min-width: 480px;
+	min-height: 240px;
 }

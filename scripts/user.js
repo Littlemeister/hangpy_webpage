@@ -37,7 +37,7 @@ User.parseCookies = function(){
 /**
 *   Queues a verification code associated with this user.
 */
-User.queueVerification = function(phoneNumber) {
+User.queueVerification = function(phoneNumber, callback) {
     User.current.phoneNumber = phoneNumber;
     
     Backend.request('action=queue_verification', {
@@ -47,23 +47,18 @@ User.queueVerification = function(phoneNumber) {
     }, function(response){
         
         if (response == SUCCESS) {
-            User.onQueuedVerification();
+            callback();
         }
         
     });
 }
 
 /**
-*   Called once successfully queued verification.
-*/
-User.onQueuedVerification = function() {
-    $('#_verif-status').html('Successfully queued verification');
-}
-
-/**
 *   Checks a verification code associated with this user.
+*	Provide a callback with a status parameter, can be one of the
+*	following: SUCCESS, FAILED, STATUS_SIGN_UP
 */
-User.checkVerification = function(code) {
+User.checkVerification = function(code, callback) {
     var user = User.current;
     
     Backend.request('action=check_verification', {
@@ -71,18 +66,21 @@ User.checkVerification = function(code) {
         phone_num: user.phoneNumber,
         verif_code: code
         
-    }, User.parseCheckVerification);
+    }, function(response){
+		User.parseCheckVerification(response, callback);
+	});
 }
 
 /**
 *   Parses verification check response.
 */
-User.parseCheckVerification = function(response) {
+User.parseCheckVerification = function(response, callback) {
     
     var obj = JSON.parse(response);
     
     if (obj.status == FAILED) {
         //  Failed
+		callback(FAILED);
         User.onInvalidVerification();
         return;
     }
@@ -95,11 +93,11 @@ User.parseCheckVerification = function(response) {
     $('#_verif-status').html('Correct verification. Auth token: ' + obj.auth_token);
     
     if (obj.already_signed_up) {
-        User.fetchData();
+        User.fetchData(callback);
     } else {
         User.onFirstSignIn();
+		callback(STATUS_SIGN_UP);
     }
-    
 }
 
 User.onInvalidVerification = function(){
@@ -127,16 +125,24 @@ User.updateProfile = function(dirtyData, callback) {
 /**
 *   Fetches user-specific data. Leave userId undefined to fetch own user data.
 */
-User.fetchData = function() {
-    Backend.request('out=user_data', null, User.parseData);
+User.fetchData = function(verificationCallback) {
+    Backend.request('out=user_data', null, function(response){
+		User.parseData(response, verificationCallback);
+	});
 }
 
-User.parseData = function(response) {
+User.parseData = function(response, verificationCallback) {
     var obj = JSON.parse(response);
+	
+	console.log(obj);
+	
+	obj.first_name = obj.name.match(/^([\w]+)/)[0];
     
     $.extend(User.current, obj);
     
     Profile.setupElements();
+	
+	verificationCallback(SUCCESS);
     
     $('#_user-data').html("User data: " + response);
 }

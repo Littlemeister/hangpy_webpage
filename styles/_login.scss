@@ -1,0 +1,153 @@
+/**
+*	LOGIN
+*/
+
+$login_input_height: 48px;
+
+#login_dialog {
+	padding: 0;
+	overflow: hidden;
+	height: 420px;
+	width: 640px;
+	
+	label {
+		display: block;
+		margin-bottom: 8px;
+		color: #616161;
+	}
+	
+	.icon {
+		position: relative;
+		top: 10px;
+		opacity: 0.75;
+		transition: opacity 100ms $ease;
+	}
+	
+	.icon:hover {
+		cursor: pointer;
+		opacity: 1;
+	}
+}
+
+#login_background {
+	text-align: center;
+	width: 100%;
+	height: 160px;
+	background: url('assets/login_cover.jpg');
+	box-sizing: border-box;
+	padding-top: 36px;
+	
+	h2 {
+		font-size: 28px;
+		margin: 0;
+	}
+	
+	p {
+		margin: 0;
+		line-height: 2.5em;
+	}
+}
+
+#login_privacy {
+	position: absolute;
+	bottom: 16px;
+	right: 20px;
+}
+
+#login_inputs {
+	text-align: center;
+}
+
+#login_verification {
+	visibility: hidden;
+	opacity: 0;
+	transform: scale(0.6);
+	transition: opacity 250ms $ease_out,
+		transform 250ms $ease_out;
+	
+	input[type="text"] {
+		margin-left: 36px !important; /* Align with top input */
+	}
+}
+
+#login_inputs.verification {
+	#phone_c {
+		margin-top: 24px;	
+	}
+	
+	#login_verification {
+		visibility: visible;
+		opacity: 1;
+		transform: scale(1);
+	}
+}
+
+#phone_c {
+	margin-top: 72px;
+	transition: margin 250ms $ease_out;
+	
+	p {
+		font-size: 18px;
+		display: inline-block;
+	}
+}
+
+/* Verification input */
+#login_dialog #login_verification {
+	margin-top: 28px;
+}
+
+#login_dialog input[type="text"] {
+	height: $login_input_height;
+	box-sizing: border-box;
+	border-radius: $login_input_height / 2;
+	margin: 0 4px;
+	padding-left: 12px;
+	font-size: 18px;
+	border: 2px solid $primary_dark;
+}
+
+#login_dialog input[type="text"]:active {
+	outline: none;
+}
+
+//	For layouts
+$login_transition_margin: 48px;
+
+/* Elements for when profile is incomplete */
+#incomplete_profile_c {
+	position: absolute;
+	width: 100%;
+	bottom: 32px;
+	visibility: hidden;
+	opacity: 0;
+	margin-left: $login_transition_margin;
+}
+
+/* For when switching layout */
+#incomplete_profile_c,
+#pre_verification {
+	transition: margin-left 250ms $ease,
+		opacity 250ms $ease;
+}
+
+/* For when profile is incomplete */
+#login_inputs.incomplete_profile {
+	#incomplete_profile_c {
+		margin-left: 0;
+		opacity: 1;
+		visibility: visible;
+	}
+	
+	#pre_verification {
+		margin-left: -$login_transition_margin;
+		opacity: 0;
+	}
+}
+
+/* Button for completing profile */
+#complete_profile_btn {
+	display: block;
+	margin: 32px auto 0 auto;
+	
+}
