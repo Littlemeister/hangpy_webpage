@@ -14,7 +14,7 @@ require 'lib/user.php';
 require_once 'lib/backend_com.php';
 
 //  Whether to compile SCSS upon script execution. May cost some performance!
-$compile_scss = true;
+$compile_scss = false;
 
 if ($compile_scss) {
   exec(__DIR__ . '/compile_scss.bat');
@@ -37,7 +37,7 @@ if ($compile_scss) {
 
     <!-- Responsive design thingy -->
     <meta name="viewport" content="width=device-width, initial-scale=1">  <!-- Specifies the scaling of the site when in mobile resulution so text and pictures doesnt get to small -->
-    
+
     <link rel="stylesheet" href="styles.css">
 
   </head>
@@ -70,7 +70,7 @@ if ($compile_scss) {
         <?php // Login
           include 'components/login.php';
         ?>
-        
+
         <?php
           require 'scripts.php';
         ?>
@@ -81,7 +81,7 @@ if ($compile_scss) {
     <?php
       require_once 'components/footer.php';
     ?>
-    
+
     <!-- Notification -->
     <p id="notification" style="display:none"></p>
 
