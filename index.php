@@ -14,12 +14,11 @@ require 'lib/user.php';
 require_once 'lib/backend_com.php';
 
 //  Whether to compile SCSS upon script execution. May cost some performance!
-$compile_scss = false;
+$compile_scss = true;
 
 if ($compile_scss) {
-  exec(__DIR__ . '/compile_scss.bat');
+  exec('start compile_scss.bat');
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -52,7 +51,7 @@ if ($compile_scss) {
       <div class="main_content">
 
         <?php // first_page section
-          require 'components/first_page.php';
+          //require 'components/first_page.php';
         ?>
 
         <?php // Profile section
@@ -60,7 +59,7 @@ if ($compile_scss) {
         ?>
 
         <?php // event_info section
-          //include 'components/profile.php';
+          include 'components/event_info.php';
         ?>
 
         <?php // Event filters
