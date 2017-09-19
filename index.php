@@ -55,12 +55,12 @@ if ($compile_scss) {
         ?>
 
         <?php // Profile section
-          //include 'components/profile.php';
+          include 'components/profile.php';
         ?>
 
         <?php // event_info section with suggestion component
-          include 'components/event_suggestions.php';
-          include 'components/event_info.php';
+          //include 'components/event_suggestions.php';
+          //include 'components/event_info.php';
         ?>
 
         <?php // Event filters
