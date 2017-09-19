@@ -58,7 +58,8 @@ if ($compile_scss) {
           //include 'components/profile.php';
         ?>
 
-        <?php // event_info section
+        <?php // event_info section with suggestion component
+          include 'components/event_suggestions.php';
           include 'components/event_info.php';
         ?>
 

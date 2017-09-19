@@ -32,6 +32,7 @@
 
     <hr>
 
+    <button class="event_info_interested_more_button">Se fler</button>
     <div class="event_info_interested_wrapper">
       <div class="event_info_profile">
         <img src="assets/event_info/profile.png" alt="profile_pic">
@@ -49,42 +50,63 @@
         <img src="assets/event_info/profile.png" alt="profile_pic">
         <p>Bertil Karlsson</p>
       </div>
-
-      <button class="event_info_interested_more_button">Se fler</button>
     </div>
 
     <hr>
 
     <div class="event_info_comments">
       <h2>Comments</h2>
+
+      <form method="post"> <!-- User can write a comment  - - - to stop use event.preventDefault(); -->
+        <textarea class="event_info_comments_write" value="" placeholder="Write something to the group"></textarea>
+        <input class="event_info_comments_submit"  type="submit" name="" value="Submit">
+      </form>
+
       <ul>
-        <li class="event_info_one_comment">
-          <img src="assets/event_info/profile.png" alt="profile_pic">
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-          veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-          commodo consequat. </p>
-          <div class="event_info_sub_comment">
+        <li class="event_info_one_comment"> <!-- start first comment -->
+
+          <div class="event_info_comments_picture_wrap">
             <img src="assets/event_info/profile.png" alt="profile_pic">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+            <div class="event_info_comments_text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+            veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+            commodo consequat.
+              <form class="event_info_reply_wrapper" method="post">
+                <textarea name="name" rows="1"></textarea>
+                <button type="submit" name="button">reply</button>
+              </form>
+            </div>
+
+          </div>
+
+          <div class="event_info_sub_comment"> <!-- Subcomment -->
+            <img src="assets/event_info/profile.png" alt="profile_pic">
+            <div class="event_info_comments_text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
               tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
               veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-              commodo consequat. </p>
+              commodo consequat.
+              <form class="event_info_reply_wrapper" method="post">
+                <textarea name="name" rows="1"></textarea>
+                <button type="submit" name="button">reply</button>
+              </form>
+            </div>
           </div>
+
+        </li> <!-- End first comment -->
+
+        <li class="event_info_one_comment">
+          <img src="assets/event_info/profile.png" alt="profile_pic">
+          <div class="event_info_comments_text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+            veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+            commodo consequat. </div>
         </li>
         <li class="event_info_one_comment">
           <img src="assets/event_info/profile.png" alt="profile_pic">
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+          <div class="event_info_comments_text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
             tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
             veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-            commodo consequat. </p>
-        </li>
-        <li class="event_info_one_comment">
-          <img src="assets/event_info/profile.png" alt="profile_pic">
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-            veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-            commodo consequat. </p></li>
+            commodo consequat. </div></li>
       </ul>
 
     </div>
