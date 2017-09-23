@@ -20,16 +20,16 @@
 				<div id="phone_c">
 					<label>Sign in with your phone number</label>
 					<p>+46</p>
-					<input id="login_phone" type="text" placeholder="Phone number">
+					<input id="login_phone" type="text" placeholder="Phone number" maxlength="10">
 					<a id="login_phone_action">
-						<img class="icon" src="assets/ic_continue.png" alt="Continue">
+						<img class="disabled icon" src="assets/ic_continue.png" alt="Continue">
 					</a>
 				</div>
 				<div id="login_verification">
 					<label>Great! Now check your phone for a verification code</label>
 					<input type="text" placeholder="Verification code">
 					<a id="submit_verification">
-						<img class="icon" src="assets/ic_continue.png" alt="Continue">
+						<img class="disabled icon" src="assets/ic_continue.png" alt="Continue">
 					</a>
 				</div>
 			</div>

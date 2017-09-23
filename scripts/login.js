@@ -6,6 +6,8 @@
 
 function Login(){}
 
+const LOGIN_PHONE_LENGTH = 9;
+
 Login.submitPhone = function(){
 	var phone = $('#login_phone').val();
 	
@@ -13,6 +15,11 @@ Login.submitPhone = function(){
 	
 	if (phone.startsWith('0')) {
 		phone = phone.substring(1);
+	}
+	
+	if (phone.length != LOGIN_PHONE_LENGTH) {
+		//	Invalid phone number
+		return;
 	}
 	
 	phone = countryCode + phone;
@@ -79,14 +86,26 @@ Login.onSignedIn = function(){
 
 $(function(){
 	//	Enter to confirm
-	$('#login_phone').on('keyup', function(e){
+	var phoneAction = $('#login_phone_action .icon');
+	var phoneInput = $('#login_phone').keyup(function(e){
 		if (e.keyCode == 13){
 			//	Enter pressed
 			$('#login_phone_action').click();
 			e.preventDefault();
 			e.stopPropagation();
 		}
+		
+		//	Validate phone
+		var length = this.value.length;
+		var valid = length == LOGIN_PHONE_LENGTH || length == LOGIN_PHONE_LENGTH + 1;
+		
+		phoneAction.toggleClass('disabled', !valid);
 	});
+	
+	phoneInput[0].onkeypress = function(e){
+		//	Numeric filter
+		return e.charCode >= 48 && e.charCode <= 57
+	};
 	
 	$('#login_phone_action').click(function(){
 		//	Continue to verification or resend verification

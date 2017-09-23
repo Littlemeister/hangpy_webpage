@@ -21,6 +21,7 @@
 <script src="scripts/frontpage.js"></script>
 <script src="scripts/login.js"></script>
 <script src="scripts/notification.js"></script>
+<script src="scripts/paid_event_setup.js"></script>
 <script src="https://js.stripe.com/v3/"></script>
 <script async defer
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDUu1X38QVzgDxgNdo0jzsQhFdKoVz4hQY&callback=EventFilters.initMap">

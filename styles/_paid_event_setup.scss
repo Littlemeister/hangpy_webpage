@@ -1,0 +1,198 @@
+/**
+*	PAID EVENT SETUP
+*/
+
+#paid_event_setup {
+	
+	background: #FAFAFA;
+	
+	h3 {
+		text-align: center;
+		font-size: 28px;
+		margin-bottom: 36px;
+		color: #757575;
+	}
+}
+
+.padded {
+	padding: 36px;
+}
+
+$event_cover_height: 320px; 
+$event_name_height: 48px;
+
+/* Event */
+#event_cover {
+	height: $event_cover_height;
+	background-size: cover;
+	background-position: 0 25%;
+	
+	/* Event name */
+	.paid_event_name {
+		position: relative;
+		top: $event_cover_height - $event_name_height;
+		margin: 0;
+		height: $event_name_height;
+		
+		background: rgba(0, 0, 0, 0.5);
+		box-sizing: border-box;
+		padding-left: 36px;
+		font-size: 18px;
+		color: #FAFAFA;
+		font-weight: normal;
+		padding-top: 14px;
+	}
+}
+
+/* Invest number spinner */
+
+$inactive_color: #9E9E9E;
+$active_color: #212121;	//	Current
+
+/* Container */
+#invest_input_c {
+	text-align: center;
+}
+
+#invest_num_spinner {
+	list-style: none;
+	padding: 0;
+	display: inline-block;
+	
+	li {
+		font-size: 36px;
+		color: $inactive_color;
+		position: relative;
+		padding: 12px 16px;
+	}
+	
+	/* Up animation */
+	li.up,
+	li.down {
+		animation-duration: 300ms;
+		animation-timing-function: $ease_out;
+	}
+	
+	li:nth-child(1),
+	li:nth-child(5) {
+		opacity: 0;
+	}
+	
+	/* Selected */
+	li:nth-child(3) {
+		color: $active_color;
+	}
+	
+	li:nth-child(1).up {
+		animation-name: invest_1st_up;
+	}
+	
+	li:nth-child(2).up {
+		animation-name: invest_2nd_up;
+	}
+	
+	li:nth-child(3).up {
+		animation-name: invest_3rd_up;
+	}
+	
+	li:nth-child(4).up {
+		animation-name: invest_4th_up;
+	}
+	
+	li:nth-child(5).up {
+		animation-name: invest_5th_up;
+	}
+	
+	
+	li:nth-child(1).down {
+		animation-name: invest_1st_down;
+	}
+	
+	li:nth-child(2).down {
+		animation-name: invest_2nd_down;
+	}
+	
+	li:nth-child(3).down {
+		animation-name: invest_3rd_down;
+	}
+	
+	li:nth-child(4).down {
+		animation-name: invest_4th_down;
+	}
+}
+
+
+/* 1st downwards */
+@keyframes invest_1st_down {
+	100% {
+		opacity: 1;
+		transform: translateY(100%);
+	}
+}
+
+/* 2nd upwards */
+@keyframes invest_2nd_up {
+	100% {
+		opacity: 0;
+		transform: translateY(-100%);
+	}
+}
+
+/* 2nd downwards */
+@keyframes invest_2nd_down {
+	100% {
+		color: $active_color;
+		transform: translateY(100%);
+	}
+}
+
+/* 3rd uupwards */
+@keyframes invest_3rd_up {
+	100% {
+		color: $inactive_color;
+		transform: translateY(-100%);
+	}
+}
+
+/* 3rd downwards */
+@keyframes invest_3rd_down {
+	100% {
+		color: $inactive_color;
+		transform: translateY(100%);
+	}
+}
+
+/* 4th upwards */
+@keyframes invest_4th_up {
+	100% {
+		color: $active_color;
+		transform: translateY(-100%);
+	}
+}
+
+/* 4th downwards */
+@keyframes invest_4th_down {
+	100% {
+		opacity: 0;
+		transform: translateY(100%);
+	}
+}
+
+/* 5th upwards */
+@keyframes invest_5th_up {
+	100% {
+		opacity: 1;
+		transform: translateY(-100%);
+	}
+}
+
+/* Adjacent controls */
+#invest_num_spinner + div {
+	display: inline-block;
+	position: relative;
+}
+
+/* Invest currency */
+#invest_currency {
+	font-size: 24px;
+}
