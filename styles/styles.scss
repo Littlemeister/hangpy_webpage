@@ -23,8 +23,8 @@ $dialog_radius: 18px;
 //  Loading stylesheet
 @import "loading";
 
-//  First page stylesheet
-@import "first_page";
+//  Frontpage (first page) stylesheet
+@import "frontpage";
 
 //  Event filters (first page) stylesheet
 @import "event_filters";
@@ -37,3 +37,12 @@ $dialog_radius: 18px;
 
 //	Paid event setup
 @import "paid_event_setup";
+
+//  Event_info stylesheet
+@import "event_info";
+
+// Event_suggestions stylesheet
+@import "event_suggestions";
+
+// Profile stylesheet
+@import "profile";

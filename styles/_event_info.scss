@@ -1,0 +1,229 @@
+.event_info_wrapper{
+  max-width: calc(66.66% - 15px);
+  width: 100%;
+  background-color: white;
+  border-radius: 15px;
+}
+
+.event_info_nav_back{
+  margin-left: 15px;
+  position: relative;
+  cursor: pointer;
+  width: 100%;
+  top: 27px;
+}
+
+.event_gallery_item {
+  width: 100%;
+  height: 360px;
+  background-size: cover;
+  margin-top: 37px;
+}
+
+.event_info_info{
+  position: relative;
+}
+.event_info_info h1{
+  margin-left:15px;
+  font-size: 1.8em;
+}
+
+.event_info_info img{
+  height: 24px;
+  width: 24px;
+  margin-right: 16px;
+  margin-left: 16px;
+}
+
+.event_info_info h3{
+  display: inline-block;
+}
+
+/* Event location on a Google map */
+#event_info_map {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 45%;
+  height: 240px;
+  margin-right: 15px;
+}
+
+.event_info_google_map > img{
+  width: 100%;
+}
+
+.event_info_info > button{
+  margin-bottom: 15px;
+  margin-left: 15px;
+  min-width: 80px;
+  height: 40px;
+  border-radius: 15px;
+}
+
+#event_info_approve {
+  background-color: lightgreen;
+}
+
+#event_description {
+  margin-left:15px;
+  margin-right:15px;
+}
+
+//  Profile picture size for attendees
+$profile_pic_size: 80px;
+
+/* List of event attendees */
+#event_info_attendees {
+  height: 120px;
+  position: relative;
+  overflow: hidden;
+  
+  li {
+    display: inline-block;
+    text-align: center;
+    height: 60%;
+    margin-right: 15px;
+  }
+  
+  li:first-child {
+    margin-left:15px;
+  }
+  
+  /* Profile picture of the attendee */
+  .profile_picture {
+    width: $profile_pic_size;
+    height: $profile_pic_size;
+    border-radius: 50%;
+    margin: auto;
+    background-size: contain;
+  }
+}
+
+/* User posts (comments) */
+#event_info_comments {
+  li {
+    .profile_picture {
+      width: 48px;
+      height: 48px;
+      display: inline-block;
+      float: left;
+      margin-right: 16px;
+    }
+
+    .content {
+      margin: 15px;
+      min-width: 70%;
+      display: table;
+      background-color: whitesmoke;
+      border-radius: 15px;
+      padding: 15px;
+      padding-bottom: 2px;
+      
+      .message {
+        margin: 0;
+      }
+    }
+
+    /* Replying field */
+    .reply_wrapper {
+      .input {
+        margin-top: 5px;
+        float: right;
+        height: 30px;
+        padding: 0px;
+        min-width: 100px;
+        cursor: pointer;
+        width: calc(100% - 150px);
+        border-radius: 15px;
+        margin-top: 15px;
+        padding: 15px;
+        overflow: hidden;
+        padding-right: 132px;
+      }
+
+      .submit {
+        background: #469ea0;
+        color: #FAFAFA;
+        font-size: 17px;
+        height: 40px;
+        width: 100px;
+        border: none;
+        border-radius: 12px;
+        float: right;
+        margin-right: 5px;
+        margin-top: -49px;
+        position: relative;
+      }
+    }
+  }
+
+  /* This is a reply to the preceding user post */
+  li.reply {
+    margin-left: 48px;
+  }
+}
+
+.event_info_interested_more_button{
+  min-width: 80px;
+  height: 40px;
+  border-radius: 15px;
+  float: right;
+  margin-right: 15px;
+  margin-top: 40px;
+  cursor: pointer;
+}
+
+.event_info_interested_more_button:focus{
+  outline: none;
+}
+
+.event_info_comments img{
+  height: 50px;
+  float: left;
+  margin-right: 15px;
+}
+
+.event_info_sub_comment{
+  margin-left:50px;
+}
+
+.event_info_comments h2{
+  margin-left:15px;
+}
+
+.event_info_comments li{
+  list-style-type: none;
+}
+
+.thread{
+  padding: 3px;
+}
+
+#event_info_comments_write{
+  left: 15px;
+  min-height: 50px;
+  border-radius: 15px;
+  position: relative;
+  width: calc(100% - 60px);
+  padding: 15px;
+}
+
+
+#event_info_comments_submit{
+  min-width: 120px;
+  height: 40px;
+  border-radius: 15px;
+  float: right;
+  right: 15px;
+  margin-left: 100%;
+  margin-bottom: 15px;
+  position: relative;
+  border: none;
+  background-color: burlywood;
+  cursor: pointer;
+}
+
+hr{
+  width: 96%;
+}

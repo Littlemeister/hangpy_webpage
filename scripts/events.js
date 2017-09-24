@@ -37,7 +37,7 @@ Events.page = 0;
 *   Clears fetched events HTML.
 */
 Events.clear = function(){
-    $('#first_page_articles').html('');
+    $('#frontpage_articles').html('');
 }
 
 /**
@@ -151,9 +151,9 @@ Events.parseEvents = function(response, page) {
 		Events.onLastEventFetched();
 	}
     
-    var eventsContainer = $('#first_page_articles');
+    var eventsContainer = $('#frontpage_articles');
     for (let event of events) {
-		$('<article class="first_page_article">').
+		$('<article class="frontpage_article">').
 			append(
         		$('<h2></h2>').text(event.name)
 			).append(

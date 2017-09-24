@@ -50,6 +50,11 @@ button:active {
 	outline: none;
 }
 
+ul {
+  padding-left: 0;
+  list-style: none;
+}
+
 /* Dropdowns */
 select {
   padding: 8px;
@@ -96,4 +101,12 @@ select:focus {
     opacity: 0;
     transform: scale(0.6);
   }
+}
+
+/**
+* Generic profile picture.
+*/
+.profile_picture {
+  background-size: cover;
+  border-radius: 50%;
 }

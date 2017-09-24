@@ -12,22 +12,32 @@ function User(){}
 User.current = {};
 
 /**
+*	Whether currently signed in.
+*/
+User.isSignedIn = function(){
+	return User.current.id !== undefined;
+}
+
+/**
 *   Parses cookies and attempts sign-in with such data.
 */
 User.parseCookies = function(){
     var cookie = document.cookie;
     var user = cookie.match(/user=(.+)&/);
+    user = "+46721521129";
     
     if (user && user.length > 1) {
         //  Has user
-        user = user[1];
+        //user = user[1];
         
         var authToken = cookie.match(/auth_token=(.+)&/);
-        authToken = "qTyiOC27RzWeOM54CuoD2ThswK4rU0Hl";
+        authToken = "d69HxaE1Lnsm1MfeH4wClIFoH0v5tIxH";
         
         if (authToken.length > 1){
             User.current.phoneNumber = user;
             User.current.authToken = authToken;
+
+            User.fetchData();
             
             $('#_user').html("User: " + user + ", token: " + authToken);
         }
@@ -132,6 +142,8 @@ User.fetchData = function(verificationCallback) {
 }
 
 User.parseData = function(response, verificationCallback) {
+    console.log("Fetch user data response: " + response);
+
     var obj = JSON.parse(response);
 	
 	console.log(obj);

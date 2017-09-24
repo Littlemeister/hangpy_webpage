@@ -40,7 +40,7 @@ $(function(){
 		Categories.fetchTrending();
 	});
 	
-	var prefix = '#first_page_';
+	var prefix = '#frontpage_';
 	
 	//	Listen for search filter
 	$(prefix + 'search_icon').click(function(){

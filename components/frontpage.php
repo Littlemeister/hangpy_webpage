@@ -1,10 +1,10 @@
 <main>
-  <div class="first_page_outside_tools">
+  <div class="frontpage_outside_tools">
 
     <!-- Search articles -->
-    <div class="first_page_tool_search_wrapper">
-      <input id="first_page_tool_search" type="text" value="" placeholder="Search">
-      <img id="first_page_search_icon" src="pic/magnify.png" alt="search_icon">
+    <div class="frontpage_tool_search_wrapper">
+      <input id="frontpage_tool_search" type="text" value="" placeholder="Search">
+      <img id="frontpage_search_icon" src="pic/magnify.png" alt="search_icon">
     </div>
 
     <!-- Create articles -->
@@ -16,8 +16,8 @@
   </div>
 
   <!-- Main articles -->
-  <div class="first_page_main_articles_wrapper">
-    <div class="first_page_inside_tools">
+  <div class="frontpage_main_articles_wrapper">
+    <div class="frontpage_inside_tools">
       <h1 id="events_header">Main events</h1>
       <!-- Filter articles -->
       <button id="event_filters_btn">Filter</button>
@@ -41,7 +41,7 @@
       </ul>
     </div>
     
-    <div id="first_page_articles">
+    <div id="frontpage_articles">
       
     </div>
     
@@ -61,11 +61,11 @@
 
   <!-- Pay articles -->
 
-  <div class="first_page_pay_article_wrapper">
+  <div class="frontpage_pay_article_wrapper">
     <h1>Star events</h1>
     <input type="button" value="+">
 
-    <article class="first_page_pay_article">
+    <article class="frontpage_pay_article">
       <h2>title</h2>
       <p>distance</p>
       <p>time</p>
@@ -73,7 +73,7 @@
       <img src="pic/football.jpg" alt="Hangpy Article">
     </article>
 
-    <article class="first_page_pay_article">
+    <article class="frontpage_pay_article">
       <h2>title</h2>
       <p>distance</p>
       <p>time</p>
@@ -81,7 +81,7 @@
       <img src="pic/football.jpg" alt="Hangpy Article">
     </article>
 
-    <article class="first_page_pay_article">
+    <article class="frontpage_pay_article">
       <h2>title</h2>
       <p>distance</p>
       <p>time</p>

@@ -9,7 +9,7 @@
 }
 
 /* Main articles */
-.first_page_main_articles_wrapper{
+.frontpage_main_articles_wrapper{
   width: calc(66.66% - 15px);
   background-color: white;
   display: inline-block;
@@ -18,7 +18,7 @@
   border-radius: 15px;
 }
 /* Specific for pay articles wrapper */
-.first_page_pay_article_wrapper{
+.frontpage_pay_article_wrapper{
   width: 33.33%;
   background-color: white;
   display: inline-block;
@@ -28,13 +28,13 @@
   border-radius: 15px;
 }
 
-.first_page_pay_article_wrapper h1{
+.frontpage_pay_article_wrapper h1{
   display: inline-block;
   margin-left:15px;
   margin-bottom:12px;
 }
 
-.first_page_article{
+.frontpage_article{
   margin-left: 15px;
   width: calc(50% - 22.5px);
   margin-top: 12px;
@@ -43,36 +43,36 @@
 }
 
 /* Cover photo */
-.first_page_article .cover, .first_page_pay_article .cover{
+.frontpage_article .cover, .frontpage_pay_article .cover{
   height:100%;
   width: 100%;
   background-size: cover;
   background-position: center;
 }
-.first_page_article h2, .first_page_article p, .first_page_pay_article h2, .first_page_pay_article p{
+.frontpage_article h2, .frontpage_article p, .frontpage_pay_article h2, .frontpage_pay_article p{
   position: absolute;
   margin-left:5px;
   margin-top: 7px;
 }
-.first_page_article p:nth-child(2), .first_page_pay_article p:nth-child(2){
+.frontpage_article p:nth-child(2), .frontpage_pay_article p:nth-child(2){
   margin-top: 45px;
 }
-.first_page_article p:nth-child(3), .first_page_pay_article p:nth-child(3){
+.frontpage_article p:nth-child(3), .frontpage_pay_article p:nth-child(3){
   margin-top: 70px;
 }
-.first_page_article p:nth-child(4), .first_page_pay_article p:nth-child(4){
+.frontpage_article p:nth-child(4), .frontpage_pay_article p:nth-child(4){
   margin-top: 95px;
 }
 
 /* Specific for pay article */
-.first_page_pay_article{
+.frontpage_pay_article{
   margin-left: 15px;
   margin-top: 12px;
   margin-right: 15px;
   height: 182px;
 }
 
-.first_page_pay_article img{
+.frontpage_pay_article img{
   width: 100%;
   height: 100%;
 }
@@ -88,7 +88,7 @@
 	color: $primary_dark;
 }
 
-.first_page_pay_article_wrapper > input{
+.frontpage_pay_article_wrapper > input{
   float:right;
   margin-top: 20px;
   margin-right: 15px;
@@ -99,25 +99,25 @@
   cursor: pointer;
   background-color:aliceblue;
 }
-.first_page_pay_article_wrapper > input:focus{
+.frontpage_pay_article_wrapper > input:focus{
   outline:0px;
 }
 /* ------------------------ */
-/* first_page_more_articles tools */
+/* frontpage_more_articles tools */
 /* ------------------------ */
-.first_page_more_articles{
+.frontpage_more_articles{
   background-color: white;
   text-align: right;
   margin-right: 15px;
 }
-.first_page_more_articles ul, .first_page_more_articles li{
+.frontpage_more_articles ul, .frontpage_more_articles li{
   display: inline-block;
   padding: 0;
   cursor: pointer;
   margin:5px;
   font-size: 1.1em;
 }
-.first_page_more_articles button{
+.frontpage_more_articles button{
   display: inline-block;
   height: 25px;
   border: 0;
@@ -129,16 +129,16 @@
 }
 
 /* ---------------- */
-/* first_page_tools */
+/* frontpage_tools */
 /* ---------------- */
 
-.first_page_inside_tools{
+.frontpage_inside_tools{
   width: calc(100% - 15px);
 }
-.first_page_main_articles_wrapper h1{
+.frontpage_main_articles_wrapper h1{
   display: inline-block;
 }
-.first_page_inside_tools button{
+.frontpage_inside_tools button{
   float: right;
   margin-top: 25px;
   width: 20%;
@@ -147,28 +147,28 @@
   border-radius: 5px;
   cursor: pointer;
 }
-.first_page_inside_tools button:focus{
+.frontpage_inside_tools button:focus{
   outline: none;
 }
-.first_page_outside_tools{
+.frontpage_outside_tools{
   width: calc(66.66% - 15px);
   height: 35px;
   margin-right: 100%;
   margin-bottom: 15px;
   margin-top: 15px;
 }
-.first_page_tool_search_wrapper{
+.frontpage_tool_search_wrapper{
   float: left;
   width: 50%;
   position: relative;
 }
-#first_page_tool_search{
+#frontpage_tool_search{
   text-indent: 15px;
   width: 100%;
   cursor:auto;
   border-radius: 12px;
 }
-#first_page_search_icon{
+#frontpage_search_icon{
   width: 25px;
   height: 25px;
   cursor: pointer;
@@ -176,7 +176,7 @@
   right: 5px;
   margin-top:5px;
 }
-.first_page_outside_tools input{
+.frontpage_outside_tools input{
   height: 35px;
   width: calc(25% - 15px);
   float: right;
@@ -186,10 +186,10 @@
   background-color:white;
   border-radius: 12px;
 }
-.first_page_outside_tools input:focus{
+.frontpage_outside_tools input:focus{
   outline: none;
 }
-.first_page_outside_tools input:nth-child(2){
+.frontpage_outside_tools input:nth-child(2){
   margin-left: 15px;
 }
 

@@ -16,9 +16,19 @@ require_once 'lib/backend_com.php';
 //  Whether to compile SCSS upon script execution. May cost some performance!
 $compile_scss = true;
 
+//  Whether to run the compile SCSS script externally
+$compile_scss_externally = strpos($_SERVER['CONTEXT_DOCUMENT_ROOT'], 'partlight') === FALSE;
+
 if ($compile_scss) {
-  exec(__DIR__ . '/compile_scss.bat');
+  if ($compile_scss_externally){
+    exec('start compile_scss.bat'); 
+  } else {
+    exec('compile_scss.bat');
+  }
 }
+
+//  Language dependent strings
+require 'components/strings.php';
 
 ?>
 
@@ -51,25 +61,26 @@ if ($compile_scss) {
 
       <div class="main_content">
 
-        <?php // first_page section
-          //require 'components/first_page.php';
+        <?php // frontpage section
+          //require 'components/frontpage.php';
         ?>
 		  
         <?php // Paid event setup section
-          require 'components/paid_event_setup.php';
+          //require 'components/paid_event_setup.php';
         ?>
 
 
         <?php // Profile section
-          //include 'components/profile.php';
+          include 'components/profile.php';
         ?>
 
-        <?php // event_info section
-          //include 'components/profile.php';
+        <?php // event_info section with suggestion component
+          //include 'components/event_suggestions.php';
+          include 'components/event_info.php';
         ?>
 
-        <?php // Event filters
-          include 'components/event_filters.php';
+        <?php // Event filter modal dialogs
+          //include 'components/event_filters.php';
         ?>
 
         <?php // Login
