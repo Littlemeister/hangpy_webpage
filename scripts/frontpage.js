@@ -32,6 +32,17 @@ Frontpage.hideFilters = function(){
 	});
 }
 
+/**
+ * Shows a loading indicator before transitioning into event info if the event is successfully
+ * fetched.
+ */
+Frontpage.initEventInfo = function(eventId) {
+	EventInfo.changeLayoutAfterFetch = true;
+	
+	EventInfo.fetchAll(eventId);
+	GUI.showFullscreenLoading();
+}
+
 $(function(){
 	//	Trending categories button
 	$('#discover_categories_btn').click(function(){
@@ -104,7 +115,6 @@ Events.onFetched.push(function(){
 	//	Did fetch
 	fetchNextPageBtn.removeAttr('disabled');
 });
-
 
 
 $(function(){

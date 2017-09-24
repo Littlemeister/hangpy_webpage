@@ -20,6 +20,20 @@ input {
   font-family: bpreplay, sans-serif;
 }
 
+/* A page as part of the SPA structure */
+.page {
+  position: absolute; /* May overlap */
+}
+
+/* Fullscreen loading overlay */
+#fullscreen_loading {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  background: rgba($primary, 0.8);
+}
 
 /* ------------------------ */
 /* Main Content on the site */

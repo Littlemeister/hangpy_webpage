@@ -30,6 +30,9 @@ if ($compile_scss) {
 //  Language dependent strings
 require 'components/strings.php';
 
+//  ID of the page to initially show
+$start_page = "event_info_page";
+
 ?>
 
 <!DOCTYPE html>
@@ -62,7 +65,13 @@ require 'components/strings.php';
       <div class="main_content">
 
         <?php // frontpage section
-          //require 'components/frontpage.php';
+
+          /**
+          * Each of these larger sections "pages" use the "page" class as well as a
+          * _page-suffix.
+          */
+
+          require 'components/frontpage.php';
         ?>
 		  
         <?php // Paid event setup section
@@ -95,11 +104,16 @@ require 'components/strings.php';
 
     <!-- Sticky footer - have to be outside of page-wrap -->
     <?php
-      require_once 'components/footer.php';
+      //require_once 'components/footer.php';
     ?>
 
     <!-- Notification -->
     <p id="notification" style="display:none"></p>
+    
+    <!-- Fullscreen loading -->
+    <div id="fullscreen_loading" style="display:none">
+      <?php $loading_id = NULL; include 'components/loading.php' ?>
+    </div>
 
   </body>
 

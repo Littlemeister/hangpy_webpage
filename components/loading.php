@@ -12,7 +12,7 @@ if (!isset($loading_dark)) {
 
 ?>
 
-<div id="<?php echo $loading_id; ?>" class="loading hidden <?php echo $loading_dark ? 'dark' : '' ?>">
+<div <?php if ($loading_id) echo "id='$loading_id'"; ?> class="loading hidden <?php echo $loading_dark ? 'dark' : '' ?>">
 	<div></div>
 	<div></div>
 </div>

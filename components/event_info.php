@@ -1,5 +1,5 @@
-<div class="event_info_wrapper">
-  <p class="event_info_nav_back">
+<section id="event_info_page" class="page">
+  <p id="event_info_nav_back">
     <?php
 
     echo $from_lang([
@@ -103,7 +103,7 @@
 
   <hr>
 
-  <div class="event_info_comments">
+  <div>
     <h2>
       <?php
       echo $from_lang([
@@ -113,10 +113,9 @@
       ?>
     </h2>
 
-    <form method="post">
-      <!-- User can write a comment  - - - to stop use event.preventDefault(); -->
-      <input type="text" id="event_info_comments_write" value="" placeholder="Write something to the group"></textarea>
-      <input id="event_info_comments_submit" type="submit" name="" value="Submit">
+    <form id="comment_form" method="post">
+      <input type="text" class="input" value="" placeholder="Write something to the group"></textarea>
+      <input class="submit" type="submit" name="" value="Submit">
     </form>
 
     <ul id="event_info_comments">

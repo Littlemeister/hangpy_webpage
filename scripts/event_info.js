@@ -6,6 +6,11 @@
 
 function EventInfo() {}
 
+/**
+ * Whether to change from a transitioning state once all has been parsed.
+ */
+EventInfo.changeLayoutAfterFetch = false;
+
 EventInfo.currentEventId = 0;
 
 /**
@@ -33,7 +38,7 @@ EventInfo.parseAllFetch = function(response){
 		.toggleClass('empty', hasDescription);
 	
 	//	Append gallery
-	let galleryContainer = $('#event_gallery');
+	let galleryContainer = $('#event_gallery').html('');
 	for (let galleryItem of obj.gallery) {
 		$('<div class="event_gallery_item">')
 			.css('background-image', 'url(' + obj.base_image_url + galleryItem + ')')
@@ -57,6 +62,11 @@ EventInfo.parseAllFetch = function(response){
 		position: pos,
 		map: map
 	});
+	
+	if (EventInfo.changeLayoutAfterFetch) {
+		GUI.changeLayout($('#event_info_page'));
+		GUI.hideFullscreenLoading();
+	}
 }
 
 /**
@@ -89,7 +99,7 @@ EventInfo.fetchAttendees = function(eventId, callback, limit){
 *	An object obtained from the server as a attendees fetch response should be passed. 
 */
 EventInfo.appendAttendees = function(fullAttendeesObj) {
-	var container = $('#event_info_attendees');
+	var container = $('#event_info_attendees').html('');
 	
 	for (let attendee of fullAttendeesObj.attendees) {
 		$('<li>').append(
@@ -149,7 +159,7 @@ EventInfo.parseUserPosts = function(eventId){
 	}
 
 	var i = 0;
-	var userPostList = $('#event_info_comments');
+	var userPostList = $('#event_info_comments').html('');
 	var appendData;
 	var lastTopLevelPost;	//	ID of last non-reply
 	for (let post of obj.posts) {
@@ -232,6 +242,16 @@ EventInfo.insertUserPost = function(postObj){
 		)
 	).toggleClass('reply', postObj.reply_to !== undefined)
 		.attr('data-id', postObj.id);
+
+	var canDelete = true;
+	if (canDelete) {
+		//	User can delete this comment
+		const id = postObj.id;
+
+		$('<a class="delete">').prependTo(li).click(function(){
+
+		});
+	}
 
 
 	if (postObj.reply_to) {
@@ -318,6 +338,21 @@ EventInfo.onCreateUserPostFailed = function(){
 
 }
 
+/**
+ * Deletes a post as an authorized.
+ */
+EventInfo.deletePost = function(postId) {
+	Backend.request("action=delete_post", {
+		post_id: postId
+	}, function(response) {
+		EventInfo.parseDeletePost(response, postId);
+	})
+}
+
+EventInfo.parseDeletePost = function(response, postId) {
+	
+}
+
 $(function(){
 	//	Button to approve current event
 	$('#event_info_approve').click(function(){
@@ -325,13 +360,22 @@ $(function(){
 	});
 	
 	//	Button to submit a user post (comment)
-	$('#event_info_comments_submit').click(function(e){
+	$('#comment_form').submit(function(e){
 		e.preventDefault();
 		
+		var input = $(this).find('.input');
+
 		EventInfo.createUserPost(
-			$('#event_info_comments_write').val()
+			input.val()
 		);
+
+		input.val('');
 	});
 
 	EventInfo.fetchAll(53);
+
+	$('#event_info_nav_back').click(function(){
+		//	Go back to frontpage
+		GUI.changeLayout($('#frontpage_page'));
+	});
 });

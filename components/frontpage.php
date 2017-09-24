@@ -1,4 +1,4 @@
-<main>
+<section id="frontpage_page" class="page">
   <div class="frontpage_outside_tools">
 
     <!-- Search articles -->
@@ -94,4 +94,4 @@
     require 'components/trending_categories.php';
   ?>
 
-</main>
+</section>

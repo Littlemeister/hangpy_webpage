@@ -159,7 +159,10 @@ Events.parseEvents = function(response, page) {
 			).append(
 				$('<div class="cover">').
                 	css('background-image', 'url("' + obj.base_image_url + event.cover_image + '")')
-			).appendTo(eventsContainer);
+            ).appendTo(eventsContainer).attr('data-id', event.id)
+            .click(function(){
+                Frontpage.initEventInfo($(this).attr('data-id'));
+            });
     }
 	
     $('#_events').html(JSON.stringify(events));
@@ -188,18 +191,6 @@ Events.fetchSpecific = function(eventId){
 
 Events.parseEventData = function(response){
     $('#_event-data-status').html("Event data response: " + response);
-}
-
-/**
-*   Fetched user posts for a specific event.
-*/
-Events.fetchAttendees = function(eventId){
-    Backend.request('out=attendees&event_id=' + eventId, null,
-                    Events.parseAttendees);
-}
-
-Events.parseAttendees = function(response){
-    $('#_event-attendees-status').html("Event attendees response: " + response);
 }
 
 /**

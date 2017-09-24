@@ -1,11 +1,12 @@
-.event_info_wrapper{
+
+#event_info_page {
   max-width: calc(66.66% - 15px);
   width: 100%;
   background-color: white;
   border-radius: 15px;
 }
 
-.event_info_nav_back{
+#event_info_nav_back{
   margin-left: 15px;
   position: relative;
   cursor: pointer;
@@ -103,6 +104,17 @@ $profile_pic_size: 80px;
 /* User posts (comments) */
 #event_info_comments {
   li {
+
+    /* Button for deleting post */
+    .delete {
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+      background: red;
+      right: 5%;
+      position: absolute;
+    }
+
     .profile_picture {
       width: 48px;
       height: 48px;
@@ -129,7 +141,6 @@ $profile_pic_size: 80px;
     .reply_wrapper {
       .input {
         margin-top: 5px;
-        float: right;
         height: 30px;
         padding: 0px;
         min-width: 100px;
@@ -200,28 +211,31 @@ $profile_pic_size: 80px;
   padding: 3px;
 }
 
-#event_info_comments_write{
-  left: 15px;
-  min-height: 50px;
-  border-radius: 15px;
-  position: relative;
-  width: calc(100% - 60px);
-  padding: 15px;
-}
+#comment_form {
+  /* Input field */
+  .input {
 
+    left: 15px;
+    min-height: 50px;
+    border-radius: 15px;
+    position: relative;
+    width: calc(100% - 60px);
+    padding: 15px;
+  }
 
-#event_info_comments_submit{
-  min-width: 120px;
-  height: 40px;
-  border-radius: 15px;
-  float: right;
-  right: 15px;
-  margin-left: 100%;
-  margin-bottom: 15px;
-  position: relative;
-  border: none;
-  background-color: burlywood;
-  cursor: pointer;
+  .submit {
+    min-width: 120px;
+    height: 40px;
+    border-radius: 15px;
+    float: right;
+    right: 15px;
+    margin-left: 100%;
+    margin-bottom: 15px;
+    position: relative;
+    border: none;
+    background-color: burlywood;
+    cursor: pointer;
+  }
 }
 
 hr{

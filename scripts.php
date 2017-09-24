@@ -29,3 +29,8 @@ $google_map_api_key = 'AIzaSyDUu1X38QVzgDxgNdo0jzsQhFdKoVz4hQY';
 <script async 
 		src="https://maps.googleapis.com/maps/api/js?key=<?php echo $google_map_api_key ?>&callback=Global.initAllMaps">
 </script>
+
+<script>
+	$('.page:not(#<?php echo $start_page ?>)').hide();
+	$('#<?php echo $start_page ?>').attr('data-current', '1');
+</script>

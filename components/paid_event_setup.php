@@ -20,7 +20,15 @@
 	<section>
 		<div class="padded">
 			<div>
-				<img id="icon">Event att marknadsföra
+				<img id="icon">
+				<?php
+
+				echo $from_lang([
+					"en" => "Event to market",
+					"se" => "Evenemang att marknadsföra"
+				]);
+
+				?>
 			</div>
 		</div>
 		
@@ -41,7 +49,15 @@
 	<div class="padded">
 		<section>
 			<div>
-				<img id="icon">Investering
+				<img id="icon">
+				<?php
+
+				echo $from_lang([
+					"en" => "Investment",
+					"se" => "Investering"
+				]);
+
+				?>
 			</div>
 			<div id="invest_input_c">
 				<ul id="invest_num_spinner"></ul>
@@ -54,12 +70,30 @@
 		</section>
 
 		<section>
-			<h3>Allt ser bra ut?</h3>
+			<h3>
+				<?php
+
+				echo $from_lang([
+					"en" => "All lookin' good?",
+					"se" => "Allt ser bra ut?"
+				]);
+
+				?>
+			</h3>
 			<div>
 				<img id="icon">Investering
 			</div>
 		</section>
 
-		<button id="confirm_paid_event">Marknadsför</button>
+		<button id="confirm_paid_event">
+		<?php
+
+		echo $from_lang([
+			"en" => "Market",
+			"se" => "Marknadsför"
+		]);
+
+		?>
+		</button>
 	</div>
 </main>
