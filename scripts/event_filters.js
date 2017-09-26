@@ -103,8 +103,6 @@ EventFilters.applyStart = function() {
 EventFilters.onFilterClicked = function(sender){
 	var filters = Events.filters;
 	
-	debugger;
-	
 	switch (sender.id) {
 		case 'filter_location':
 			

@@ -4,19 +4,33 @@
 *	Dialogs meant to prompt the user for some action.
 */
 
+$dialog_transition_dur: 200ms;
+$dialog_hidden_scale: 0.925;
+
 /* Screen-fixed background */
 .modal_bg {
 	position: fixed;
-	left: 0;
-	top: 0;
-	right: 0;
-	bottom: 0;
+	left: -40vw;	/* Accounts for scaling */
+	top: -40vh;
+	right: -40vw;
+	bottom: -40vh;
 	background: rgba(0, 0, 0, 0.75);
-	display: none;
+	visibility: hidden;
+	transition: opacity $dialog_transition_dur $ease, transform $dialog_transition_dur $ease;
+	transform: scale($dialog_hidden_scale);
+	opacity: 0;
+}
+
+.modal_bg.hiding {
+	visibility: initial;
+	opacity: 0;
+	transform: scale($dialog_hidden_scale);
 }
 
 .modal_bg.visible {
-	display: initial;
+	visibility: initial;
+	opacity: 1;
+	transform: none;
 }
 
 .modal_bg .dialog {

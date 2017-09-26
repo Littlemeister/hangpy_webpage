@@ -89,7 +89,7 @@ $start_page = "event_info_page";
         ?>
 
         <?php // Event filter modal dialogs
-          //include 'components/event_filters.php';
+          include 'components/event_filters.php';
         ?>
 
         <?php // Login

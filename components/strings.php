@@ -34,11 +34,21 @@ echo <<<EOD
 function Strings(){}
 var str = Strings;
 str.eventInfo = {
-    goBack: "{$from_lang([
-        "en" => "Hello",
-        "en" => "Hello"
+    didApprove: "{$from_lang([
+        "en" => "You've joined $",
+        "sv" => "Du har intresserat dig för $"
     ])}"
 }
+
+str.userNavProfile = "{$from_lang([
+    "en" => "\$'s profile",
+    "sv" => "\$s profil"
+])}"
+
+str.genericError = "{$from_lang([
+    "en" => "Something went wrong",
+    "sv" => "Något gick fel"
+])}"
 
 </script>
 

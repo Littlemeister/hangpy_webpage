@@ -30,6 +30,7 @@ Backend.request = function(queryString, post = null, callback) {
         success: function(response) {
             callback(response);
         },
+        error: Backend.onRequestFailed
     };
     
     if (post instanceof FormData) {
@@ -39,6 +40,13 @@ Backend.request = function(queryString, post = null, callback) {
     }
     
     $.ajax(request);
+}
+
+/**
+ * Called if backend request fails.
+ */
+Backend.onRequestFailed = function(){
+    Notification.show(Strings.genericError);
 }
 
 Backend.BASE_URL = "http://partlight.tech/scripts/hangpy/backend.php?";

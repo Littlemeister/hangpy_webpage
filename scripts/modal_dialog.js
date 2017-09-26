@@ -10,13 +10,16 @@ function ModalDialog(){
 /* Shows a modal dialog. Element should be a jQuery dialog element. */
 ModalDialog.show = function(element){
 	var background = element.parent();
-	background.addClass('visible');
+	background.addClass('visible').removeClass('hiding');
 }
 
 /* Dismisses a modal dialog. Element should be a jQuery dialog element. */
 ModalDialog.hide = function(element){
+	const transitionEvent = 'webkitTransitionEnd transitionend';
 	var background = element.parent();
-	background.removeClass('visible');
+	background.removeClass('visible').addClass('hiding').on(transitionEvent, function(){
+		$(this).removeClass('hiding').off(transitionEvent);
+	});
 }
 
 $(function(){

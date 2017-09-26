@@ -23,6 +23,32 @@ input {
 /* A page as part of the SPA structure */
 .page {
   position: absolute; /* May overlap */
+  transition: opacity 250ms $ease, transform 250ms $ease;
+  opacity: 1;
+  transform: none;
+
+}
+
+/* Hiding page */
+.page.hidden,
+.page.hiding {
+  opacity: 0;
+  transform: translateY(64px);
+}
+
+/* Hidden page */
+.page.hidden {
+  visibility: hidden;
+}
+
+@keyframes show_page {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }
 
 /* Fullscreen loading overlay */
@@ -89,7 +115,7 @@ select:focus {
   padding: 24px 32px;
   background: $primary_dark;
   color: #FAFAFA;
-  font-size: 18px;
+  font-size: 19px;
   transform-origin: 0 100%;
   border-radius: 24px;
   border-bottom-left-radius: 3px;

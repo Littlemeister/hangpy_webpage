@@ -31,6 +31,6 @@ $google_map_api_key = 'AIzaSyDUu1X38QVzgDxgNdo0jzsQhFdKoVz4hQY';
 </script>
 
 <script>
-	$('.page:not(#<?php echo $start_page ?>)').hide();
+	$('.page:not(#<?php echo $start_page ?>)').addClass('hidden');
 	$('#<?php echo $start_page ?>').attr('data-current', '1');
 </script>

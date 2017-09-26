@@ -14,6 +14,16 @@ EventInfo.changeLayoutAfterFetch = false;
 EventInfo.currentEventId = 0;
 
 /**
+ * Fetch buffer.
+ */
+EventInfo.repliesPerPost = 8;
+
+/**
+ * Number of previewed replies when collapsed.
+ */
+EventInfo.numOfPreviewPosts = 4;
+
+/**
 *	Fetches all pieces of data for a specific event.
 */
 EventInfo.fetchAll = function(eventId){
@@ -126,11 +136,25 @@ EventInfo.initMap = function(){
 /**
 *	Attempts to approve the event.
 */
-EventInfo.attemptApprove = function(){
+EventInfo.approveEvent = function(eventId){
 	if (!User.isSignedIn()) {
 		EventInfo.onNotSignedIn();
 		return;
 	}
+
+	const eventName = $('.event_name').html();
+	Backend.request("action=approve_event", null, function(response){
+		EventInfo.parseApproveEvent(response, eventName)
+	});
+}
+
+EventInfo.parseApproveEvent = function(response, eventName){
+	if (response != SUCCESS) {
+		//	Failed
+		return;
+	}
+
+	Notification.show(Strings.eventInfo.didApprove.replace('$', eventName));
 }
 
 /**
@@ -145,7 +169,8 @@ EventInfo.onNotSignedIn = function(){
  * Fetches user posts for a specific event.
  */
 EventInfo.fetchUserPosts = function(eventId){
-	Backend.request("out=user_posts&event_id=" + eventId, null, EventInfo.parseUserPosts);
+
+	Backend.request("out=user_posts&event_id=" + eventId + "&replies_per_post=" + EventInfo.repliesPerPost, null, EventInfo.parseUserPosts);
 }
 
 EventInfo.parseUserPosts = function(eventId){
@@ -160,6 +185,8 @@ EventInfo.parseUserPosts = function(eventId){
 
 	var i = 0;
 	var userPostList = $('#event_info_comments').html('');
+	var userPostElement;
+	var numOfReplies;
 	var appendData;
 	var lastTopLevelPost;	//	ID of last non-reply
 	for (let post of obj.posts) {
@@ -169,6 +196,7 @@ EventInfo.parseUserPosts = function(eventId){
 			id: post.id,
 			list: userPostList,
 			author_picture_url: author.picture_url,
+			author_id: author.id,
 			message: post.text
 		};
 
@@ -178,7 +206,23 @@ EventInfo.parseUserPosts = function(eventId){
 			lastTopLevelPost = post.id;
 		}
 
-		EventInfo.insertUserPost(appendData);
+		userPostElement = EventInfo.insertUserPost(appendData);
+
+		if (!post.is_reply){
+			//	Check num of replies
+			numOfReplies = 0;
+			for (let j = i + 1, n = obj.posts.length; j < n; j++){
+				if (!obj.posts[j].is_reply) {
+					break;
+				}
+				numOfReplies++;
+			}
+
+			var numPreviews = EventInfo.numOfPreviewPosts;
+			if (numOfReplies > numPreviews) {
+				//	Replies overflow
+			}
+		}
 
 		i++;
 	}
@@ -189,6 +233,7 @@ EventInfo.parseUserPosts = function(eventId){
  * The parameter object may contain the following:
  * id : post ID
  * list : if the parent list is provided, it doesn't need to be sought up
+ * author_id : author ID
  * author_picture_url : author profile picture URL
  * message : post message
  * reply_to : optional user post ID which this is a reply to
@@ -243,13 +288,13 @@ EventInfo.insertUserPost = function(postObj){
 	).toggleClass('reply', postObj.reply_to !== undefined)
 		.attr('data-id', postObj.id);
 
-	var canDelete = true;
+	var canDelete = postObj.author_id == User.current.id;
 	if (canDelete) {
 		//	User can delete this comment
 		const id = postObj.id;
 
 		$('<a class="delete">').prependTo(li).click(function(){
-
+			EventInfo.deletePost(id);
 		});
 	}
 
@@ -268,6 +313,8 @@ EventInfo.insertUserPost = function(postObj){
 			li.appendTo(postObj.list);
 		}
 	}
+
+	return li;
 }
 
 /**
@@ -350,13 +397,22 @@ EventInfo.deletePost = function(postId) {
 }
 
 EventInfo.parseDeletePost = function(response, postId) {
-	
+	console.log(response);
+	if (response != SUCCESS) {
+		//	Unknown error, probably unauthorized.
+		return;
+	}
+
+	//	Delete post and replies
+	$('#event_info_comments li[data-id=' + postId + '],' + 
+		'#event_info_comments li[data-reply-to=' + postId + ']').remove();
 }
+
 
 $(function(){
 	//	Button to approve current event
 	$('#event_info_approve').click(function(){
-		EventInfo.attemptApprove();
+		EventInfo.approveEvent();
 	});
 	
 	//	Button to submit a user post (comment)

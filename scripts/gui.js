@@ -18,8 +18,12 @@ GUI.changeLayout = function(newLayout) {
     var currentLayout = $('.page[data-current]');
     currentLayout.removeAttr('data-current');
 
-    newLayout.attr('data-current', '1').show();
-    currentLayout.hide();
+    newLayout.attr('data-current', '1').removeClass('hidden');
+
+    var transitionEvent = 'webkitTransitionEnd transitionend';
+    currentLayout.addClass('hiding').on(transitionEvent, function(){
+        $(this).removeClass('hiding').addClass('hidden').off(transitionEvent);
+    });
 }
 
 /**

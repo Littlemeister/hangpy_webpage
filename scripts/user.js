@@ -148,7 +148,10 @@ User.parseData = function(response, verificationCallback) {
 	
 	console.log(obj);
 	
-	obj.first_name = obj.name.match(/^([\w]+)/)[0];
+    obj.first_name = obj.name.match(/^([\w]+)/)[0];
+
+    //  Update navbar
+    $('#header_login').html(Strings.userNavProfile.replace('$', obj.first_name)).addClass('signed_in');
     
     $.extend(User.current, obj);
     
