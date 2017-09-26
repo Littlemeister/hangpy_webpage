@@ -7,7 +7,7 @@
 ?>
 
 
-<main id="paid_event_setup">
+<section id="paid_event_setup_page" class="page">
 	<img src="assets/paid_setup_cover.jpg">
 	
 	<div class="padded">
@@ -96,4 +96,4 @@
 		?>
 		</button>
 	</div>
-</main>
+</section>
