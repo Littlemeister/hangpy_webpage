@@ -1,0 +1,180 @@
+/**
+*   CREATE EVENT
+*/
+
+/* Main page */
+#create_event_page {
+    padding: 18px;
+    width: 640px;
+}
+
+/* Event for location placement */
+#create_event_map {
+    height: 400px;
+    position: relative;
+    left: -$page_padding;
+    width: calc(100% + #{$page_padding * 2});
+}
+
+/* Map search field */
+#create_event_map_search {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 12px;
+    z-index: 2;
+    opacity: 0.65;
+    transition: opacity 250ms $ease;
+    border: none;
+    text-align: left;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2); 
+}
+
+#create_event_map_search:focus,
+#create_event_map_search:hover {
+    opacity: 0.95;
+}
+
+/* Container for event start inputs */
+.event_start_c {
+    display: inline-block;
+}
+
+.event_duration_time {
+    margin: auto;
+    display: block;
+    margin-bottom: 8px;
+}
+
+/* Amid the date inputs */
+#event_duration_mid {
+    display: inline-block;
+    margin: 36px;
+    position: relative;
+    bottom: 24px;
+}
+
+/* Event name container */
+#event_name_c {
+    display: inline-block;
+}
+
+/* Used to input event name */
+#event_name_input {
+    width: 360px;
+}
+
+/* Suggestion container for event name */
+#event_name_suggestions {
+    position: absolute;
+    width: 280px;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 64px;
+    background: #FAFAFA;
+    border-radius: 4px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
+    padding: 24px;
+
+    li {
+        background: $primary_dark;
+        color: #FAFAFA;
+        padding: 12px;
+        border-radius: 24px;
+        margin: 4px;
+    }
+
+    li:hover,
+    li.highlighted {
+        background: $primary;
+    }
+
+    transition: transform 250ms $ease, opacity 250ms $ease;
+    transform-origin: 50% 0;
+}
+
+#event_name_suggestions.hidden {
+    transform: translateX(-50%) scale(0.8);
+    opacity: 0;
+}
+
+#event_name_suggestions.gone {
+    visibility: hidden;
+}
+
+.event_gallery {
+
+    background-size: cover;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
+
+    /* Label, "add photo" */
+    .add_photo {
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+        margin: 0;
+        text-align: center;
+    }
+
+    a {
+        display: block;
+        height: 100%;
+        cursor: pointer;
+    }
+}
+
+/* Gallery item */
+.event_gallery.big {
+    height: 360px;
+}
+
+/* Container of small gallery items */
+.event_gallery.big + div {
+    margin-bottom: 18px;
+}
+
+.event_gallery.small {
+    display: inline-block;
+    width: 30%;
+    height: 128px;
+    margin: 2.1%;
+    margin-top: 24px;
+}
+
+.event_gallery.small:last-child {
+    margin-right: 0;
+}
+
+.event_gallery.small:first-child {
+    margin-left: 0;
+}
+
+/* Submit button */
+#event_create_submit {
+    margin-top: 48px;
+}
+
+/* Indicates an invalid field */
+#invalid_field_msg {
+    position: absolute;
+    left: 100%;
+    width: 250px;
+    background: $primary_dark;
+    padding: 24px;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+
+    /* Speech bubble notch */ 
+    .notch {
+        position: absolute;
+        width: 0;
+        height: 0;
+        border: 12px solid $primary_dark;
+        border-top-color: transparent;
+        border-left-color: transparent;
+        border-bottom-color: transparent;
+        margin-left: -22px;
+        transform: translateX(-100%);
+    }
+}

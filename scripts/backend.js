@@ -39,6 +39,8 @@ Backend.request = function(queryString, post = null, callback) {
         request.processData = false;
     }
     
+console.log(url);
+
     $.ajax(request);
 }
 

@@ -38,7 +38,7 @@ Frontpage.hideFilters = function(){
  */
 Frontpage.initEventInfo = function(eventId) {
 	EventInfo.changeLayoutAfterFetch = true;
-	
+
 	EventInfo.fetchAll(eventId);
 	GUI.showFullscreenLoading();
 }
@@ -120,4 +120,9 @@ Events.onFetched.push(function(){
 $(function(){
 	Events.eventsPerPage = 2;
 	Events.fetch();
+
+	//	Button to go to create event page
+	$('#create_event_caller').click(function(){
+		GUI.changeLayout($('#create_event_page'));
+	});
 });

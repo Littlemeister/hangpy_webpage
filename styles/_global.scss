@@ -16,8 +16,25 @@ h1,
 h2,
 div,
 button,
-input {
+input,
+textarea,
+select,
+option {
   font-family: bpreplay, sans-serif;
+}
+
+input:focus {
+  outline: none;
+}
+
+/* Centers content */
+.center {
+  text-align: center;
+}
+
+/* Right aligns content */
+.right {
+  text-align: right;
 }
 
 /* A page as part of the SPA structure */
@@ -26,7 +43,8 @@ input {
   transition: opacity 250ms $ease, transform 250ms $ease;
   opacity: 1;
   transform: none;
-
+  background: #FAFAFA;
+  border-radius: 8px;
 }
 
 /* Hiding page */
@@ -149,4 +167,15 @@ select:focus {
 .profile_picture {
   background-size: cover;
   border-radius: 50%;
+}
+
+/* Invisible but accessible */
+input.hidden {
+  display: inline-block;
+  width: 1px;
+  height: 1px;
+  user-select: none;
+  position: absolute;
+  left: -50vw;
+  opacity: 0;
 }

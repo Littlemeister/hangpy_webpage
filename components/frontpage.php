@@ -8,7 +8,7 @@
     </div>
 
     <!-- Create articles -->
-    <input type="button" value="Create">
+    <input id="create_event_caller" type="button" value="Create">
 
     <!-- Discover articles -->
     <input id="discover_categories_btn" type="button" value="Discover">

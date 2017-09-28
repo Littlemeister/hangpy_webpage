@@ -1,0 +1,4 @@
+RewriteEngine On
+
+#	Add any directories for redirection here
+RewriteRule (event)/.* ./index.php

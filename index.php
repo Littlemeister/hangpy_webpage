@@ -31,9 +31,10 @@ if ($compile_scss) {
 require 'components/strings.php';
 
 //  ID of the page to initially show
-$start_page = "event_info_page";
+$start_page = "create_event_page";
 
 ?>
+
 
 <!DOCTYPE html>
 
@@ -47,6 +48,7 @@ $start_page = "event_info_page";
     <meta name="description" content="Fun events">                        <!-- Specifies a description of the page. Search engines can pick up this description to show with the results of searches. -->
     <meta name="keywords" content="fun,event,events,spontant,hitta på, vad händer,">                    <!-- Specifies a comma-separated list of keywords - relevant to the page (Informs search engines what the page is about). -->
     <meta name="application-name" content="Hangpy">                       <!-- Specifies the name of the Web application that the page represents -->
+    <base href="/hangpy_web/">
 
     <!-- Responsive design thingy -->
     <meta name="viewport" content="width=device-width, initial-scale=1">  <!-- Specifies the scaling of the site when in mobile resulution so text and pictures doesnt get to small -->
@@ -75,9 +77,12 @@ $start_page = "event_info_page";
         ?>
 		  
         <?php // Paid event setup section
-          //require 'components/paid_event_setup.php';
+          require 'components/paid_event_setup.php';
         ?>
-
+        
+        <?php // Create event section
+          require 'components/create_event.php';
+        ?>
 
         <?php // Profile section
           include 'components/profile.php';

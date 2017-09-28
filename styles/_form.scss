@@ -1,0 +1,46 @@
+/**
+*   FORM
+*
+*   Styles for forms such as create event and paid event setup.
+*/
+
+.form {
+    h1,
+    h2,
+    h3 {
+        text-align: center;
+    }
+
+    h2 {
+        color: #004D40;
+        margin-top: 64px;
+    }
+
+    h3 {
+        color: #00695C;
+    }
+
+    input[type="text"],
+    input[type="time"],
+    textarea {
+        padding: 12px 16px;
+        border-radius: 8px;
+        border: 2px solid $primary_dark;
+        font-size: 17px;
+    }
+
+    /* Disables the clear button in required time fields */
+    input[type="time"][required]::webkit-clear-button,
+    input[type="time"][required]::ms-clear {
+        display: none;
+    }
+
+    textarea {
+        display: block;
+        resize: none;
+        width: 100%;
+        font-size: 16px;
+        min-height: 64px;
+        max-height: 192px;
+    }
+}
