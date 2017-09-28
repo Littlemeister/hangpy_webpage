@@ -428,8 +428,6 @@ $(function(){
 		input.val('');
 	});
 
-	EventInfo.fetchAll(53);
-
 	$('#event_info_nav_back').click(function(){
 		//	Go back to frontpage
 		GUI.changeLayout($('#frontpage_page'));
