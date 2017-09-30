@@ -21,7 +21,7 @@
     
     <div id="event_gallery">
     </div>
-    <h1 class="event_name">Grilla på Bergsvägen 21</h1>
+    <h1 class="event_info_name event_name overlay">Grilla på Bergsvägen 21</h1>
   </header>
 
   <div id="event_info_meta">

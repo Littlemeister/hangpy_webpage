@@ -31,7 +31,7 @@ if ($compile_scss) {
 require 'components/strings.php';
 
 //  ID of the page to initially show
-$start_page = "create_event_page";
+$start_page = "frontpage_page";
 
 ?>
 

@@ -70,8 +70,7 @@ Events.fetch = function(page = 0) {
 		listener();
 	}
 	
-	//	inject_special=0 provides a desktop layout
-    var queryString = 'out=events&inject_special=0';
+    var queryString = 'out=events';
 	
 	queryString += '&page=' + page + '&results=' + Events.eventsPerPage;
 	
@@ -153,16 +152,21 @@ Events.parseEvents = function(response, page) {
     
     var eventsContainer = $('#frontpage_articles');
     for (let event of events) {
-		$('<article class="frontpage_article">').
-			append(
-        		$('<h2></h2>').text(event.name)
-			).append(
-				$('<div class="cover">').
-                	css('background-image', 'url("' + obj.base_image_url + event.cover_image + '")')
-            ).appendTo(eventsContainer).attr('data-id', event.id)
-            .click(function(){
-                Frontpage.initEventInfo($(this).attr('data-id'));
-            });
+        $('<article class="frontpage_article">')
+            .attr('data-id', event.id)
+            .toggleClass('paid', event.special)
+            .append(
+                $('<div>').
+                    append(
+                        $('<h2 class="event_name overlay"></h2>').text(event.name)
+                    ).append(
+                        $('<div class="cover">').
+                            css('background-image', 'url("' + obj.base_image_url + event.cover_image + '")')
+                    )
+                    .click(function(){
+                        Frontpage.initEventInfo($(this).attr('data-id'));
+                    })
+                ).appendTo(eventsContainer);
     }
 	
     $('#_events').html(JSON.stringify(events));

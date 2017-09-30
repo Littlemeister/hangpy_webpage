@@ -3,26 +3,83 @@
 /* Main and pay articles */
 /* --------------------- */
 
+$article_width: 320px;
+$article_height: 240px;
+$article_margin: 8px;
+
+/* Height of the toolbar above main events list */
+$toolbar_height: 80px;
+
+//  Spacing from main events
+$paid_events_spacing: 24px;
+
+/* Width of the paid events list/container */
+$paid_events_list_width: $article_width + $article_margin * 2;
+
+
 .main_content main{
   display: inline-block;
   width: 100%;
 }
 
+/* Top-level page */
+#frontpage_page {
+  padding-right: #{$paid_events_list_width + $paid_events_spacing};
+}
+
 /* Main articles */
-.frontpage_main_articles_wrapper{
-  width: calc(66.66% - 15px);
+.frontpage_main_articles_wrapper {
+  width: #{$article_width * 2 + $article_margin * 4};
   background-color: white;
   display: inline-block;
   padding-bottom: 12px;
-  margin-bottom: 15px;
+  margin-bottom: $article_margin;
   border-radius: 15px;
+
+  /* Injected paid events are gone on large screen */
+  .paid {
+    display: none;
+  }
 }
+
+@media screen and (max-width: 1120px) {
+  /* Main events to take all columns */
+  
+  #frontpage_page {
+    padding-right: 0;
+    
+    .frontpage_pay_article_wrapper {
+      display: none;
+    }
+  }
+
+  .frontpage_main_articles_wrapper {
+    /* Injected paid events are visible */
+    .paid {
+      display: initial;
+    }
+  }
+}
+
+@media screen and (max-width: 750px) {
+  /* Main events to take one (all) columns */
+  .frontpage_main_articles_wrapper {
+    width: calc(100vw - 80px);
+  }
+
+  .frontpage_article {
+    width: 100%;
+  }
+}
+
 /* Specific for pay articles wrapper */
-.frontpage_pay_article_wrapper{
-  width: 33.33%;
+.frontpage_pay_article_wrapper {
+  width: $paid_events_list_width;
   background-color: white;
   display: inline-block;
-  float: right;
+  position: absolute;
+  top: #{$toolbar_height + $page_padding};
+  right: 0;
   margin-bottom: 15px;
   padding-bottom: 12px;
   border-radius: 15px;
@@ -34,12 +91,24 @@
   margin-bottom:12px;
 }
 
-.frontpage_article{
-  margin-left: 15px;
-  width: calc(50% - 22.5px);
-  margin-top: 12px;
+.frontpage_article {
+  margin: $article_margin;
+  width: $article_width;
+  height: $article_height;
   float: left;
-  height: 182px;  /* Fiendly before img has loaded */
+  overflow: hidden;
+
+  .event_name {
+    width: 100%;
+    bottom: 0;
+  }
+
+  /* Absolute container */
+  > div {
+    position: absolute;
+    width: $article_width;
+    height: $article_height;
+  }
 }
 
 /* Cover photo */
@@ -152,10 +221,8 @@
 }
 .frontpage_outside_tools{
   width: calc(66.66% - 15px);
-  height: 35px;
+  height: $toolbar_height;
   margin-right: 100%;
-  margin-bottom: 15px;
-  margin-top: 15px;
 }
 .frontpage_tool_search_wrapper{
   float: left;

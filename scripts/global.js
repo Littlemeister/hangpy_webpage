@@ -23,8 +23,10 @@ Global.parseUrl = function(){
 			Frontpage.initEventInfo(eventId[1]);
 		}
 
-	} else if (/create\//.test(url)) {
+	} else if (/create(\/?)/.test(url)) {
 		GUI.changeLayout($('#create_event_page'));
+	} else if (/me(\/?)/.test(url)) {
+		GUI.changeLayout($('#profile_page'));
 	}
 }
 

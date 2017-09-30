@@ -63,31 +63,9 @@
 
   <div class="frontpage_pay_article_wrapper">
     <h1>Star events</h1>
-    <input type="button" value="+">
-
-    <article class="frontpage_pay_article">
-      <h2>title</h2>
-      <p>distance</p>
-      <p>time</p>
-      <p>catagory</p>
-      <img src="pic/football.jpg" alt="Hangpy Article">
-    </article>
-
-    <article class="frontpage_pay_article">
-      <h2>title</h2>
-      <p>distance</p>
-      <p>time</p>
-      <p>catagory</p>
-      <img src="pic/football.jpg" alt="Hangpy Article">
-    </article>
-
-    <article class="frontpage_pay_article">
-      <h2>title</h2>
-      <p>distance</p>
-      <p>time</p>
-      <p>catagory</p>
-      <img src="pic/football.jpg" alt="Hangpy Article">
-    </article>
+    <article class="frontpage_article" data-id="29"><div><h2 class="event_name overlay">Grilla on Bergsnäsvägen 7</h2><div class="cover" style="background-image: url(&quot;http://partlight.tech/user_content/hangpy/football.jpg&quot;);"></div></div></article>
+    <article class="frontpage_article" data-id="29"><div><h2 class="event_name overlay">Grilla on Bergsnäsvägen 7</h2><div class="cover" style="background-image: url(&quot;http://partlight.tech/user_content/hangpy/football.jpg&quot;);"></div></div></article>
+    <article class="frontpage_article" data-id="29"><div><h2 class="event_name overlay">Grilla on Bergsnäsvägen 7</h2><div class="cover" style="background-image: url(&quot;http://partlight.tech/user_content/hangpy/football.jpg&quot;);"></div></div></article>
   </div>
 	
   <?php // Trending categories modal dialog

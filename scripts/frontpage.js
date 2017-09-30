@@ -118,7 +118,7 @@ Events.onFetched.push(function(){
 
 
 $(function(){
-	Events.eventsPerPage = 2;
+	Events.eventsPerPage = 8;
 	Events.fetch();
 
 	//	Button to go to create event page

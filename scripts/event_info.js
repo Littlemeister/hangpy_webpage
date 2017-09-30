@@ -60,7 +60,7 @@ EventInfo.parseAllFetch = function(response){
 	$(classPrefix + 'host').text(obj.host);
 	$(classPrefix + 'category').text(obj.category);
 	$(classPrefix + 'location').text(obj.location);
-	$(classPrefix + 'name').text(obj.name);
+	$(classPrefix + 'info_name').text(obj.name);
 	$(classPrefix + 'attendees_count').text(obj.attendees_count);
 
 	var startDate = new Date(obj.start);
@@ -159,7 +159,7 @@ EventInfo.approveEvent = function(eventId){
 		return;
 	}
 
-	const eventName = $('.event_name').html();
+	const eventName = $('.event_info_name').html();
 	Backend.request("action=approve_event", null, function(response){
 		EventInfo.parseApproveEvent(response, eventName)
 	});

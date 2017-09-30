@@ -43,8 +43,9 @@ input:focus {
 .page {
   position: absolute; /* May overlap */
   opacity: 1;
+  left: 50%;
+  transform: translateX(-50%); /* Center */
   padding: $page_padding;
-  transform: none;
   background: #FAFAFA;
   border-radius: 8px;
 }
@@ -66,14 +67,14 @@ input:focus {
 @keyframes show_page {
   0% {
     opacity: 0;
-    transform: translateY(64px);
+    transform: translate(-50%, 64px);
   }
 }
 
 @keyframes hide_page {
   100% {
     opacity: 0;
-    transform: translateY(64px);
+    transform: translate(-50%, 64px);
   }
 }
 
@@ -216,4 +217,14 @@ input.hidden {
 
 #document_loading.hiding {
   opacity: 0;
+}
+
+/* An overlaying event name heading */
+.event_name.overlay {
+  position: absolute;
+  margin: 0;
+  padding: 18px 24px;
+  background: rgba(0, 0, 0, 0.35);
+  color: #FAFAFA;
+  box-sizing: border-box;
 }
