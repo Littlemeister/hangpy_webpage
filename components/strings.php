@@ -37,7 +37,23 @@ str.eventInfo = {
     didApprove: "{$from_lang([
         "en" => "You've joined $",
         "sv" => "Du har intresserat dig för $"
-    ])}"
+    ])}",
+    noDescription: "{$from_lang([
+        "en" => "Event has no additional info.",
+        "sv" => "Evenemanget har ingen ytterligare info."
+    ])}",
+    notFound: "{$from_lang([
+        "en" => "The event doesn't exist",
+        "sv" => "Evenemanget finns inte"
+    ])}",
+    leave: "{$from_lang([
+        "en" => "Leave",
+        "sv" => "Hoppa ur"
+    ])}",
+    didDelete: "{$from_lang([
+        "en" => "Deleted $",
+        "sv" => "Tog bort $"
+    ])}",
 };
 
 str.createEvent = {
@@ -45,6 +61,49 @@ str.createEvent = {
         "en" => "Add photo",
         "sv" => "Lägg till foto"
     ])}",
+    
+    duration: {
+        base: "{$from_lang([
+            "en" => "Event will last $",
+            "sv" => "Evenemanget håller på i $"
+        ])}",
+        approxHour: "{$from_lang([
+            "en" => "around an hour",
+            "sv" => "ungefär en timme"
+        ])}",
+        approxHours: "{$from_lang([
+            "en" => "around $ hours",
+            "sv" => "ungefär $ timmar"
+        ])}",
+        hour: "{$from_lang([
+            "en" => "an hour",
+            "sv" => "en timme"
+        ])}",
+        hours: "{$from_lang([
+            "en" => "$ hours",
+            "sv" => "$ timmar"
+        ])}",
+        day: "{$from_lang([
+            "en" => "a day",
+            "sv" => "en dag"
+        ])}",
+        days: "{$from_lang([
+            "en" => "$ days",
+            "sv" => "$ dagar"
+        ])}",
+        dayHour: "{$from_lang([
+            "en" => "a day and an hour",
+            "sv" => "en dag och en timme"
+        ])}",
+        dayHours: "{$from_lang([
+            "en" => "a day and $ hours",
+            "sv" => "en dag och $ timmar"
+        ])}",
+        daysHours: "{$from_lang([
+            "en" => "$ days and $ hours",
+            "sv" => "$ dagar och $ timmar"
+        ])}",
+    },
     
     nameSuggestion: "{$from_lang([
         "en" => "$0 on $1",
@@ -60,9 +119,13 @@ str.createEvent = {
             "en" => "How long is the event?",
             "sv" => "Hur länge hålls evenemanget?"
         ])}",
+        category: "{$from_lang([
+            "en" => "What happens at the event?",
+            "sv" => "Vad händer på evenemanget?"
+        ])}",
         name: "{$from_lang([
-            "en" => "Name your event!",
-            "sv" => "Namnge ditt evenemang!"
+            "en" => "Name your event.",
+            "sv" => "Namnge ditt evenemang."
         ])}",
         photo: "{$from_lang([
             "en" => "Add atleast one photo.",
@@ -71,6 +134,10 @@ str.createEvent = {
         endBeforeStart: "{$from_lang([
             "en" => "Event cannot end before it starts!",
             "sv" => "Evenemanget kan inte avslutas innan det börjat!"
+        ])}",
+        durationTooShort: "{$from_lang([
+            "en" => "Event needs to last atleast half an hour.",
+            "sv" => "Minst en halvtimme behöver gå."
         ])}",
     }
 };

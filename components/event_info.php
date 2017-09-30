@@ -9,14 +9,25 @@
 
     ?>
   </p>
-  <div id="event_gallery"></div>
+  <header id="event_header">
+    <div id="event_gallery_nav">
+      <a id="event_gallery_prev">Prev</a>
+      
+      <div id="quick_container">
+      </div>
 
-  <div class="event_info_info">
-    <h1 class="event_name">Grilla på Bergsvägen 21</h1>
+      <a id="event_gallery_next">Next</a>
+    </div>
     
+    <div id="event_gallery">
+    </div>
+    <h1 class="event_name">Grilla på Bergsvägen 21</h1>
+  </header>
+
+  <div id="event_info_meta">
     <ul>
       <li>
-        <img src="assets/event_info/location.png" alt="Location">
+        <img src="assets/ic_location.png" alt="Location">
         <h3>
           <span class="event_category">Nånting</span>
           
@@ -33,11 +44,13 @@
         </h3>
       </li>
       <li>
-        <img src="assets/event_info/time.gif" alt="Time">
-        <h3 id="event_start">15.00-21.00</h3>
+        <img src="assets/ic_time.png" alt="Starts">
+        <h3 id="event_start">
+          <span id="event_start_date">4 okt</span> <span id="event_start_time">15:00</span> - <span id="event_end_date">4 okt</span> <span id="event_end_time">21:00</span>
+        </h3>
       </li>
       <li>
-        <img src="assets/event_info/person.png" alt="Host">
+        <img src="assets/ic_person.png" alt="Host">
         <h3>
           
           <?php
@@ -54,54 +67,107 @@
       </li>
     </ul>
 
-    <button class="event_info_button_attendees" type="button" name="button">
-      <span class="event_attendees_count">25</span>
-         
-      <?php
+    <div id="event_info_actions">
+      <button class="event_info_button_attendees" type="button" name="button">
+        <span class="event_attendees_count">25</span>
+          
+        <?php
 
-      echo $from_lang([
-        "en" => " attendees",
-        "se" => " intresserade"
-      ]);
+        echo $from_lang([
+          "en" => " attendees",
+          "se" => " intresserade"
+        ]);
 
-      ?>
+        ?>
 
-    </button>
-    <button id="event_info_approve">
+      </button>
+      
+      <button id="event_info_share">
+        <?php
+
+        echo $from_lang([
+          "en" => "Share",
+          "se" => "Dela"
+        ]);
+
+        ?>
+      </button>
+
+      <div class="group_2">
+        <button id="event_info_approve">
+            
+        <?php
+
+        echo $from_lang([
+          "en" => "Join",
+          "se" => "Häng med"
+        ]);
+
+        ?>
         
-    <?php
+        </button>
 
-    echo $from_lang([
-      "en" => "Join",
-      "se" => "Häng med"
-    ]);
+        <div id="event_share_c" class="gone">
+          <div class="notch"></div>
+          <h3>
+          <?php
 
-    ?>
-    
-    </button>
+          echo $from_lang([
+            "en" => "URL to share",
+            "se" => "Länk att dela"
+          ]);
 
-    <div id="event_info_map">
+          ?>
+          </h3>
+          <input type="text" readonly>
+        </div>
+
+        <button id="event_info_delete">
+        <?php
+
+        echo $from_lang([
+          "en" => "Delete",
+          "se" => "Ta bort"
+        ]);
+
+        ?>
+        </button>
+      </div>
+    </div>
+
+    <div id="event_info_map_c">
+      <div id="event_info_map">
+      </div>
+      <a id="event_expand_map"></a>
     </div>
 
   </div>
 
-  <hr>
+  <p id="event_description">Vi tänkte dra ihop en liten grillfest, alla tar med det de vill grilla och dricka så fixar vi grill! Vi kommer också leka lekar, ha musik osv. Vädret ser ut att bli bra men ifall det regnar för mycket kan det bli inställt så vi får se. Bussar går hela kvällen om man vill ta det. Vem som helst är välkommen! (nästan)
+    <br><br>Ålder: 18-30 ungefär
+    <br>Alkohol förekommer
+  </p>
 
-  <div id="event_description">
-    <p> Vi tänkte dra ihop en liten grillfest, alla tar med det de vill grilla och dricka så fixar vi grill! Vi kommer också leka lekar, ha musik osv. Vädret ser ut att bli bra men ifall det regnar för mycket kan det bli inställt så vi får se. Bussar går hela kvällen om man vill ta det. Vem som helst är välkommen! (nästan)
-      <br><br>Ålder: 18-30 ungefär
-      <br>Alkohol förekommer
-    </p>
-  </div>
+  <h3>
+    <?php
+    echo $from_lang([
+      "en" => "Attendees",
+      "se" => "Kommer"
+    ]);
+    ?>
+  </h3>
 
-  <hr>
-
-  <button class="event_info_interested_more_button">Se fler</button>
-  <ul id="event_info_attendees">
+  <button id="event_info_attendees_show_all">
+    <?php
+    echo $from_lang([
+      "en" => "View all",
+      "se" => "Visa alla"
+    ]);
+    ?>
+  </button>
+  <ul id="event_attendees_preview" class="event_attendees">
     
   </ul>
-
-  <hr>
 
   <div>
     <h2>
@@ -123,4 +189,56 @@
 
   </div>
 
+</div>
+
+<div class="modal_bg">
+  <div id="confirm_delete_event" class="dialog">
+    <h2>
+      <?php
+      echo $from_lang([
+        "en" => "Delete event?",
+        "se" => "Ta bort evenemang?"
+      ]);
+      ?>
+    </h2>
+    <p>
+      
+      <?php
+      echo $from_lang([
+        "en" => "This cannot be undone.",
+        "se" => "Det kan inte återställas senare."
+      ]);
+      ?>
+
+    </p>
+
+    <div class="confirm_c">
+
+      <button class="confirm">
+      
+        <?php
+        echo $from_lang([
+          "en" => "Yes, delete it",
+          "se" => "Ja, ta bort det"
+        ]);
+        ?>
+        
+      </button>
+
+    </div>
+  </div>
+</div>
+
+<div class="modal_bg">
+  <div id="event_attendees_all" class="dialog">
+    <input type="text" id="search_attendee" placeholder="<?php
+      echo $from_lang([
+        "en" => "Search for user",
+        "se" => "Sök efter användare"
+      ]);
+      ?>">
+
+    <ul class="event_attendees">
+    </ul>
+  </div>
 </div>

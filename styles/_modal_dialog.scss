@@ -6,6 +6,7 @@
 
 $dialog_transition_dur: 200ms;
 $dialog_hidden_scale: 0.925;
+$dialog_padding: 36px;
 
 /* Screen-fixed background */
 .modal_bg {
@@ -19,6 +20,30 @@ $dialog_hidden_scale: 0.925;
 	transition: opacity $dialog_transition_dur $ease, transform $dialog_transition_dur $ease;
 	transform: scale($dialog_hidden_scale);
 	opacity: 0;
+
+	.dialog {
+		position: fixed;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%);
+		padding: $dialog_padding;
+		background: #FAFAFA;
+		border-radius: $dialog_radius;
+		min-width: 320px;
+		min-height: 180px;
+
+		h2 {
+			margin: 0 0 24px 0;
+		}
+
+		/* Container for confirm button */
+		.confirm_c {
+			text-align: right;
+			position: absolute;
+			bottom: $dialog_padding;
+			right: $dialog_padding;
+		}
+	}
 }
 
 .modal_bg.hiding {
@@ -31,16 +56,4 @@ $dialog_hidden_scale: 0.925;
 	visibility: initial;
 	opacity: 1;
 	transform: none;
-}
-
-.modal_bg .dialog {
-	position: fixed;
-	left: 50%;
-	top: 50%;
-	transform: translate(-50%, -50%);
-	padding: 36px;
-	background: #FAFAFA;
-	border-radius: $dialog_radius;
-	min-width: 480px;
-	min-height: 240px;
 }

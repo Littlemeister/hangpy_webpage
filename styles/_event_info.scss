@@ -2,7 +2,6 @@
 #event_info_page {
   max-width: calc(66.66% - 15px);
   width: 100%;
-  background-color: white;
   border-radius: 15px;
 }
 
@@ -14,47 +13,246 @@
   top: 27px;
 }
 
+#event_header {
+  .event_name {
+    position: absolute;
+    transform: translateY(-100%);
+    margin: 0;
+    padding: 18px 24px;
+    background: rgba(0, 0, 0, 0.35);
+    left: 0;
+    width: 100%;
+    color: #FAFAFA;
+    box-sizing: border-box;
+  }
+}
+
+#event_gallery {
+  height: 360px;
+  left: -$page_padding;
+  position: relative;
+  width: calc(100% + #{$page_padding * 2});
+  overflow: hidden;
+}
+
 .event_gallery_item {
-  width: 100%;
   height: 360px;
   background-size: cover;
   margin-top: 37px;
+  background-size: cover;
+  background-position: center;
+  position: absolute;
+  width: 100%;
+  transition: margin-left 250ms $ease, opacity 250ms $ease;
 }
 
-.event_info_info{
-  position: relative;
+$gallery_item_translation: 48px;
+
+.event_gallery_item.right {
+  margin-left: $gallery_item_translation;
 }
-.event_info_info h1{
+
+.event_gallery_item.left {
+  margin-left: -$gallery_item_translation;
+}
+
+.event_gallery_item.right,
+.event_gallery_item.left {
+  opacity: 0;
+}
+
+/* Gallery navigation */
+#event_gallery_nav {
+  position: absolute;
+  width: calc(100% - #{$page_padding * 2});
+  margin-top: 48px;
+  z-index: 2;
+}
+
+/* Changes to the next gallery item */
+#event_gallery_next {
+  float: right;
+}
+
+/* Container for quick jumps to gallery items */
+#quick_container {
+  position: absolute;
+  left: 50%;
+  top: 4px;
+  transform: translateX(-50%);
+
+  /* Quick button */
+  a {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #FAFAFA;
+    opacity: 0.6;
+    margin: 0 4px;
+  }
+  
+  a:hover {
+    opacity: 0.8;
+  }
+
+  a.selected {
+    opacity: 1;
+  }
+}
+
+#event_info_meta {
+  position: relative;
+  transition: margin-top 250ms $ease;
+}
+#event_info_meta h1{
   margin-left:15px;
   font-size: 1.8em;
 }
 
-.event_info_info img{
-  height: 24px;
-  width: 24px;
-  margin-right: 16px;
-  margin-left: 16px;
+/* Metadata icon */
+#event_info_meta img {
+  margin-right: 8px;
+  position: relative;
+  top: 4px;
 }
 
-.event_info_info h3{
+#event_info_meta h3{
+  margin: 8px 0;
   display: inline-block;
 }
+
+/* Dates */
+#event_end_date,
+#event_start_date {
+  color: #37474F;
+}
+
+
+$expanded_margin: 320px + 32px;
 
 /* Event location on a Google map */
 #event_info_map {
   position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 24px;
+}
+
+#event_info_map_c {
   top: 0;
   right: 0;
+  position: absolute;
   width: 45%;
   height: 240px;
-  margin-right: 15px;
+  transition: width 250ms $ease,
+    right 250ms $ease,
+    top 250ms $ease,
+    box-shadow 250ms $ease,
+    height 250ms $ease; /* transition expanded */
+}
+
+#event_info_meta.expanded {
+  #event_info_map_c {
+    width: calc(100% + #{$page_padding * 2});
+    right: -$page_padding;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
+    top: -$expanded_margin;
+    height: 320px;
+  }
+
+  /* Fill out right column*/
+  #event_info_actions {
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    .group_2 {
+      text-align: right;
+    }
+  }
+  margin-top: $expanded_margin;
+
+  + #event_description {
+    margin-top: 64px;
+  }
+}
+
+
+/* Some event actions */
+#event_info_actions {
+  .group_2 {
+    margin-top: 8px;
+  }
+}
+
+/* Button to expand map */
+#event_expand_map {
+  display: inline-block;
+  position: absolute;
+  width: 48px;
+  height: 48px;
+  background: $primary_dark;
+  right: -12px;
+  top: -12px;
+  border-radius: 50%;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+}
+
+#event_expand_map:hover {
+  background: $primary;
 }
 
 .event_info_google_map > img{
   width: 100%;
 }
 
-.event_info_info > button{
+/* Container of share URL */
+#event_share_c {
+  position: absolute;
+  padding: 24px;
+  background: #FAFAFA;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
+  z-index: 5;
+  border-radius: 8px;
+
+  input {
+    width: 320px;
+  }
+
+  .notch {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border: 8px solid transparent;
+    border-bottom-color: #FAFAFA;
+    top: -16px;
+  }
+
+  h3 {
+    font-size: 15px;
+    margin: 0 0 8px 4px;
+    display: block;
+    color: #424242;
+  }
+
+  /* Rules as hidden */
+  opacity: 0;
+  transform: scale(0.6);
+  transition: opacity 250ms $ease, transform 250ms $ease;
+  transform-origin: 5% 0;
+}
+
+#event_share_c.gone {
+  visibility: hidden;
+}
+
+#event_share_c.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+#event_info_meta > button{
   margin-bottom: 15px;
   margin-left: 15px;
   min-width: 80px;
@@ -62,33 +260,36 @@
   border-radius: 15px;
 }
 
+/* Approve button */
 #event_info_approve {
-  background-color: lightgreen;
+  background: #66bb6a;
+}
+
+/* Delete button */
+#event_info_delete {
+  background: #ef5350;
 }
 
 #event_description {
-  margin-left:15px;
-  margin-right:15px;
+  margin: 80px 0;
+  margin-left: 12px;
 }
 
 //  Profile picture size for attendees
 $profile_pic_size: 80px;
 
+$attendee_width: 146px;
+
 /* List of event attendees */
-#event_info_attendees {
-  height: 120px;
+.event_attendees {
   position: relative;
   overflow: hidden;
   
   li {
     display: inline-block;
     text-align: center;
-    height: 60%;
-    margin-right: 15px;
-  }
-  
-  li:first-child {
-    margin-left:15px;
+    height: 140px;
+    width: $attendee_width;
   }
   
   /* Profile picture of the attendee */
@@ -175,7 +376,12 @@ $profile_pic_size: 80px;
   }
 }
 
-.event_info_interested_more_button{
+#event_attendees_preview {
+  height: 120px;
+  margin-bottom: 48px;
+}
+
+#event_info_attendees_show_all {
   min-width: 80px;
   height: 40px;
   border-radius: 15px;
@@ -185,8 +391,20 @@ $profile_pic_size: 80px;
   cursor: pointer;
 }
 
-.event_info_interested_more_button:focus{
-  outline: none;
+#event_attendees_all {
+  /* Attendee list */
+  .event_attendees {
+    margin-top: 36px;
+    width: #{$attendee_width * 4 + 24px}; /* Scrollbar offset */
+    height: 480px;
+    overflow-y: scroll;
+  }
+}
+
+/* Input to search for attendee while showing all */
+#search_attendee {
+  display: block;
+  margin: auto;
 }
 
 .event_info_comments img{

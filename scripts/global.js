@@ -23,8 +23,8 @@ Global.parseUrl = function(){
 			Frontpage.initEventInfo(eventId[1]);
 		}
 
-	} else {
-
+	} else if (/create\//.test(url)) {
+		GUI.changeLayout($('#create_event_page'));
 	}
 }
 
@@ -48,6 +48,13 @@ $(function(){
 	});
 
 	Global.parseUrl();
+
+	setTimeout(function() {
+		//	Hide document loading, executed lastly
+		$('#document_loading').addClass('hiding').on('webkitTransitionEnd transitionend', function(){
+			$(this).remove();
+		});
+	}, 5);
 });
 
 /**

@@ -58,6 +58,19 @@ $start_page = "create_event_page";
   </head>
 
   <body>
+    
+    <!-- Document loading -->
+    <div id="document_loading" class="fullscreen_overlay">
+      <?php
+      
+      $loading_id = NULL;
+      include 'components/loading.php';
+
+      ?>
+      
+      <img src="assets/logo.png" alt="Logo">
+    </div>
+
     <div class="page-wrap"> <!-- used becouse of the sticky footer ie8+ support -->
 
       <?php // Header section
@@ -114,9 +127,9 @@ $start_page = "create_event_page";
 
     <!-- Notification -->
     <p id="notification" style="display:none"></p>
-    
+
     <!-- Fullscreen loading -->
-    <div id="fullscreen_loading" style="display:none">
+    <div id="fullscreen_loading" class="fullscreen_overlay" style="display:none">
       <?php $loading_id = NULL; include 'components/loading.php' ?>
     </div>
 

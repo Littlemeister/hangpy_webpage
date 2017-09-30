@@ -57,10 +57,6 @@ CreateEvent.parseCreateEvent = function(response) {
     
     CreateEvent.createdEventId = eventObj.event_id;
 
-    if (CreateEvent.categoryImage) {
-        CreateEvent.gallery.push(CreateEvent.categoryImage);
-    }
-
     CreateEvent.submitNextGalleryItem();
 }
 
@@ -127,7 +123,13 @@ CreateEvent.initMap = function() {
 	});
 	map.addListener('click', function(e) {
         CreateEvent.setEventLocation(e.latLng);
-	});
+    });
+    
+    var searchBox = new google.maps.places.SearchBox($('#create_event_map_search')[0]);
+    
+    map.addListener('bounds_changed', function() {
+        searchBox.setBounds(map.getBounds());
+    });
 }
 
 /**
@@ -153,6 +155,8 @@ CreateEvent.setEventLocation = function(latLng, locationName){
     } else {
         CreateEvent.reverseGeocode(latLng);
     }
+
+    CreateEvent.validateForm();
 }
 
 /**
@@ -249,15 +253,14 @@ CreateEvent.hideSuggested = function(){
     });
 }
 
-CreateEvent.maybeFetchCategoryImage = function(category){
-    if ($('#event_cat_cover_input')[0].checked) {
-        Backend.request('out=default_cat_image&name=' + encodeURIComponent(category), null, function(response){
-            if (response.length > 0){
-                CreateEvent.categoryImage = response.substring(response.lastIndexOf('/') + 1);
-                CreateEvent.onGalleryItemAdded(response);
-            }
-        });
-    }
+CreateEvent.fetchCategoryImage = function(category){
+    Backend.request('out=default_cat_image&name=' + encodeURIComponent(category), null, function(response){
+        if (response.length > 0){
+            CreateEvent.categoryImage = response.substring(response.lastIndexOf('/') + 1);
+            CreateEvent.gallery.push(CreateEvent.categoryImage);
+            CreateEvent.onGalleryItemAdded(response);
+        }
+    });
 }
 
 /**
@@ -308,6 +311,8 @@ CreateEvent.updateDates = function(){
 }
 
 CreateEvent.onGalleryItemFileAdded = function(file) {
+    CreateEvent.gallery.push(file);
+
     var reader = new FileReader();
 
     reader.onload = function(){
@@ -318,45 +323,98 @@ CreateEvent.onGalleryItemFileAdded = function(file) {
 }
 
 CreateEvent.onGalleryItemAdded = function(imageUrl) {
-    $($('.event_gallery.empty')[0])
+    var galleryElement = $($('.event_gallery.empty')[0])
         .css('background-image', 'url(' + imageUrl + ')')
         .removeClass('empty');
+
+    $('.event_gallery[data_index=' +
+        (Number.parseInt(galleryElement.attr('data_index')) + 1) + ']')
+        .removeClass('disabled');
+
+    CreateEvent.validateForm();
 }
 
-CreateEvent.validateEventObj = function(eventObj){
+CreateEvent.removeGalleryItem = function(index) {
+    CreateEvent.gallery.splice(index, 1);
+
+    var galleryElement = $('.event_gallery[data_index=' + index + ']');
+    galleryElement.css('background-image', '').addClass('empty');
+
+    //  Disable next sibling
+    $('.event_gallery[data_index=' + (index + 1) + ']')
+        .addClass('disabled');
+
+    //  Shift next photos
+    $('.event_gallery:not([data_index=' + index + '])')
+        .each(function(i, e){
+            e = $(e);
+            var _index = Number.parseInt(e.attr('data_index'));
+            if (_index < index) {
+                //  Is previous
+                return;
+            }
+
+            if (!e.hasClass('empty')) {
+                //  Previous gets this image
+                $('.event_gallery[data_index=' + (_index - 1) + ']').css(
+                    'background-image',
+                    e.css('background-image')
+                ).removeClass('empty');
+
+                e.css('background-image', '').addClass('empty');
+            }
+        });
+
+    //  Refresh disabled
+    $('.event_gallery')
+        .each(function(i, e){
+            let _index = Number.parseInt(e.getAttribute('data_index'));
+            if ($('.event_gallery[data_index=' + (_index - 1) + ']').hasClass('empty')) {
+                e.classList.add('disabled');
+            }
+        });
+}
+
+CreateEvent.validateForm = function(){
+    var submit = $('#event_create_submit').attr('disabled', 'disabled');
+
     var stringGroup = Strings.createEvent.invalidField;
-    console.log(stringGroup);
 
-    if (!eventObj.lat || !eventObj.lng) {
+    if (!CreateEvent.mapMarker) {
         //  No location
-        CreateEvent.showInvalidField($('#create_event_map'), stringGroup.location);
-        return false;
-    }
-
-    if (new Date(eventObj.start).getMilliseconds() > new Date(eventObj.end).getMilliseconds()) {
-        //  Ends before start
-        CreateEvent.showInvalidField($('#event_end_t_input'), stringGroup.endBeforeStart);
-        return false;
-    }
-
-    if (!eventObj.category) {
-        //  No category
-        CreateEvent.showInvalidField($('#event_category_input'), stringGroup.category);
+        CreateEvent.onInvalidField(stringGroup.location);
         return false;
     }
     
-    if (!eventObj.name) {
+    if (!$('#event_category_input').val()) {
+        //  No category
+        CreateEvent.onInvalidField(stringGroup.category);
+        return false;
+    }
+
+    if (!$('#event_category_input').val()) {
+        //  No category
+        CreateEvent.onInvalidField(stringGroup.category);
+        return false;
+    }
+    
+    var nameInput = $('#event_name_input');
+    if (!nameInput.val() && !nameInput.attr('placeholder')) {
         //  No name
-        CreateEvent.showInvalidField($('#event_name_input'), stringGroup.name);
+        CreateEvent.onInvalidField(stringGroup.name);
         return false;
     }
 
     var _class = CreateEvent;
     if (_class.gallery.length == 0 && !_class.categoryImage) {
         //  No photos
-        CreateEvent.showInvalidField($('.event_gallery.big'), stringGroup.photo);
+        CreateEvent.onInvalidField(stringGroup.photo);
         return false;
     }
+
+    submit.removeAttr('disabled');
+    $('#invalid_field_msg').addClass('hidden');
+
     return true;
 }
 
@@ -403,7 +461,7 @@ CreateEvent.submitEventForm = function() {
         eventObj.description = description;
     }
 
-    if (CreateEvent.validateEventObj(eventObj)){
+    if (CreateEvent.validateForm()){
         CreateEvent.createEvent(eventObj);
     }
 }
@@ -436,8 +494,8 @@ CreateEvent.syncEndTime = function(startTimeElement) {
 /**
  * Notifies the user that a field has invalid input.
  */
-CreateEvent.showInvalidField = function(element, message) {
-    $('#invalid_field_msg').html(message).css('top', element.position().top + 'px');
+CreateEvent.onInvalidField = function(message) {
+    $('#invalid_field_msg').removeClass('hidden').html(message);
 }
 
 /**
@@ -471,6 +529,98 @@ CreateEvent.onGeocodeAddressNotFound = function(address) {
 
 }
 
+/**
+ * Updates the event duration element.
+ */
+CreateEvent.onEventDurationChange = function() {
+    //  Difference in minutes
+    var minDifference;
+
+
+    var start = new Date();
+    var end = new Date();
+
+    let startTimeElement = $('#event_start_t_input');
+    let startTimeComponents = startTimeElement.val().match(/(\d+):(\d+)/);
+
+    let endTimeElement = $('#event_end_t_input');
+    let endTimeComponents = endTimeElement.val().match(/(\d+):(\d+)/);
+
+    let startDateElement = $('#event_start_d_input');
+    let endDateElement = $('#event_end_d_input');
+
+    start.setHours(Number.parseInt(startTimeComponents[1]));
+    start.setMinutes(Number.parseInt(startTimeComponents[2]));
+    
+    end.setHours(Number.parseInt(endTimeComponents[1]));
+    end.setMinutes(Number.parseInt(endTimeComponents[2]));
+
+    start.setDate(start.getDate() + startDateElement[0].selectedIndex);
+    end.setDate(end.getDate() + endDateElement[0].selectedIndex);
+
+    minDifference = (end.getTime() - start.getTime()) / 60000;
+
+    let durationElement = $('#event_duration');
+
+    if (minDifference < 0){
+        durationElement.html(Strings.createEvent.invalidField.endBeforeStart);
+        return;
+    }
+    
+    if (minDifference < 30){
+        durationElement.html(Strings.createEvent.invalidField.durationTooShort);
+        return;
+    }
+
+
+    hourDifference = Math.round(minDifference / 60);
+
+    var timeStrComponent;
+
+    let durationStrings = Strings.createEvent.duration;
+
+    if (hourDifference < 24){
+        //  Less than a day
+        var minModulo = minDifference % 30;
+        if (minModulo == 0 && minDifference % 60 == 0) {
+            //  Exact
+            if (hourDifference == 1) {
+                timeStrComponent = durationStrings.hour;
+            } else {
+                timeStrComponent = durationStrings.hours.replace('$', hourDifference);
+            }
+        } else {
+            //  Approximately
+            if (hourDifference == 1) {
+                timeStrComponent = durationStrings.approxHour;
+            } else {
+                timeStrComponent = durationStrings.approxHours.replace('$', hourDifference);
+            }
+        }
+    } else {
+        //  More than a day
+        var dayDifference = Math.floor(hourDifference / 24);
+        hourDifference %= 24;
+        
+        if (dayDifference == 1) {
+            if (hourDifference == 0){
+                timeStrComponent = durationStrings.day;
+            } else if (hourDifference == 1){
+                timeStrComponent = durationStrings.dayHour;
+            } else {
+                timeStrComponent = durationStrings.dayHours.replace('$', hourDifference);
+            }
+        } else {
+            timeStrComponent = durationStrings.days.replace('$', dayDifference);
+        }
+    }
+    if (minModulo < 15) {
+
+    }
+
+    durationElement.html(durationStrings.base.replace('$', timeStrComponent));    
+}
+
 $(function(){
     $('#event_category_input').on('input', function(){
         //  Fetch suggested categories
@@ -479,7 +629,10 @@ $(function(){
         CreateEvent.handleCategoryKeyEvent(e);
     }).on('change', function(){
         CreateEvent.maybeSuggestEventName();
-        CreateEvent.maybeFetchCategoryImage($(this).val());
+        
+        if ($('#event_cat_gallery_input')[0].checked) {
+            CreateEvent.fetchCategoryImage($(this).val());
+        }
     }).on('blur', function(){
         //  Category input lost focus
         CreateEvent.hideSuggested();
@@ -520,10 +673,17 @@ $(function(){
         GUI.changeLayout($('#frontpage_page'));
     });
 
-    $('#event_cat_cover_input').change(function(){
+    $('#event_cat_gallery_input').change(function(){
         if (!this.checked){
             //  Don't use a default category image
+            CreateEvent.removeGalleryItem(CreateEvent.gallery.findIndex(function(e){
+                return e == CreateEvent.categoryImage;
+            }));
             CreateEvent.categoryImage = undefined;
+        } else {
+            CreateEvent.fetchCategoryImage(
+                $('#event_category_input').val()
+            );
         }
     });
 
@@ -534,11 +694,18 @@ $(function(){
         if (!CreateEvent.endTimeChanged){
             CreateEvent.syncEndTime($(this));
         }
+        CreateEvent.onEventDurationChange();
     });
 
     $(eventEndTimeInput).change(function(){
         //  End time did change
         CreateEvent.endTimeChanged = true;
+        CreateEvent.onEventDurationChange();
+    });
+
+    $('#event_start_d_input, #event_end_d_input').change(function(){
+        //  Date changed
+        CreateEvent.onEventDurationChange();
     });
 
     //  Check map search input
@@ -554,4 +721,19 @@ $(function(){
         e.preventDefault();
         CreateEvent.submitEventForm();
     });
+
+    //  The following are dependent for form validation
+    $('#event_name_input, #event_category_input').change(function(){
+        CreateEvent.validateForm();
+    });
+
+    CreateEvent.validateForm();
+    
+    $('.event_gallery .remove').click(function(){
+        var topParent = $(this).closest('div[data_index]');
+
+        CreateEvent.removeGalleryItem(topParent.attr('data_index'));
+    });
+
+    CreateEvent.onEventDurationChange();
 });

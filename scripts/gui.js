@@ -16,13 +16,18 @@ GUI.changeLayout = function(newLayout) {
     }
 
     var currentLayout = $('.page[data-current]');
+
+    if (newLayout[0].id == currentLayout[0].id) {
+        return;
+    }
+
     currentLayout.removeAttr('data-current');
 
-    newLayout.attr('data-current', '1').removeClass('hidden');
+    newLayout.addClass('showing').attr('data-current', '1').removeClass('hidden');
 
-    var transitionEvent = 'webkitTransitionEnd transitionend';
-    currentLayout.addClass('hiding').on(transitionEvent, function(){
-        $(this).removeClass('hiding').addClass('hidden').off(transitionEvent);
+    var _event = 'webkitAnimationEnd animationend';
+    currentLayout.addClass('hiding').on(_event, function(){
+        $(this).removeClass('hiding').addClass('hidden').off(_event);
     });
 }
 

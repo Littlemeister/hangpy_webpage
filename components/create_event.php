@@ -84,9 +84,9 @@
 				<input id="event_end_t_input" type="time" required class="event_duration_time">
 				<select id="event_end_d_input" class="event_duration_date"></select>
 			</div>
+			
+			<p id="event_duration"></p>
 		</div>
-
-		<p id="event_duration"></p>
 
 		
 		<h2>
@@ -167,16 +167,24 @@
 		</h2>
 
 		<input id="event_gallery_file" type="file" class="hidden">
-		<div class="event_gallery big"></div>
+		<div class="event_gallery big" data_index="0">
+			<a class="remove"></a>
+		</div>
 		<div class="center">
-			<div class="event_gallery small"></div>
-			<div class="event_gallery small"></div>
-			<div class="event_gallery small"></div>
+			<div class="event_gallery small disabled" data_index="1">
+				<a class="remove"></a>
+			</div>
+			<div class="event_gallery small disabled" data_index="2">
+				<a class="remove"></a>
+			</div>
+			<div class="event_gallery small disabled" data_index="3">
+				<a class="remove"></a>
+			</div>
 		</div>
 
 		<div>
-			<input id="event_cat_cover_input" type="checkbox" checked>
-			<label for="event_cat_cover_input">
+			<input id="event_cat_gallery_input" type="checkbox" checked>
+			<label for="event_cat_gallery_input">
 				<?php
 				
 				echo $from_lang([
@@ -210,8 +218,13 @@
 
 			?>"></textarea>
 
+
+		<p id="invalid_field_msg">
+			Add atleast one photo
+		</p>
+
 		<div class="right">
-			<button id="event_create_submit" type="submit">	
+			<button id="event_create_submit" type="submit" disabled>	
 				<?php
 					
 				echo $from_lang([
@@ -221,11 +234,6 @@
 
 				?>
 			</button>
-		</div>
-
-		<div id="invalid_field_msg">
-			<span class="notch"></span>
-			Add atleast one photo
 		</div>
 	</form>
 </section>

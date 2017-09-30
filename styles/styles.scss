@@ -8,11 +8,14 @@ $ease: cubic-bezier(0.645, 0.045, 0.355, 1);
 $ease_in: cubic-bezier(0.55, 0.055, 0.675, 0.19);
 $ease_out: cubic-bezier(0.215, 0.610, 0.355, 1);
 
-//  Padding on a pade
+//  Padding on a page
 $page_padding: 18px;
 
 //	Border radius for dialogs
 $dialog_radius: 18px;
+
+//  Size of a floating remove button
+$remove_btn_size: 28px;
 
 //  Global stylesheet
 @import "global";

@@ -6,7 +6,7 @@
 
 ?>
 
-<div class="visible modal_bg">
+<div class="modal_bg">
 	<div id="login_dialog" class="dialog">
 		<div id="login_background">
 		

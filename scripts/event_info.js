@@ -14,6 +14,11 @@ EventInfo.changeLayoutAfterFetch = false;
 EventInfo.currentEventId = 0;
 
 /**
+ * Child index of current gallery item.
+ */
+EventInfo.currentGalleryItem = 0;
+
+/**
  * Fetch buffer.
  */
 EventInfo.repliesPerPost = 8;
@@ -29,31 +34,85 @@ EventInfo.numOfPreviewPosts = 4;
 EventInfo.fetchAll = function(eventId){
 	EventInfo.currentEventId = eventId;
 
-	Backend.request("out=event_details&event_id=" + eventId, undefined, EventInfo.parseAllFetch);
-	EventInfo.fetchAttendeesPreview(eventId);
+	Backend.request("out=event_details&query_attendees_count&event_id=" + eventId, undefined, EventInfo.parseAllFetch);
+	EventInfo.attendeesPage = 0;
+	EventInfo.fetchNextAttendees(eventId);	//	Preview will be populated
 	EventInfo.fetchUserPosts(eventId);
+
+	//	For sharing event
+	$('#event_share_c input').val(document.baseURI + 'event/' + eventId);
 }
 
 EventInfo.parseAllFetch = function(response){
-	var obj = JSON.parse(response);
+	var changeLayoutAfterFetch = EventInfo.changeLayoutAfterFetch;
+	if (changeLayoutAfterFetch) {
+		GUI.hideFullscreenLoading();
+	}
+
+	if (!response){
+		Notification.show(Strings.eventInfo.notFound);
+		return;
+	}
+
+	var obj = EventInfo.eventData = JSON.parse(response);
 	
 	var classPrefix = '.event_';
 	$(classPrefix + 'host').text(obj.host);
 	$(classPrefix + 'category').text(obj.category);
 	$(classPrefix + 'location').text(obj.location);
 	$(classPrefix + 'name').text(obj.name);
+	$(classPrefix + 'attendees_count').text(obj.attendees_count);
+
+	var startDate = new Date(obj.start);
+	var endDate = new Date(obj.end);
+	
+	var startDay = startDate.getDate();
+
+	$('#event_start_date').text(startDay + ' ' + Strings.months[endDate.getMonth()].substring(0, 3));
+
+	var endDay = endDate.getDate();
+	var endDateElement = $('#event_end_date');
+	if (startDay == endDay) {
+		//	Same day
+		endDateElement.hide();
+	} else {
+		endDateElement.text(endDay + ' ' + Strings.months[endDate.getMonth()].substring(0, 3));
+	}
 	
 	let hasDescription = obj.description !== undefined;
-	$('#event_description p').text(hasDescription ? obj.description : 'Eventet har ingen info')
+	$('#event_description').text(hasDescription ? obj.description : Strings.eventInfo.noDescription)
 		.toggleClass('empty', hasDescription);
 	
 	//	Append gallery
-	let galleryContainer = $('#event_gallery').html('');
-	for (let galleryItem of obj.gallery) {
+	var galleryContainer = $('#event_gallery').html('');
+
+	//	Container for quickly changing gallery items
+	var quickContainer = $('#event_header #quick_container').html('');
+
+	$('#event_info_delete').toggle(obj.user_hosted);
+	$('#event_info_approve').toggle(!obj.user_hosted);
+
+	//	Initially hide the button to show all attendees
+	$('#event_info_attendees_show_all').hide();
+
+	for (let n = 0; n < 4; n++)
+	for (let i = 0; i < obj.gallery.length; i++) {
+		const _i = i + n;
+
 		$('<div class="event_gallery_item">')
-			.css('background-image', 'url(' + obj.base_image_url + galleryItem + ')')
+			.css('background-image', 'url(' + obj.base_image_url + obj.gallery[i] + ')')
 			.appendTo(galleryContainer);
+
+		$('<a>').click(function(){
+
+			EventInfo.changeGalleryItem(_i);
+
+		}).appendTo(quickContainer);
 	}
+
+	$('.event_gallery_item').addClass('right');
+
+	EventInfo.changeGalleryItem(EventInfo.currentGalleryItem);
 	
 	//	Setup map
 	var map = EventInfo.map;
@@ -72,52 +131,9 @@ EventInfo.parseAllFetch = function(response){
 		position: pos,
 		map: map
 	});
-	
-	if (EventInfo.changeLayoutAfterFetch) {
+
+	if (changeLayoutAfterFetch) {
 		GUI.changeLayout($('#event_info_page'));
-		GUI.hideFullscreenLoading();
-	}
-}
-
-/**
-*	Fetches the attendees shown in the attendees preview.
-*/
-EventInfo.fetchAttendeesPreview = function(eventId) {
-	EventInfo.fetchAttendees(eventId, EventInfo.parseAttendeesPreview, 4);
-}
-
-EventInfo.parseAttendeesPreview = function(response){
-	var obj = JSON.parse(response);
-	
-	EventInfo.appendAttendees(obj);
-}
-
-/**
-*	Generic fetch attendees function.
-*/
-EventInfo.fetchAttendees = function(eventId, callback, limit){
-	var outQuery = "out=attendees&event_id=" + eventId;
-	if (limit) {
-		outQuery += "&limit=" + limit;
-	}
-	
-	Backend.request(outQuery, undefined, callback);
-}
-
-/**
-*	Appends attendee list items to the attendees list.
-*	An object obtained from the server as a attendees fetch response should be passed. 
-*/
-EventInfo.appendAttendees = function(fullAttendeesObj) {
-	var container = $('#event_info_attendees').html('');
-	
-	for (let attendee of fullAttendeesObj.attendees) {
-		$('<li>').append(
-			$('<div class="profile_picture">')
-				.css('background-image', 'url(' + fullAttendeesObj.base_picture_url + attendee.picture_url + ')')
-		).append(
-			$('<p>').text(attendee.name)
-		).appendTo(container);
 	}
 }
 
@@ -129,7 +145,8 @@ EventInfo.initMap = function(){
 	
 	var map = EventInfo.map = new google.maps.Map($('#event_info_map')[0], {
 		center: initialLocation,
-		zoom: 8
+		zoom: 12,
+		fullscreenControl: false
 	});
 }
 
@@ -408,6 +425,65 @@ EventInfo.parseDeletePost = function(response, postId) {
 		'#event_info_comments li[data-reply-to=' + postId + ']').remove();
 }
 
+EventInfo.changeGalleryItem = function(childIndex){
+	var galleryItemCount = $('#event_gallery')[0].children.length;
+	
+	while (childIndex >= galleryItemCount){
+		childIndex -= galleryItemCount;
+	}
+
+	while (childIndex < 0){
+		childIndex += galleryItemCount;
+	}
+
+	let item = $('.event_gallery_item:nth-child(' + (childIndex + 1) + ')')
+		.removeClass('left').removeClass('right');
+
+	item.prevAll().addClass('left').removeClass('right');
+	item.nextAll().addClass('right').removeClass('left');
+
+	EventInfo.currentGalleryItem = childIndex;
+
+	var quickBtns = $('#event_header #quick_container a').removeClass('selected');
+	quickBtns[childIndex].classList.add('selected');
+}
+
+/**
+ * Attempts to delete an event.
+ */
+EventInfo.deleteEvent = function(eventId){
+	//	Keeping beta reject_event
+	Backend.request("action=reject_event&event_id=" + eventId, null, EventInfo.parseDeleteEvent);
+}
+
+EventInfo.parseDeleteEvent = function(response){
+	if (response == SUCCESS){
+		//	Successfully deleted event
+		GUI.changeLayout($('#frontpage_page'));
+		Notification.show(Strings.eventInfo.didDelete.replace('$', EventInfo.eventData.name));
+	}
+}
+
+EventInfo.setShareVisibility = function(visible){
+	var element = $('#event_share_c').removeClass('gone')
+		.toggleClass('visible', visible);
+
+	if (visible) {
+		//	Show
+		$(document.body).click(EventInfo.shareDimissHandler = function(){
+			//	Clicked outside of share view
+			EventInfo.setShareVisibility(false);
+
+			$(this).unbind('click', EventInfo.shareDimissHandler);
+			EventInfo.shareDimissHandler = undefined;
+		});
+	} else {
+		const _event = 'transitionend webkitTransitionEnd';
+		element.on(_event, function() {
+			$(this).addClass('gone').off(_event);
+		});
+	}
+}
 
 $(function(){
 	//	Button to approve current event
@@ -428,8 +504,63 @@ $(function(){
 		input.val('');
 	});
 
-	$('#event_info_nav_back').click(function(){
+	var prefix = '#event_';
+
+	$(prefix + 'info_nav_back').click(function(){
 		//	Go back to frontpage
 		GUI.changeLayout($('#frontpage_page'));
+	});
+
+	$(prefix + 'expand_map').click(function(){
+		//	Toggle map expand
+		$('#event_info_meta').toggleClass('expanded');
+	});
+
+	//	Share button
+	$(prefix + 'info_share').click(function(e){
+		e.stopPropagation();
+		e.preventDefault();
+		EventInfo.setShareVisibility(true);
+	});
+
+	$(prefix + 'share_c').click(function(e){
+		//	Prevents hiding itself
+		e.stopPropagation();
+		e.preventDefault();
+	});
+
+	prefix += 'info_';
+
+	$(prefix + 'info_map_c').on('webkitTransitionEnd transitionend', function(){
+		//	Did finish expand animation; did change size
+		google.maps.event.trigger(EventInfo.map, "resize");
+	});
+
+	$(prefix + 'info_delete').click(function(){
+		//	Confirm event delete
+		ModalDialog.show($('#confirm_delete_event'));
+	});
+	
+	$(prefix + 'attendees_show_all').click(function(){
+		//	Show all attendees
+		ModalDialog.show($('#event_attendees_all'));
+	});
+
+	$('#confirm_delete_event .confirm').click(function(){
+		//	Confirm delete event
+		EventInfo.deleteEvent(EventInfo.currentEventId);
+	});
+
+
+	//	Gallery navigation
+	prefix = '#event_gallery_';
+
+	$(prefix + 'next').click(function() {
+		//	Change to next gallery item
+		EventInfo.changeGalleryItem(++EventInfo.currentGalleryItem);
+	});
+	$(prefix + 'prev').click(function(){
+		//	Change to previous gallery item
+		EventInfo.changeGalleryItem(--EventInfo.currentGalleryItem);
 	});
 });

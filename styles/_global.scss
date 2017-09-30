@@ -14,12 +14,14 @@ a,
 p,
 h1,
 h2,
+h3,
 div,
 button,
 input,
 textarea,
 select,
 option {
+  font-weight: normal;
   font-family: bpreplay, sans-serif;
 }
 
@@ -40,37 +42,43 @@ input:focus {
 /* A page as part of the SPA structure */
 .page {
   position: absolute; /* May overlap */
-  transition: opacity 250ms $ease, transform 250ms $ease;
   opacity: 1;
+  padding: $page_padding;
   transform: none;
   background: #FAFAFA;
   border-radius: 8px;
 }
 
+.page.showing {
+  animation: show_page 250ms $ease;
+}
+
 /* Hiding page */
-.page.hidden,
 .page.hiding {
-  opacity: 0;
-  transform: translateY(64px);
+  animation: hide_page 250ms $ease;
 }
 
 /* Hidden page */
 .page.hidden {
-  visibility: hidden;
+  display: none;
 }
 
 @keyframes show_page {
   0% {
     opacity: 0;
+    transform: translateY(64px);
   }
+}
 
+@keyframes hide_page {
   100% {
-    opacity: 1;
+    opacity: 0;
+    transform: translateY(64px);
   }
 }
 
 /* Fullscreen loading overlay */
-#fullscreen_loading {
+.fullscreen_overlay {
   position: fixed;
   left: 0;
   right: 0;
@@ -104,7 +112,12 @@ button {
 	border-radius: 12px;
 }
 
-button:active {
+button[disabled] {
+  opacity: 0.75;
+}
+
+button:active,
+button:focus {
 	outline: none;
 }
 
@@ -177,5 +190,30 @@ input.hidden {
   user-select: none;
   position: absolute;
   left: -50vw;
+  opacity: 0;
+}
+
+/* Document loading */
+#document_loading {
+  background: $primary;
+
+  /* Logo */
+  img {
+    max-width: 240px; 
+  }
+
+  /* Center everything */
+  * {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  z-index: 999;
+  transition: opacity 250ms $ease_in;
+}
+
+#document_loading.hiding {
   opacity: 0;
 }
