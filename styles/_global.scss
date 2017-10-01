@@ -41,7 +41,7 @@ input:focus {
 
 /* A page as part of the SPA structure */
 .page {
-  position: absolute; /* May overlap */
+  position: absolute; /* may overlap - but needed for animation*/
   opacity: 1;
   left: 50%;
   transform: translateX(-50%); /* Center */
@@ -63,6 +63,14 @@ input:focus {
 .page.hidden {
   display: none;
 }
+
+.hide{
+  display:none;
+}
+.show{
+  display:block !important;
+}
+
 
 @keyframes show_page {
   0% {
@@ -95,6 +103,7 @@ input:focus {
   max-width: 1040px;
   width: 100%;
   margin: auto;
+  position: relative;
 }
 
 /* Main font */
@@ -200,7 +209,7 @@ input.hidden {
 
   /* Logo */
   img {
-    max-width: 240px; 
+    max-width: 240px;
   }
 
   /* Center everything */
