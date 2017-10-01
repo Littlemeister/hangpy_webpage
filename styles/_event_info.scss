@@ -1,7 +1,8 @@
 
 #event_info_page {
-  max-width: calc(66.66% - 15px);
-  width: 100%;
+  min-width: 756px;
+  max-width: 1040px;
+  width: calc(66.66% - 15px);
   border-radius: 15px;
 }
 
@@ -284,6 +285,17 @@ $attendee_width: 146px;
     text-align: center;
     height: 140px;
     width: $attendee_width;
+    border-radius: 8px;
+    transition: background 250ms $ease;
+    box-sizing: border-box;
+    padding-top: 12px;
+  }
+
+  /* Clickable */
+  li:hover {
+    cursor: pointer;
+    transition-duration: 100ms;
+    background: rgba($primary, 0.33);
   }
   
   /* Profile picture of the attendee */
@@ -371,7 +383,7 @@ $attendee_width: 146px;
 }
 
 #event_attendees_preview {
-  height: 120px;
+  height: 140px;
   margin-bottom: 48px;
 }
 
@@ -450,6 +462,40 @@ $attendee_width: 146px;
   }
 }
 
-hr{
-  width: 96%;
+/* Attendee details dialog */
+#user_details_dialog {
+  width: 60%;
+  max-width: 395px;
+
+  .display_name {
+    font-size: 28px;
+  }
+
+  /* Profile picture */
+  .profile_picture {
+    width: 128px;
+    height: 128px;
+    margin: auto;
+    border-radius: 50%;
+    margin-bottom: 24px;
+    border: 4px solid #fafafa; /* Prevents background complimentary colors */
+  }
+
+  p {
+    font-size: 20px;
+    margin: 12px 0;
+  }
+
+  /* Field icon */
+  .icon {
+    position: relative;
+    top: 10px;
+    margin-right: 4px;
+  }
+
+  /* Bio */
+  .bio {
+    margin-top: 36px;
+    color: rgba(#FAFAFA, 0.85);
+  }
 }

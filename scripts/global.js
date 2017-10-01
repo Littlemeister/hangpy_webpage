@@ -26,8 +26,23 @@ Global.parseUrl = function(){
 	} else if (/create(\/?)/.test(url)) {
 		GUI.changeLayout($('#create_event_page'));
 	} else if (/me(\/?)/.test(url)) {
+		//	View own profile
 		GUI.changeLayout($('#profile_page'));
+	} else if (/user(\/?)/.test(url)) {
+		//	View user details
+		
+		var userId = url.match(/user\/(.*?)(\/|$)/);
+		if (userId && userId.length > 1) {
+			UserDetailsDialog.fetchAndShow(userId[1]);
+		}
 	}
+}
+
+Global.initNavbar = function(){
+	$('#home_nav').click(function(){
+		//	Navigate to frontpage
+		GUI.changeLayout($('#frontpage_page'));
+	});
 }
 
 $(function(){
@@ -48,6 +63,7 @@ $(function(){
 		//	Offset hides scrollbar
 		this.style.height = (this.scrollHeight + 4) + 'px';
 	});
+	Global.initNavbar();
 
 	Global.parseUrl();
 

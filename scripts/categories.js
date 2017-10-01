@@ -18,15 +18,18 @@ Categories.parseTrending = function(response){
 	var json = JSON.parse(response);
 	
 	var container = $('#trending_cat_container');
+	for (var i = 0; i < 5; i++)
 	for (var category of json.categories) {
 		const categoryName = category.name;
 		
 		container.append(
 			$('<article class="frontpage_article">').append(
-				$('<div class="cover">').
-                	css('background-image', 'url("' + json.base_image_url + category.picture_url + '")')
-			).append(
-				$('<h2>').text(categoryName)
+				$('<div>').append(
+					$('<div class="cover">').
+						css('background-image', 'url("' + json.base_image_url + category.picture_url + '")')
+				).append(
+					$('<h2 class="event_name overlay">').text(categoryName)
+				)
 			).click(function(){
 				Categories.selectForFilter(categoryName);
 			})
@@ -62,10 +65,13 @@ Categories.parseDefaultImage = function(response) {
 *	Selects a specific category for a filter.
 */
 Categories.selectForFilter = function(category) {
-	$('#events_header').html('Explore ')
+	$('#events_header').html(Strings.frontpage.explorePrefix)
 		.append($('<span>').text(category));
 	
-	Events.category = category;
+	Events.filters.category = category;
 	Events.clear();
 	Events.fetch();
+
+	//	Hide dialog
+	ModalDialog.hide($('#trending_cat_dialog'));
 }

@@ -26,6 +26,11 @@ $from_lang = function($options) {
     return isset($options[$lang]) ? $options[$lang] : $options['en'];
 };
 
+/* Chooses a random element from an array */
+function random($array){
+    return $array[rand(0, count($array) - 1)];
+}
+
 echo <<<EOD
 
 
@@ -33,6 +38,28 @@ echo <<<EOD
 
 function Strings(){}
 var str = Strings;
+
+str.frontpage = {
+    explorePrefix: "{$from_lang([
+        "en" => "Explore ",
+        "sv" => "Utforska "
+    ])}",
+    mainEventsHeading: {
+        day: "{$from_lang([
+            "en" => random(["Get the day rollin'", "Let's jog the mind", "Hangover's gone?", "Make the day yours"]),
+            "sv" => random(["Explore "])
+        ])}",
+        night: "{$from_lang([
+            "en" => random(["Today's looking bright", "Anything can happen today", "Now's the time to hang out", "How's today's journey?"]),
+            "sv" => random(["Explore "])
+        ])}",
+        morning: "{$from_lang([
+            "en" => random(["Sun's gone!", "It's time to shine"]),
+            "sv" => random(["Explore "])
+        ])}"
+    }
+};
+
 str.eventInfo = {
     didApprove: "{$from_lang([
         "en" => "You've joined $",

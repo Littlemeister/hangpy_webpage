@@ -82,31 +82,18 @@
 
       </button>
       
-      <button id="event_info_share">
-        <?php
+      <div style="display:inline-block">
+        <button id="event_info_share">
+          <?php
 
-        echo $from_lang([
-          "en" => "Share",
-          "se" => "Dela"
-        ]);
+          echo $from_lang([
+            "en" => "Share",
+            "se" => "Dela"
+          ]);
 
-        ?>
-      </button>
-
-      <div class="group_2">
-        <button id="event_info_approve">
-            
-        <?php
-
-        echo $from_lang([
-          "en" => "Join",
-          "se" => "Häng med"
-        ]);
-
-        ?>
-        
+          ?>
         </button>
-
+        
         <div id="event_share_c" class="gone">
           <div class="notch"></div>
           <h3>
@@ -121,6 +108,21 @@
           </h3>
           <input type="text" readonly>
         </div>
+      </div>
+
+      <div class="group_2">
+        <button id="event_info_approve">
+            
+        <?php
+
+        echo $from_lang([
+          "en" => "Join",
+          "se" => "Häng med"
+        ]);
+
+        ?>
+        
+        </button>
 
         <button id="event_info_delete">
         <?php
@@ -240,5 +242,23 @@
 
     <ul class="event_attendees">
     </ul>
+  </div>
+</div>
+
+<div class="modal_bg">
+  <div id="user_details_dialog" class="dialog dark">
+    <div class="center">
+      <div class="profile_picture"></div>
+      <h2 class="display_name"></h2>
+      <p class="full_name">
+      </p>
+      <p class="phone_number"><img src="assets/ic_phone_white.png" class="icon" alt="Phone">
+        <span></span>
+      </p>
+      <p class="snapchat_username"><img src="assets/snapchat.png" class="icon" alt="Snapchat">
+        <span></span>
+      </p>
+      <p class="bio"></p>
+    </div>
   </div>
 </div>

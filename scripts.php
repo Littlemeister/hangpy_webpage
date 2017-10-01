@@ -19,6 +19,7 @@ $google_map_api_key = 'AIzaSyDUu1X38QVzgDxgNdo0jzsQhFdKoVz4hQY';
 <script src="scripts/categories.js"></script>
 <script src="scripts/event_info.js"></script>
 <script src="scripts/event_info_attendees.js"></script>
+<script src="scripts/user_details_dialog.js"></script>
 <script src="scripts/modal_dialog.js"></script>
 <script src="scripts/events.js"></script>
 <script src="scripts/create_event.js"></script>

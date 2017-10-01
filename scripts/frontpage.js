@@ -125,4 +125,20 @@ $(function(){
 	$('#create_event_caller').click(function(){
 		GUI.changeLayout($('#create_event_page'));
 	});
+
+	//	Update main events heading
+	let mainEventsHeading = $('#events_header');
+	let currentHour = new Date().getHours();
+	let mainEventsStrings = Strings.frontpage.mainEventsHeading;
+
+	if (currentHour >= 6 && currentHour < 12) {
+		//	Morning
+		mainEventsHeading.text(mainEventsStrings.morning);
+	} else if (currentHour >= 12 && currentHour < 20) {
+		//	Day
+		mainEventsHeading.text(mainEventsStrings.day);
+	} else {
+		//	Night
+		mainEventsHeading.text(mainEventsStrings.night);
+	}
 });

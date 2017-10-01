@@ -111,6 +111,10 @@ $paid_events_list_width: $article_width + $article_margin * 2;
   }
 }
 
+.modal_bg .dialog .event_name {
+  margin: 0; /* override h2 */
+}
+
 /* Cover photo */
 .frontpage_article .cover, .frontpage_pay_article .cover{
   height:100%;
@@ -260,7 +264,18 @@ $paid_events_list_width: $article_width + $article_margin * 2;
   margin-left: 15px;
 }
 
-/* Trending categories dialog */
-#trending_cat_dialog {
-  background: $primary_dark;
+/* Shown when no events have been fetched */
+#frontpage_no_events {
+  margin: 48px 0 36px 0;
+  
+  img {
+    width: 40%;
+  }
+
+  .caption {
+    margin-top: 24px;
+    font-size: 20px;
+    font-weight: bold;
+    color: $primary_dark;
+  }
 }

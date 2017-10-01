@@ -31,6 +31,8 @@ $dialog_padding: 36px;
 		border-radius: $dialog_radius;
 		min-width: 320px;
 		min-height: 180px;
+		max-height: 480px;
+		overflow-y: auto;
 
 		h2 {
 			margin: 0 0 24px 0;
@@ -43,6 +45,12 @@ $dialog_padding: 36px;
 			bottom: $dialog_padding;
 			right: $dialog_padding;
 		}
+	}
+
+	/* Dark theme */
+	.dialog.dark {
+		background: $primary_dark;
+		color: #FAFAFA;
 	}
 }
 

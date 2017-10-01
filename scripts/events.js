@@ -75,7 +75,7 @@ Events.fetch = function(page = 0) {
 	queryString += '&page=' + page + '&results=' + Events.eventsPerPage;
 	
     var filters = Events.filters;
-    
+
     //  Perform filtering
     if (filters.category) {
         queryString += '&category=' + encodeURIComponent(filters.category);
@@ -108,6 +108,8 @@ Events.fetch = function(page = 0) {
         queryString += "&long=" + longitude;
         queryString += "&distance=" + distance;
     }
+
+    Events.page = page;
     
     $('#events_loading').removeClass('hidden');
 	
@@ -116,8 +118,8 @@ Events.fetch = function(page = 0) {
 	return true;
 }
 
-Events.parseEvents = function(response, page) {
-	Event.fetching = false;
+Events.parseEvents = function(response) {
+	Events.fetching = false;
 	
 	for (var listener of Events.onFetched){
 		listener();
@@ -135,7 +137,7 @@ Events.parseEvents = function(response, page) {
     var events = obj.events;
 
     if (events.length == 0){
-		if (page == 0){
+		if (Events.page == 0){
 			//	No events whatsoever
         	Events.onNoEvents();
 		} else {
@@ -152,8 +154,9 @@ Events.parseEvents = function(response, page) {
     
     var eventsContainer = $('#frontpage_articles');
     for (let event of events) {
+        const id = event.id;
+
         $('<article class="frontpage_article">')
-            .attr('data-id', event.id)
             .toggleClass('paid', event.special)
             .append(
                 $('<div>').
@@ -164,7 +167,7 @@ Events.parseEvents = function(response, page) {
                             css('background-image', 'url("' + obj.base_image_url + event.cover_image + '")')
                     )
                     .click(function(){
-                        Frontpage.initEventInfo($(this).attr('data-id'));
+                        Frontpage.initEventInfo(id);
                     })
                 ).appendTo(eventsContainer);
     }
@@ -176,6 +179,7 @@ Events.parseEvents = function(response, page) {
 *   Called if no events are present.
 */
 Events.onNoEvents = function(){
+    $('#frontpage_no_events').removeAttr('style');
 }
 
 /**

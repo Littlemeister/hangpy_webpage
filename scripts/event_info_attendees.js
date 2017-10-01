@@ -1,5 +1,5 @@
 /**
- * An extension to EventInfo, providing functions for the attendees dialog.
+ * An extension to EventInfo, providing functions for the "all attendees" dialog.
  */
 
 /**
@@ -53,12 +53,19 @@ EventInfo.appendAttendees = function(fullAttendeesObj, selector='#event_attendee
 	var container = $(selector).html('');
 	
 	for (let attendee of fullAttendeesObj.attendees) {
-		$('<li>').append(
-			$('<div class="profile_picture">')
-				.css('background-image', 'url(' + fullAttendeesObj.base_picture_url + attendee.picture_url + ')')
-		).append(
-			$('<p>').text(attendee.name)
-		).appendTo(container);
+		const id = attendee.id;
+
+		$('<li>')
+			.append(
+				$('<div class="profile_picture">')
+					.css('background-image', 'url(' + fullAttendeesObj.base_picture_url + attendee.picture_url + ')')
+			).append(
+				$('<p>').text(attendee.name)
+			).appendTo(container)
+			.click(function(){
+				//	Show details
+				UserDetailsDialog.fetchAndShow(id);
+			});
 	}
 }
 
