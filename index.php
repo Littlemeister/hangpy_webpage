@@ -21,7 +21,7 @@ $compile_scss_externally = strpos($_SERVER['CONTEXT_DOCUMENT_ROOT'], 'partlight'
 
 if ($compile_scss) {
   if ($compile_scss_externally){
-    exec('start compile_scss.bat'); 
+    exec('start compile_scss.bat');
   } else {
     exec('compile_scss.bat');
   }
@@ -58,16 +58,16 @@ $start_page = "frontpage_page";
   </head>
 
   <body>
-    
+
     <!-- Document loading -->
     <div id="document_loading" class="fullscreen_overlay">
       <?php
-      
+
       $loading_id = NULL;
       include 'components/loading.php';
 
       ?>
-      
+
       <img src="assets/logo.png" alt="Logo">
     </div>
 
@@ -88,11 +88,11 @@ $start_page = "frontpage_page";
 
           require 'components/frontpage.php';
         ?>
-		  
+
         <?php // Paid event setup section
           require 'components/paid_event_setup.php';
         ?>
-        
+
         <?php // Create event section
           require 'components/create_event.php';
         ?>

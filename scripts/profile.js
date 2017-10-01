@@ -16,7 +16,7 @@ Profile.dirty = {};
 */
 Profile.show = function() {
     Profile.dirty = {};
-    
+
     GUI.changeLayout($('#profile'));
 }
 
@@ -34,7 +34,7 @@ Profile.save = function(){
 *   Called once the user's profile has been saved.
 */
 Profile.onSaved = function(){
-    
+
 }
 
 /**
@@ -42,27 +42,27 @@ Profile.onSaved = function(){
 */
 Profile.setupElements = function(){
     var data = User.current;
-    
+
     $('#profile_picture').attr('src', data.picture_url);
     $('#display_name').text(data.display_name);
     $('#full_name').text(data.name);
     $('#phone_num_hidden').attr('checked', data.phone_num_hidden);
-    
+
     //  Profile.dirty has underscores so it can be passed in POST
-    
+
     $('#bio').val(data.bio || '').change(function(){
         Profile.dirty.bio = $(this).val();
     });
-    
+
     var suffix = '-name-input';
     $('#display' + suffix).change(function(){
         Profile.dirty.display_name = $(this).val();
     });
-    
+
     $('#phone-num-hidden').change(function(){
         Profile.dirty.phone_num_hidden = this.checked;
     });
-    
+
     $('#snapchat-input').val(data.snapchat_username || '').change(function(){
         Profile.dirty.snapchat_username = $(this).val();
     });
@@ -73,17 +73,17 @@ Profile.setupElements = function(){
 */
 Profile.changeProfilePicture = function(pictureFile) {
     var fileReader = new FileReader();
-    
+
     fileReader.onload = function(){
         //  Update image
-        
+
     };
-    
+
     fileReader.readAsDataURL(pictureFile);
-    
+
     var formData = new FormData();
     formData.append('uploaded_file', pictureFile);
-    
+
     Backend.request('action=change_profile_picture', formData, Profile.onProfilePictureUploaded);
 }
 
@@ -98,7 +98,7 @@ Profile.onProfilePictureUploaded = function() {
 */
 Profile.convertMyEventsToHtml = function(events){
     var eventList = $('#my-events');
-    
+
     for (let event of events){
         eventList.append(
             $('<li>').append(
@@ -113,7 +113,7 @@ Profile.convertMyEventsToHtml = function(events){
 */
 Profile.convertAchievementsToHtml = function(achievements){
     var list = $('#achievements');
-    
+
     for (let event of events){
         eventList.append(
             $('<li>').append(
@@ -122,3 +122,33 @@ Profile.convertAchievementsToHtml = function(achievements){
         );
     }
 }
+
+/*
+* Swifting content to show based on click from the local navigation
+*/
+Profile.navBtnClick = function(){
+  var stylesheet = $(document)[0].styleSheets[0];
+
+  $("#profile_myEvent").click(function() {
+    $("#profile_setting_content, #profile_achivement_content").removeClass("show");
+    $("#profile_event_content").addClass("show");
+    stylesheet.insertRule('#profile_underline { left:0%; }', stylesheet.cssRules.length);
+  });
+
+  $("#profile_archivement").click(function() {
+    $("#profile_setting_content , #profile_event_content").removeClass("show");
+    $("#profile_achivement_content").addClass("show");
+    stylesheet.insertRule('#profile_underline { left:33.33%; }', stylesheet.cssRules.length);
+  });
+
+  $("#profile_settings").click(function() {
+    $("#profile_achivement_content , #profile_event_content").removeClass("show");
+    $("#profile_setting_content").addClass("show");
+    stylesheet.insertRule('#profile_underline { left:66.66%; }', stylesheet.cssRules.length);
+  });
+}
+
+$(function() {
+  $("#profile_event_content").addClass("show");
+  Profile.navBtnClick();
+});

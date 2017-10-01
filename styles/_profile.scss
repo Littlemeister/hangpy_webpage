@@ -1,12 +1,11 @@
-#profile {
-  background-color: white;
-  border-radius: 15px;
-  position: relative;
-  margin-top: 150px;
-  margin-bottom: 15px;
+.page{
+  width: 100%;
+  max-width: 1040px;
+  box-sizing: border-box;
+  top: 150px;
 }
 
-#profile_picture{
+#profile_picture, .profile_pic_options{
   width: 250px;
   height: 250px;
   border-radius: 50%;
@@ -15,6 +14,36 @@
   right: 0;
   position: absolute;
   top: -125px; // Makes the picture go up halv of its size
+}
+
+#profile_picture:hover + .profile_pic_options, .profile_pic_options:hover{
+  opacity:1;
+  -webkit-transition: all 0.7s ease-out;
+       -moz-transition: all 0.7s ease-out;
+        -ms-transition: all 0.7s ease-out;
+         -o-transition: all 0.7s ease-out;
+            transition: all 0.7s ease-out;
+}
+
+.profile_pic_options{
+  text-align: center;
+  opacity:0;
+  background-color: rgba(4,4,4,0.5);
+  -webkit-transition: all 0.7s ease-out;
+       -moz-transition: all 0.7s ease-out;
+        -ms-transition: all 0.7s ease-out;
+         -o-transition: all 0.7s ease-out;
+            transition: all 0.7s ease-out;
+}
+
+.profile_pic_options button:first-child{
+  margin-top:70px;
+  cursor: pointer;
+}
+
+.profile_pic_options button:nth-child(2){
+  margin-top:20px;
+  cursor: pointer;
 }
 
 #name_wrap {
@@ -27,9 +56,8 @@
 #display_name{
   border-radius: 15px;
   padding: 5px;
-  border: 1px solid;
+  border: 1px solid grey;
   text-align: center;
-  color: grey;
 }
 
 #display_name:focus{
@@ -40,16 +68,28 @@
 /// NAV ///
 ///////////
 
+#profile_underline{
+  height: 10px;
+  background-color:lightgreen;
+  width: 33%;
+  position: relative;
+  border-radius: 5px;
+  margin-top: -15px;
+  left: 0%;
+  -webkit-transition: all 0.7s ease-out;
+       -moz-transition: all 0.7s ease-out;
+        -ms-transition: all 0.7s ease-out;
+         -o-transition: all 0.7s ease-out;
+            transition: all 0.7s ease-out;
+}
+
 #nav_wrapper nav ul li{
   list-style-type: none;
   display: inline-block;
-  padding-left: 6%;
-  padding-right: 6%;
-  padding-top: 10px;
-  border-bottom: 10px solid black;
-  border-color: lightgreen;
-  margin-left:2%;
-  margin-right:2%;
+  float:left;
+  width: 33%;
+  padding-bottom: 7px;
+  padding-top: 7px;
   cursor: pointer;
 }
 #nav_wrapper nav ul{
@@ -59,6 +99,60 @@
   margin-top: 45px;
 }
 #nav_wrapper nav hr{
-  margin-top: -6px;
+  position: relative;
   width: 100%;
+}
+
+/////////////////////
+// profile_content //
+/////////////////////
+#profile_setting_content, #profile_event_content, #profile_achivement_content, #profile_bio_content{
+  width: 100%;
+  margin-top:45px;
+  display:none;
+}
+///////////////////////////
+// profile_event_content //
+///////////////////////////
+#profile_event_content article{
+  width: 100%;
+  height: 50px;
+  background-color: white;
+  margin-top: 15px;
+  box-shadow: 1px 1px 2px #999999;
+  border-radius: 10px;
+  margin-top: 15px;
+}
+////////////////////////////////
+// profile_achivement_content //
+////////////////////////////////
+
+#profile_achivement_content article{
+  width: 100%;
+  height: 80px;
+  background-color: white;
+  margin-top: 15px;
+  box-shadow: 1px 1px 2px #999999;
+  border-radius: 10px;
+}
+
+#profile_achivement_content article h3{
+  line-height: 80px;
+}
+
+.profile_achivement_pic{
+  background-color: green;
+  height: 100%;
+  width: 80px;
+  border-radius: 5%;
+  float: left;
+  margin-right: 15px;
+}
+
+//////////////
+// Settings //
+//////////////
+#profile_bio{
+  height: 50px;
+  width: 50px;
 }
