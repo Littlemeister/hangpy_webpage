@@ -23,7 +23,7 @@ Categories.parseTrending = function(response){
 		const categoryName = category.name;
 		
 		container.append(
-			$('<article class="frontpage_article">').append(
+			$('<article class="article_preview">').append(
 				$('<div>').append(
 					$('<div class="cover">').
 						css('background-image', 'url("' + json.base_image_url + category.picture_url + '")')

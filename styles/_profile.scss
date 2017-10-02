@@ -1,39 +1,39 @@
-.page{
+$profile_pic_size: 256px;
+
+#profile_page {
   width: 100%;
+  margin-top: #{$profile_pic_size / 2};
   max-width: 1040px;
   box-sizing: border-box;
   top: 150px;
 }
 
-#profile_picture, .profile_pic_options{
-  width: 250px;
-  height: 250px;
+#profile_picture,
+.profile_pic_options {
+  width: $profile_pic_size;
+  height: $profile_pic_size;
   border-radius: 50%;
   margin: auto;
   left: 0;
   right: 0;
+  background-size: cover;
   position: absolute;
-  top: -125px; // Makes the picture go up halv of its size
+  top: -#{$profile_pic_size / 2};
 }
 
-#profile_picture:hover + .profile_pic_options, .profile_pic_options:hover{
-  opacity:1;
-  -webkit-transition: all 0.7s ease-out;
-       -moz-transition: all 0.7s ease-out;
-        -ms-transition: all 0.7s ease-out;
-         -o-transition: all 0.7s ease-out;
-            transition: all 0.7s ease-out;
+#profile_picture {
+  background-color: #FAFAFA;
 }
 
-.profile_pic_options{
+.profile_pic_options {
   text-align: center;
   opacity:0;
+  transition: opacity 250ms $ease;
   background-color: rgba(4,4,4,0.5);
-  -webkit-transition: all 0.7s ease-out;
-       -moz-transition: all 0.7s ease-out;
-        -ms-transition: all 0.7s ease-out;
-         -o-transition: all 0.7s ease-out;
-            transition: all 0.7s ease-out;
+}
+
+.profile_pic_options:hover {
+  opacity:1;
 }
 
 .profile_pic_options button:first-child{
@@ -53,34 +53,19 @@
   text-align: center;
 }
 
-#display_name{
-  border-radius: 15px;
-  padding: 5px;
-  border: 1px solid grey;
-  text-align: center;
-}
-
-#display_name:focus{
-  outline:none;
-}
-
 ///////////
 /// NAV ///
 ///////////
 
-#profile_underline{
+#nav_underline{
   height: 10px;
   background-color:lightgreen;
   width: 33%;
   position: relative;
   border-radius: 5px;
+  left: 0;
   margin-top: -15px;
-  left: 0%;
-  -webkit-transition: all 0.7s ease-out;
-       -moz-transition: all 0.7s ease-out;
-        -ms-transition: all 0.7s ease-out;
-         -o-transition: all 0.7s ease-out;
-            transition: all 0.7s ease-out;
+  transition: left 250ms $ease_out;
 }
 
 #nav_wrapper nav ul li{
@@ -109,7 +94,6 @@
 #profile_setting_content, #profile_event_content, #profile_achivement_content, #profile_bio_content{
   width: 100%;
   margin-top:45px;
-  display:none;
 }
 ///////////////////////////
 // profile_event_content //
@@ -155,4 +139,37 @@
 #profile_bio{
   height: 50px;
   width: 50px;
+}
+
+
+
+/* My events section */
+#my_events_section {
+  min-height: 180px; /* Leave space for loading */
+}
+
+/* Loading indicator for my events */
+#my_events_loading {
+  margin-top: 80px;
+}
+
+/* Settings label */
+#profile_page label {
+  display: block;
+  margin: 36px 0 8px 0;
+}
+
+/* Label for private phone number */
+#profile_page label.inline {
+  display: inline-block;
+  margin-top: 0;
+}
+
+/* Delete account button */
+#delete_account {
+  float: right;
+}
+
+/* Sign out button */
+#sign_out {
 }

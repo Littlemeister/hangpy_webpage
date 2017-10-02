@@ -169,9 +169,30 @@ str.createEvent = {
     }
 };
 
+str.profile = {
+    didSave: "{$from_lang([
+        "en" => "Your profile has been updated.",
+        "sv" => "Din profil har uppdaterats."
+    ])}",
+    unsavedWarning: "{$from_lang([
+        "en" => "You've made unsaved changes, which will be discarded if you leave.",
+        "sv" => "Osparade ändringar på din profil kommer att förkastas om du lämnar sidan."
+    ])}",
+};
+
+str.signIn = "{$from_lang([
+    "en" => "Sign in",
+    "sv" => "Logga in"
+])}";
+
 str.userNavProfile = "{$from_lang([
     "en" => "\$'s profile",
     "sv" => "\$s profil"
+])}";
+
+str.didUpload = "{$from_lang([
+    "en" => "Upload successful",
+    "sv" => "Logga in"
 ])}";
 
 str.genericError = "{$from_lang([

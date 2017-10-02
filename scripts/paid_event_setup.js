@@ -10,6 +10,23 @@ PaidEventSetup.startAmount = 25;
 PaidEventSetup.amountIncrement = 25;
 PaidEventSetup.scrollSteps = 0;
 
+/**
+ * Sets up several elements from an event object, and changes the layout to this.
+ */
+PaidEventSetup.setupFromEvent = function(eventObj){
+	debugger;
+
+	//	Event name
+	$('.paid_event_name').text(eventObj.name);
+
+	//	Cover image
+	$('#event_cover').css('background-image', 'url(' + eventObj.base_image_url + eventObj.gallery[0] + ')');
+
+	//	Copy metadata from event info
+
+	GUI.changeLayout($('#paid_event_setup_page'));
+}
+
 $(function(){
 	
 	//	Setup invest spinner

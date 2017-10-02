@@ -26,21 +26,19 @@ User.parseCookies = function(){
     var user = cookie.match(/user=(.+)&/);
     user = "+46721521129";
     
-    if (user && user.length > 1) {
+    var authToken = cookie.match(/auth_token=(.+)&/);
+    authToken = "7WyLpDyDhNid1H9MO0ptd1TRN1Qncksj";
+    
+    if (user && user.length > 1 && authToken.length > 1) {
         //  Has user
         //user = user[1];
-        
-        var authToken = cookie.match(/auth_token=(.+)&/);
-        authToken = "d69HxaE1Lnsm1MfeH4wClIFoH0v5tIxH";
-        
-        if (authToken.length > 1){
-            User.current.phoneNumber = user;
-            User.current.authToken = authToken;
+        User.current.phoneNumber = user;
+        User.current.authToken = authToken;
 
-            User.fetchData();
-            
-            $('#_user').html("User: " + user + ", token: " + authToken);
-        }
+        User.fetchData();
+    } else {
+        //  Alter navbar login button
+        $('#header_login').text(Strings.signIn);
     }
 }
 
@@ -207,8 +205,10 @@ User.parseCookies();
 *   The profile won't get immediately deleted but rather temporarily removed, then deleted.
 */
 User.deleteAccount = function(){
+    GUI.showFullscreenLoading();
+
     Backend.request('action=delete_account', null, function(response){
-        Profile.onDeletedAccount();
+        User.onDeletedAccount();
     });
 }
 
@@ -223,8 +223,10 @@ User.onDeletedAccount = function(){
 *   Clears user-specific cookies and signs out.
 */
 User.signOut = function(){
-    Backend.request('action=delete_account', null, function(response){
-        Profile.onSignedOut();
+    GUI.showFullscreenLoading();
+    
+    Backend.request('action=sign_out', null, function(response){
+        User.onSignedOut();
     });
 }
 
@@ -233,4 +235,14 @@ User.signOut = function(){
 */
 User.onSignedOut = function(){
     User.current = {};
+
+    //  Clear cookies
+    let expires = 'Thu, 01 Jan 1970 00:00:01 GMT';
+    document.cookie = 'user=;expires=' + expires;
+    document.cookie = 'auth_token=;expires=' + expires;
+    
+    GUI.hideFullscreenLoading();
+
+    $('#header_login').text(Strings.signIn);
+    GUI.changeLayout($('#frontpage_page'));
 }

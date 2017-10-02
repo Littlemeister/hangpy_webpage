@@ -68,7 +68,7 @@
       </ul>
     </div>
     
-    <div id="frontpage_articles">
+    <div id="article_previews">
     </div>
 
     <div id="frontpage_no_events" class="center" style="display:none">
@@ -114,9 +114,9 @@
 
       ?>
     </h1>
-    <article class="frontpage_article" data-id="29"><div><h2 class="event_name overlay">Grilla on Bergsnäsvägen 7</h2><div class="cover" style="background-image: url(&quot;http://partlight.tech/user_content/hangpy/football.jpg&quot;);"></div></div></article>
-    <article class="frontpage_article" data-id="29"><div><h2 class="event_name overlay">Grilla on Bergsnäsvägen 7</h2><div class="cover" style="background-image: url(&quot;http://partlight.tech/user_content/hangpy/football.jpg&quot;);"></div></div></article>
-    <article class="frontpage_article" data-id="29"><div><h2 class="event_name overlay">Grilla on Bergsnäsvägen 7</h2><div class="cover" style="background-image: url(&quot;http://partlight.tech/user_content/hangpy/football.jpg&quot;);"></div></div></article>
+    <article class="article_preview" data-id="29"><div><h2 class="event_name overlay">Grilla on Bergsnäsvägen 7</h2><div class="cover" style="background-image: url(&quot;http://partlight.tech/user_content/hangpy/football.jpg&quot;);"></div></div></article>
+    <article class="article_preview" data-id="29"><div><h2 class="event_name overlay">Grilla on Bergsnäsvägen 7</h2><div class="cover" style="background-image: url(&quot;http://partlight.tech/user_content/hangpy/football.jpg&quot;);"></div></div></article>
+    <article class="article_preview" data-id="29"><div><h2 class="event_name overlay">Grilla on Bergsnäsvägen 7</h2><div class="cover" style="background-image: url(&quot;http://partlight.tech/user_content/hangpy/football.jpg&quot;);"></div></div></article>
   </div>
 	
 

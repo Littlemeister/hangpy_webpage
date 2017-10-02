@@ -37,7 +37,7 @@ Events.page = 0;
 *   Clears fetched events HTML.
 */
 Events.clear = function(){
-    $('#frontpage_articles').html('');
+    $('#article_previews').html('');
 }
 
 /**
@@ -51,15 +51,11 @@ Events.fetchNextPage = function(page = 0){
 }
 
 /**
-*   Fetches event without location filtering.
-*/
-Events.fetch = function(page = 0){
-    return Events.fetchWithLocation(0.0, 0.0, 0.0, page);
-}
-
-Events.fetch = function(page = 0) {
+ * Fetches a list of events. Pass onlySpecials as true to only fetch special (paid) events.
+ */
+Events.fetch = function(page = 0, onlySpecials = false) {
 	
-	if (Events.fetching) {
+	if (!onlySpecials && Events.fetching) {
 		//	Busy
 		return false;
 	}
@@ -152,11 +148,11 @@ Events.parseEvents = function(response) {
 		Events.onLastEventFetched();
 	}
     
-    var eventsContainer = $('#frontpage_articles');
+    var eventsContainer = $('#article_previews');
     for (let event of events) {
         const id = event.id;
 
-        $('<article class="frontpage_article">')
+        $('<article class="article_preview">')
             .toggleClass('paid', event.special)
             .append(
                 $('<div>').
@@ -187,18 +183,6 @@ Events.onNoEvents = function(){
 */
 Events.onLastEventFetched = function(){
 	Events.fetchedLast = true;
-}
-
-/**
-*   Fetched a specific event.
-*/
-Events.fetchSpecific = function(eventId){
-    Backend.request('out=event_details&event_id=' + eventId, null,
-                    Events.parseEventData);
-}
-
-Events.parseEventData = function(response){
-    $('#_event-data-status').html("Event data response: " + response);
 }
 
 /**

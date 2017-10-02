@@ -15,6 +15,7 @@ $google_map_api_key = 'AIzaSyDUu1X38QVzgDxgNdo0jzsQhFdKoVz4hQY';
 <script src="scripts/backend.js"></script>
 <script src="scripts/user.js"></script>
 <script src="scripts/profile.js"></script>
+<script src="scripts/profile_camera_capture.js"></script>
 <script src="scripts/gui.js"></script>
 <script src="scripts/categories.js"></script>
 <script src="scripts/event_info.js"></script>

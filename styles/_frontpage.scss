@@ -67,7 +67,7 @@ $paid_events_list_width: $article_width + $article_margin * 2;
     width: calc(100vw - 80px);
   }
 
-  .frontpage_article {
+  .article_preview {
     width: 100%;
   }
 }
@@ -91,7 +91,7 @@ $paid_events_list_width: $article_width + $article_margin * 2;
   margin-bottom:12px;
 }
 
-.frontpage_article {
+.article_preview {
   margin: $article_margin;
   width: $article_width;
   height: $article_height;
@@ -116,24 +116,24 @@ $paid_events_list_width: $article_width + $article_margin * 2;
 }
 
 /* Cover photo */
-.frontpage_article .cover, .frontpage_pay_article .cover{
+.article_preview .cover, .frontpage_pay_article .cover{
   height:100%;
   width: 100%;
   background-size: cover;
   background-position: center;
 }
-.frontpage_article h2, .frontpage_article p, .frontpage_pay_article h2, .frontpage_pay_article p{
+.article_preview h2, .article_preview p, .frontpage_pay_article h2, .frontpage_pay_article p{
   position: absolute;
   margin-left:5px;
   margin-top: 7px;
 }
-.frontpage_article p:nth-child(2), .frontpage_pay_article p:nth-child(2){
+.article_preview p:nth-child(2), .frontpage_pay_article p:nth-child(2){
   margin-top: 45px;
 }
-.frontpage_article p:nth-child(3), .frontpage_pay_article p:nth-child(3){
+.article_preview p:nth-child(3), .frontpage_pay_article p:nth-child(3){
   margin-top: 70px;
 }
-.frontpage_article p:nth-child(4), .frontpage_pay_article p:nth-child(4){
+.article_preview p:nth-child(4), .frontpage_pay_article p:nth-child(4){
   margin-top: 95px;
 }
 
@@ -267,7 +267,7 @@ $paid_events_list_width: $article_width + $article_margin * 2;
 /* Shown when no events have been fetched */
 #frontpage_no_events {
   margin: 48px 0 36px 0;
-  
+
   img {
     width: 40%;
   }

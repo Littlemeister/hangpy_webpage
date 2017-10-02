@@ -93,7 +93,7 @@
 
           ?>
         </button>
-        
+
         <div id="event_share_c" class="gone">
           <div class="notch"></div>
           <h3>
@@ -134,6 +134,21 @@
 
         ?>
         </button>
+      </div>
+
+      <div class="group_3">
+        
+        <button id="event_info_market">
+          <?php
+
+          echo $from_lang([
+            "en" => "Market",
+            "se" => "Marknadsför"
+          ]);
+
+          ?>
+        </button>
+        
       </div>
     </div>
 

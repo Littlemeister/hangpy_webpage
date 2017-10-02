@@ -29,6 +29,15 @@ EventInfo.repliesPerPost = 8;
 EventInfo.numOfPreviewPosts = 4;
 
 /**
+ * Resets the page for viewing another event.
+ */
+EventInfo.reset = function(){
+	//	Initially hide the button to show all attendees
+	$('#event_info_attendees_show_all').hide();
+	EventInfo.hasPreviewAttendees = false;
+}
+
+/**
 *	Fetches all pieces of data for a specific event.
 */
 EventInfo.fetchAll = function(eventId){
@@ -92,8 +101,7 @@ EventInfo.parseAllFetch = function(response){
 	$('#event_info_delete').toggle(obj.user_hosted);
 	$('#event_info_approve').toggle(!obj.user_hosted);
 
-	//	Initially hide the button to show all attendees
-	$('#event_info_attendees_show_all').hide();
+	EventInfo.reset();
 
 	for (let n = 0; n < 4; n++)
 	for (let i = 0; i < obj.gallery.length; i++) {
@@ -428,11 +436,11 @@ EventInfo.parseDeletePost = function(response, postId) {
 EventInfo.changeGalleryItem = function(childIndex){
 	var galleryItemCount = $('#event_gallery')[0].children.length;
 	
-	while (childIndex >= galleryItemCount){
+	if (childIndex >= galleryItemCount){
 		childIndex -= galleryItemCount;
 	}
 
-	while (childIndex < 0){
+	if (childIndex < 0){
 		childIndex += galleryItemCount;
 	}
 
@@ -549,6 +557,11 @@ $(function(){
 	$('#confirm_delete_event .confirm').click(function(){
 		//	Confirm delete event
 		EventInfo.deleteEvent(EventInfo.currentEventId);
+	});
+	
+	$(prefix + 'market').click(function(){
+		//	Market event
+		PaidEventSetup.setupFromEvent(EventInfo.eventData);
 	});
 
 
