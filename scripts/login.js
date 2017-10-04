@@ -79,7 +79,7 @@ Login.completeProfile = function(){
 }
 
 Login.onSignedIn = function(){
-	ModalDialog.hide($('#login_dialog'));
+	ModalDialog.hide($('#sign_in_dialog'));
 	
 	Notification.show("Welcome, $!".replace('$', User.current.first_name));
 }

@@ -4,7 +4,7 @@
 
 $login_input_height: 48px;
 
-#login_dialog {
+#sign_in_dialog {
 	padding: 0;
 	overflow: hidden;
 	height: 420px;
@@ -93,11 +93,11 @@ $login_input_height: 48px;
 }
 
 /* Verification input */
-#login_dialog #login_verification {
+#sign_in_dialog #login_verification {
 	margin-top: 28px;
 }
 
-#login_dialog input[type="text"] {
+#sign_in_dialog input[type="text"] {
 	height: $login_input_height;
 	box-sizing: border-box;
 	border-radius: $login_input_height / 2;
@@ -107,7 +107,7 @@ $login_input_height: 48px;
 	border: 2px solid $primary_dark;
 }
 
-#login_dialog input[type="text"]:active {
+#sign_in_dialog input[type="text"]:active {
 	outline: none;
 }
 

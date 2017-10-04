@@ -52,7 +52,7 @@ $(function(){
 			GUI.changeLayout($('#profile_page'));
 		} else {
 			//	Show sign-in dialog
-			ModalDialog.show($('#login_dialog'));
+			ModalDialog.show($('#sign_in_dialog'));
 		}
 	});
 

@@ -146,11 +146,11 @@ button {
 }
 
 button:hover {
-  background: mix($primary, $primary_dark, 20%);
+  background-color: mix($primary, $primary_dark, 20%);
 }
 
 button.danger {
-  background: $danger;
+  background-color: $danger;
 }
 
 button.danger:hover {
@@ -267,7 +267,7 @@ input.hidden {
 .event_name.overlay {
   position: absolute;
   margin: 0;
-  padding: 18px 24px;
+  padding: 16px 22px;
   background: rgba(0, 0, 0, 0.35);
   color: #FAFAFA;
   box-sizing: border-box;

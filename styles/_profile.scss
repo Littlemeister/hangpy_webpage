@@ -132,6 +132,36 @@ $profile_pic_size: 256px;
 /* My events section */
 #my_events_section {
   min-height: 180px; /* Leave space for loading */
+
+  /* Notify badge on event article */
+  .notify_badge {
+    display: inline-block;
+    width: 36px;
+    height: 36px;
+    background: $danger;
+    position: absolute;
+    border-radius: 50%;
+    top: -12px;
+    right: -12px;
+    animation: notify_badge_shake 125ms linear;
+    animation-iteration-count: 3;
+    transform-origin: 50% 8px;
+  }
+}
+
+@keyframes notify_badge_shake {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+
+  25% {
+    transform: rotate(-15deg);
+  }
+
+  75% {
+    transform: rotate(15deg);
+  }
 }
 
 /* Loading indicator for my events */

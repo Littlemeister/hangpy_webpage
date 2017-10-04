@@ -51,11 +51,11 @@ Events.fetchNextPage = function(page = 0){
 }
 
 /**
- * Fetches a list of events. Pass onlySpecials as true to only fetch special (paid) events.
+ * Fetches a list of events.
  */
-Events.fetch = function(page = 0, onlySpecials = false) {
+Events.fetch = function(page = 0) {
 	
-	if (!onlySpecials && Events.fetching) {
+	if (Events.fetching) {
 		//	Busy
 		return false;
 	}
@@ -127,28 +127,49 @@ Events.parseEvents = function(response) {
         //$('#_events').html('Can\'t fetch events: unauthorized');
         return;
     }
+
+    Events.appendEvents({
+        fullObj: JSON.parse(response),
+        noEventsCallback: Events.onNoEvents,
+        lastEventsFetchedCallback: Events.onLastEventFetched,
+        page: Events.page,
+        eventsPerPage: Events.eventsPerPage,
+        container: $('#article_previews')
+    });
     
-    var obj = JSON.parse(response);
-    
+	
+    $('#_events').html(JSON.stringify(events));
+}
+
+/**
+ * params should be an object with the following properties:
+ *  fullObj : object returned by server
+ *  noEventsCallback : function to call if no events
+ *  lastEventsFetchedCallback : function to call if last events are fetched
+ *  eventsPerPage : number of events per page
+ *  page : page
+ *  container : container jQuery object
+ */
+Events.appendEvents = function(params) {
+    const obj = params.fullObj;
     var events = obj.events;
 
     if (events.length == 0){
-		if (Events.page == 0){
-			//	No events whatsoever
-        	Events.onNoEvents();
-		} else {
-			//	Reached last
-			Events.onLastEventFetched();
-		}
+        if (params.page == 0){
+            //	No events whatsoever
+            params.noEventsCallback();
+        } else {
+            //	Reached last
+            params.lastEventsFetchedCallback();
+        }
         return;
     }
-	
-	if (events.length < Events.eventsPerPage) {
-		//	Reached last
-		Events.onLastEventFetched();
-	}
     
-    var eventsContainer = $('#article_previews');
+    if (events.length < params.eventsPerPage) {
+        //	Reached last
+        params.lastEventsFetchedCallback();
+    }
+    
     for (let event of events) {
         const id = event.id;
 
@@ -165,10 +186,8 @@ Events.parseEvents = function(response) {
                     .click(function(){
                         Frontpage.initEventInfo(id);
                     })
-                ).appendTo(eventsContainer);
+                ).appendTo(params.container);
     }
-	
-    $('#_events').html(JSON.stringify(events));
 }
 
 /**
@@ -186,59 +205,20 @@ Events.onLastEventFetched = function(){
 }
 
 /**
-*   Fetched user posts for a specific event.
-*/
-Events.fetchUserPosts = function(eventId){
-    Backend.request('out=user_posts&event_id=' + eventId, null,
-                    Events.parseUserPosts);
+ * Fetches special events without filtering.
+ */
+Events.fetchSpecials = function() {
+    Backend.request("out=events&only_special=1", null, Events.parseSpecials);
 }
 
-Events.parseUserPosts = function(response){
-    $('#_event-posts-status').html("Event posts response: " + response);
-}
+Events.parseSpecials = function(response){
 
-/**
-*   Writes on a event; creates a user post for a specific event.
-*   If replying to another post, pass replyTo as its ID.
-*/
-Events.createUserPost = function(eventId, message, replyTo){
-
-    var postData = {
-        
-        text: message,
-        event_id: eventId
-        
-    };
-    
-    if (replyTo) {
-        postData.reply_to = replyTo;
-    }
-    
-    Backend.request('action=create_user_post', postData, Events.parseCreateUserPost);
-}
-
-Events.parseCreateUserPost = function(response){
-    $('#_event-posts-create-status').html("Response: " + response);
-}
-
-/**
-*   Approves a specific event.
-*   This means the user is interested in attending the event.
-*/
-Events.approveEvent = function(eventId){
-    Backend.request('action=approve_event&event_id=' + eventId, null,
-                    Events.parseApproveOrRejectEvent);
-}
-
-/**
-*   Rejects a specific event. 
-*   This means the user is not interested in attending the event.
-*/
-Events.rejectEvent = function(eventId){
-    Backend.request('action=reject_event&event_id=' + eventId, null,
-                    Events.parseApproveOrRejectEvent);
-}
-
-Events.parseApproveOrRejectEvent = function(response) {
-    $('#_event-react-status').html("Response: " + response);
+    Events.appendEvents({
+        fullObj: JSON.parse(response),
+        noEventsCallback: Events.onNoEvents,
+        lastEventsFetchedCallback: Events.onLastEventFetched,
+        page: Events.page,
+        eventsPerPage: Events.eventsPerPage,
+        container: $('#paid_events')
+    });
 }

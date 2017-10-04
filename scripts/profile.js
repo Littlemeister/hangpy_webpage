@@ -105,16 +105,24 @@ Profile.parseMyEvents = function(response){
 
     for (let event of events){
 		const id = event.id;
+		const hasNotification = event.has_notification;
 
         eventList.append(
             $('<article class="article_preview">').append(
                 $('<div>').append(
 					$('<h2 class="event_name overlay">').text(event.name)
 				).append(
+					hasNotification ? $('<img class="notify_badge">')
+						.attr('src', 'assets/ic_event_notification.png') : null
+				)
+				.append(
 					$('<div class="cover">').css('background-image', 'url(' + obj.base_image_url + event.cover_image + ')')
 				)
             ).click(function(){
 				//	Show event info
+				if (hasNotification){
+					$(this).find('.notify_badge').remove();
+				}
 				Frontpage.initEventInfo(id);
 			})
         );
@@ -276,8 +284,6 @@ Profile.uploadProfilePicture = function(file){
 }
 
 Profile.parseProfilePicture = function(response, file){
-	debugger;
-
 	let notify = Notification.show;
 	if (response == SUCCESS){
 		Profile.changeProfilePicture(file);

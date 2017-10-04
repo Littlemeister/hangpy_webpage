@@ -7,11 +7,9 @@
 }
 
 #event_info_nav_back{
-  margin-left: 15px;
-  position: relative;
   cursor: pointer;
-  width: 100%;
-  top: 27px;
+  margin: 0 0 18px 0;
+  font-size: 17px;
 }
 
 #event_header {
@@ -32,8 +30,6 @@
 
 .event_gallery_item {
   height: 360px;
-  background-size: cover;
-  margin-top: 37px;
   background-size: cover;
   background-position: center;
   position: absolute;
@@ -60,7 +56,7 @@ $gallery_item_translation: 48px;
 #event_gallery_nav {
   position: absolute;
   width: calc(100% - #{$page_padding * 2});
-  margin-top: 48px;
+  margin-top: 18px;
   z-index: 2;
 }
 
@@ -174,6 +170,10 @@ $expanded_margin: 320px + 32px;
     top: -$expanded_margin;
     height: 320px;
   }
+
+  #event_expand_map {
+    background-image: url('assets/ic_shrink.png');
+  }
   
   #event_info_map {
     border-radius: 0;
@@ -216,7 +216,10 @@ $expanded_margin: 320px + 32px;
   position: absolute;
   width: 48px;
   height: 48px;
-  background: $primary_dark;
+  background-color: $primary_dark;
+  background-image: url('assets/ic_expand.png');
+  background-repeat: no-repeat;
+  background-position: center;
   right: -12px;
   top: -12px;
   border-radius: 50%;
@@ -224,7 +227,8 @@ $expanded_margin: 320px + 32px;
 }
 
 #event_expand_map:hover {
-  background: $primary;
+  background-color: mix($primary, $primary_dark, 50%);
+  cursor: pointer;
 }
 
 .event_info_google_map > img{

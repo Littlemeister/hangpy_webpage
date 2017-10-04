@@ -7,7 +7,7 @@
 ?>
 
 <div class="modal_bg">
-	<div id="login_dialog" class="dialog">
+	<div id="sign_in_dialog" class="dialog">
 		<div id="login_background">
 		
 			<h2>

@@ -120,9 +120,10 @@ Events.onFetched.push(function(){
 $(function(){
 	Events.eventsPerPage = 8;
 	Events.fetch();
+	Events.fetchSpecials();
 
 	//	Button to go to create event page
-	$('#create_event_caller').click(function(){
+	$('#create_event_btn, #frontpage_no_events a').click(function(){
 		GUI.changeLayout($('#create_event_page'));
 	});
 

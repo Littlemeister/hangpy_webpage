@@ -6,8 +6,8 @@
       <input id="frontpage_tool_search" type="text" value="" placeholder="<?php
 			
 			echo $from_lang([
-				"en" => "Search",
-				"se" => "Sök"
+				"en" => "bbq, shopping, video games...",
+				"se" => "bada, shoppa, lunch..."
 			]);
 
 			?>">
@@ -15,7 +15,7 @@
     </div>
 
     <!-- Create articles -->
-    <button id="create_event_caller">  
+    <button id="create_event_btn">  
 			<?php
 			
 			echo $from_lang([
@@ -47,7 +47,15 @@
         Main events
       </h1>
       <!-- Filter articles -->
-      <button id="event_filters_btn">Filter</button>
+      <button id="event_filters_btn" title="<?php
+			
+			echo $from_lang([
+				"en" => "Filter events",
+				"se" => "Filtrera evenemang"
+			]);
+
+      ?>"><img src="assets/ic_filter.png" alt="Filter">
+      </button>
       
       <ul id="event_filters">
         <li id="filter_location">
@@ -72,18 +80,18 @@
     </div>
 
     <div id="frontpage_no_events" class="center" style="display:none">
-    <figure>  
-      <img src="assets/no_events.png" alt="Empty catbowl">
-      <figcaption class="caption">
-        <?php
-        
-        echo $from_lang([
-          "en" => "No events. Placeholder",
-          "se" => "PLACEHOLDER"
-        ]);
+      <figure>  
+        <img src="assets/no_events.png" alt="Empty catbowl">
+        <figcaption class="caption">
+          <?php
+          
+          echo $from_lang([
+            "en" => "Not much up right now. Check your filters<br>or <a>create your own event.</a>",
+            "se" => "PLACEHOLDER"
+          ]);
 
-        ?>
-      </figcaption>
+          ?>
+        </figcaption>
       </figure>
     </div>
 
@@ -98,12 +106,8 @@
 
   </div>
 
-
-
-
-  <!-- Pay articles -->
-
-  <div class="frontpage_pay_article_wrapper">
+  <!-- Paid articles -->
+  <div id="paid_events">
     <h1>
 			<?php
 			
@@ -114,9 +118,23 @@
 
       ?>
     </h1>
-    <article class="article_preview" data-id="29"><div><h2 class="event_name overlay">Grilla on Bergsnäsvägen 7</h2><div class="cover" style="background-image: url(&quot;http://partlight.tech/user_content/hangpy/football.jpg&quot;);"></div></div></article>
-    <article class="article_preview" data-id="29"><div><h2 class="event_name overlay">Grilla on Bergsnäsvägen 7</h2><div class="cover" style="background-image: url(&quot;http://partlight.tech/user_content/hangpy/football.jpg&quot;);"></div></div></article>
-    <article class="article_preview" data-id="29"><div><h2 class="event_name overlay">Grilla on Bergsnäsvägen 7</h2><div class="cover" style="background-image: url(&quot;http://partlight.tech/user_content/hangpy/football.jpg&quot;);"></div></div></article>
+    
+    <div id="frontpage_no_paid_events" class="center" style="display:none">
+      <figure>  
+        <img src="assets/no_events.png" alt="Empty catbowl">
+        <figcaption class="caption">
+          <?php
+          
+          echo $from_lang([
+            "en" => "Make your event seen!<br>Market it today.</a>",
+            "se" => "PLACEHOLDER"
+          ]);
+
+          ?>
+        </figcaption>
+      </figure>
+    </div>
+
   </div>
 	
 

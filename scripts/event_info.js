@@ -187,7 +187,7 @@ EventInfo.parseApproveEvent = function(response, eventName){
 */
 EventInfo.onNotSignedIn = function(){
 	//	Prompt sign-in
-	ModalDialog.show($('#login_dialog'));
+	ModalDialog.show($('#sign_in_dialog'));
 }
 
 /**
