@@ -2,7 +2,11 @@
 *	PAID EVENT SETUP
 */
 
-#paid_event_setup {
+$paid_page_padding: $page_padding;
+
+#paid_event_setup_page {
+
+	padding: $paid_page_padding;
 	
 	background: #FAFAFA;
 	
@@ -12,10 +16,24 @@
 		margin-bottom: 36px;
 		color: #757575;
 	}
-}
 
-.padded {
-	padding: 36px;
+	.event_info_list h3 {
+		font-size: 20px;
+		margin: 8px 0;
+	}
+	
+	/* Payment navigation */
+	.tab_nav li,
+	.nav_underline {
+		width: 49.74%;
+	}
+
+	/* Covers the entire page, including padding */
+	.cover {
+		position: relative;
+		left: -$paid_page_padding;
+		width: calc(100% + #{$paid_page_padding * 2});
+	}
 }
 
 $event_cover_height: 320px; 
@@ -64,6 +82,11 @@ $active_color: #212121;	//	Current
 		color: $inactive_color;
 		position: relative;
 		padding: 12px 16px;
+	}
+
+	/* Out of bounds */
+	li.hidden {
+		visibility: hidden;
 	}
 	
 	/* Up animation */
@@ -186,13 +209,10 @@ $active_color: #212121;	//	Current
 	}
 }
 
-/* Adjacent controls */
-#invest_num_spinner + div {
-	display: inline-block;
-	position: relative;
-}
-
 /* Invest currency */
 #invest_currency {
 	font-size: 24px;
+	position: absolute;
+	margin-top: 144px;
+	display: inline-block;
 }

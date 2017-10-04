@@ -69,6 +69,21 @@ $gallery_item_translation: 48px;
   float: right;
 }
 
+/* Gallery navigation btn */
+#event_gallery_prev,
+#event_gallery_next {
+  position: relative;
+  top: 12px;
+  opacity: 0.75;
+  transition: opacity 250ms $ease;
+}
+
+#event_gallery_prev:hover,
+#event_gallery_next:hover {
+  opacity: 0.9;
+  cursor: pointer;
+}
+
 /* Container for quick jumps to gallery items */
 #quick_container {
   position: absolute;
@@ -98,6 +113,7 @@ $gallery_item_translation: 48px;
 
 #event_info_meta {
   position: relative;
+  margin-top: 28px;
   transition: margin-top 250ms $ease;
 }
 #event_info_meta h1{
@@ -105,16 +121,19 @@ $gallery_item_translation: 48px;
   font-size: 1.8em;
 }
 
-/* Metadata icon */
-#event_info_meta img {
-  margin-right: 8px;
-  position: relative;
-  top: 4px;
-}
+/* Metadata list */
+.event_info_list {
 
-#event_info_meta h3{
-  margin: 8px 0;
-  display: inline-block;
+  /* Metadata icon */
+  img {
+    margin-right: 8px;
+    position: relative;
+    top: 4px;
+  }
+  h3 {
+    margin: 8px 0;
+    display: inline-block;
+  }
 }
 
 /* Dates */
@@ -155,6 +174,10 @@ $expanded_margin: 320px + 32px;
     top: -$expanded_margin;
     height: 320px;
   }
+  
+  #event_info_map {
+    border-radius: 0;
+  }
 
   /* Fill out right column*/
   #event_info_actions {
@@ -162,7 +185,8 @@ $expanded_margin: 320px + 32px;
     top: 0;
     right: 0;
 
-    .group_2 {
+    .group_2,
+    .group_3 {
       text-align: right;
     }
   }
@@ -171,6 +195,11 @@ $expanded_margin: 320px + 32px;
   + #event_description {
     margin-top: 64px;
   }
+}
+
+/* Button to market event */
+#event_info_market {
+  margin-top: 8px;
 }
 
 
@@ -262,7 +291,6 @@ $expanded_margin: 320px + 32px;
 
 /* Delete button */
 #event_info_delete {
-  background: #ef5350;
 }
 
 #event_description {
@@ -304,14 +332,16 @@ $attendee_width: 146px;
     height: $profile_pic_size;
     border-radius: 50%;
     margin: auto;
-    background-size: contain;
+    background-size: cover;
+    background-position: center;
   }
 }
 
 /* User posts (comments) */
 #event_info_comments {
-  li {
+  margin-top: 128px; /* Since comment form is absolute */
 
+  li {
     /* Button for deleting post */
     .delete {
       display: inline-block;
@@ -328,6 +358,8 @@ $attendee_width: 146px;
       display: inline-block;
       float: left;
       margin-right: 16px;
+      background-size: cover;
+      background-position: center;
     }
 
     .content {
@@ -435,30 +467,53 @@ $attendee_width: 146px;
   padding: 3px;
 }
 
+/* Form for writing a user post */
 #comment_form {
+  white-space: nowrap;
+  $submit_button_width: 80px;
+  position: absolute;
+  width: 100%;
+
   /* Input field */
   .input {
-
-    left: 15px;
-    min-height: 50px;
-    border-radius: 15px;
+    min-height: 64px;
     position: relative;
     width: calc(100% - 60px);
-    padding: 15px;
+    max-width: 480px;
+    padding-right: #{$submit_button_width + 24px};
+    text-align: left;
   }
 
-  .submit {
-    min-width: 120px;
-    height: 40px;
-    border-radius: 15px;
-    float: right;
-    right: 15px;
-    margin-left: 100%;
-    margin-bottom: 15px;
-    position: relative;
-    border: none;
-    background-color: burlywood;
-    cursor: pointer;
+  /* Submit button container */
+  .submit_c {
+    position: absolute;
+    display: inline-block;
+    overflow: hidden;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    transform: translateX(-#{$submit_button_width}); /* overlap text input */
+    width: $submit_button_width;
+    height: 100%;
+
+    input {
+      z-index: 1;
+      border: 0;
+      background: url('assets/ic_next_white.png') center no-repeat;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Background */
+    div:first-of-type {
+      position: absolute;
+      width: 128px;
+      height: 128px;
+      background: $primary_dark;
+      transform: translateY(-50%);
+      top: 50%;
+      border-radius: 50%;
+      z-index: -1;
+    }
   }
 }
 
@@ -480,6 +535,8 @@ $attendee_width: 146px;
     margin-bottom: 24px;
     background-color: #FAFAFA;
     border: 4px solid #fafafa; /* Prevents background complimentary colors */
+    background-size: cover;
+    background-position: center;
   }
 
   p {

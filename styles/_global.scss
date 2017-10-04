@@ -29,6 +29,26 @@ input:focus {
   outline: none;
 }
 
+/* Checkbox */
+input[type="checkbox"] {
+  width: 24px;
+  height: 24px;
+  display: inline-block;
+  background: url('assets/ic_checkbox.png');
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  /* Adjacent label */
+  + label {
+    position: relative;
+    bottom: 8px;
+  }
+}
+
+input[type="checkbox"]:checked {
+  background-position-x: -24px;
+}
+
 /* Centers content */
 .center {
   text-align: center;
@@ -49,6 +69,8 @@ input:focus {
   background: #FAFAFA;
   border-radius: 8px;
   margin-bottom: 10vh;
+  width: 75%;
+  max-width: 985px;
 }
 
 .page.showing {
@@ -121,6 +143,18 @@ button {
 	padding: 12px 16px;
 	border: none;
 	border-radius: 12px;
+}
+
+button:hover {
+  background: mix($primary, $primary_dark, 20%);
+}
+
+button.danger {
+  background: $danger;
+}
+
+button.danger:hover {
+  background: mix(#FAFAFA, #ef5350, 25%);
 }
 
 button[disabled] {

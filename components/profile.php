@@ -11,6 +11,7 @@
 
 			<div id="name_wrap">
 				<h2 id="full_name">Name</h2>
+				<h3 id="phone_number">+46000000000</h3>
 				<label for="display_name">
 					<?php
 					
@@ -28,43 +29,41 @@
 				<!-- INTE KLAR INGEN CSS INGENTING -->
 			</div>
 
-			<section id="nav_wrapper">
-				<nav>
-					<ul>
-						<li id="my_events_nav">
-						<?php
-						
-						echo $from_lang([
-						  "en" => "My Events",
-						  "se" => "Mina evenemang"
-						]);
-				
-						?>
-						</li>
-						<li id="achievements_nav">
-						<?php
-						
-						echo $from_lang([
-						  "en" => "Achievements",
-						  "se" => "Framsteg"
-						]);
-				
-						?>
-						</li>
-						<li id="settings_nav">
-						<?php
-						
-						echo $from_lang([
-						  "en" => "Settings",
-						  "se" => "Inställningar"
-						]);
-				
-						?>
-						</li>
-						<div id="nav_underline"></div>
-					</ul>
-				</nav>
-			</section>
+			<nav class="tab_nav">
+				<ul>
+					<li id="my_events_nav">
+					<?php
+					
+					echo $from_lang([
+						"en" => "My Events",
+						"se" => "Mina evenemang"
+					]);
+			
+					?>
+					</li>
+					<li id="achievements_nav">
+					<?php
+					
+					echo $from_lang([
+						"en" => "Achievements",
+						"se" => "Framsteg"
+					]);
+			
+					?>
+					</li>
+					<li id="settings_nav">
+					<?php
+					
+					echo $from_lang([
+						"en" => "Settings",
+						"se" => "Inställningar"
+					]);
+			
+					?>
+					</li>
+					<div class="nav_underline"></div>
+				</ul>
+			</nav>
 
 		</section>
 
@@ -80,18 +79,21 @@
 		</section>
 
 		<section id="achievements_section" class="section">
-			<article>
-				<div class="profile_achivement_pic"></div>
-				<h3>You are a social maniac - 500 events achived!</h3>
-			</article>
-			<article>
-				<div class="profile_achivement_pic"></div>
-				<h3>You are a social maniac - 500 events achived!</h3>
-			</article>
-			<article>
-				<div class="profile_achivement_pic"></div>
-				<h3>You are a social maniac - 500 events achived!</h3>
-			</article>
+			
+			<?php
+
+			$loading_id="achievements_loading";
+			include 'components/loading.php';
+
+			?>
+			
+			<p class="percent"></p>
+			<div id="achievements_progress">
+				<div></div>
+			</div>
+			<div id="achievements">
+			</div>
+
 		</section>
 
 		<section id="settings_section" class="section">
@@ -143,7 +145,7 @@
 
 					?>
 				</button>
-				<button id="delete_account">
+				<button id="delete_account" class="danger">
 					<?php
 					
 					echo $from_lang([
@@ -181,22 +183,50 @@
 
 			?>
 		</p>
-		<button class="confirm">
-			<?php
-			
-			echo $from_lang([
-				"en" => "Delete account",
-				"se" => "Ta bort konto"
-			]);
+		<div class="confirm_c">
+			<button class="confirm danger">
+				<?php
+				
+				echo $from_lang([
+					"en" => "Delete account",
+					"se" => "Ta bort konto"
+				]);
 
-			?>
-		<button>
+				?>
+			</button>
+		</div>
 	</div>
 
 </div>
 
 <div class="modal_bg">
-	<div id="camera_capture" class="modal">
-		<video class="target"></video>
+	<div id="camera_capture" class="dialog">
+		<div id="camera_container">
+			<div id="camera_circle_overlay"></div>
+			<video class="target" autoplay></video>
+			<canvas id="camera_img_target" width=640 height=480></canvas>
+		</div>
+		<div class="center">
+			<button id="camera_capture_accept">
+				<?php
+					
+				echo $from_lang([
+					"en" => "Use photo",
+					"se" => "Använd foto"
+				]);
+
+				?>
+			</button>
+			<button id="camera_capture_snap">
+				<?php
+					
+				echo $from_lang([
+					"en" => "Capture",
+					"se" => "Ta bild"
+				]);
+
+				?>
+			</button>
+		</div>
 	</div>
 </div>

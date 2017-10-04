@@ -178,6 +178,12 @@ str.profile = {
         "en" => "You've made unsaved changes, which will be discarded if you leave.",
         "sv" => "Osparade ändringar på din profil kommer att förkastas om du lämnar sidan."
     ])}",
+    achievements: {
+        unlocked: "{$from_lang([
+            "en" => "Unlocked",
+            "sv" => "Upplåst"
+        ])}"
+    }
 };
 
 str.signIn = "{$from_lang([
@@ -204,6 +210,25 @@ str.months = {$from_lang([
     "en" => "[ 'January', 'February', 'Mars', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ]",
     "sv" => "[ 'januari', 'februari', 'mars', 'april', 'maj', 'juni', 'juli', 'augusti', 'september', 'oktober', 'november', 'december' ]"
 ])};
+
+str.quantitySuffix = {
+    _1: "{$from_lang([
+        "en" => "st",
+        "sv" => "sta"
+    ])}",
+    _2: "{$from_lang([
+        "en" => "nd",
+        "sv" => "dra"
+    ])}",
+    _3: "{$from_lang([
+        "en" => "rd",
+        "sv" => "dje"
+    ])}",
+    other: "{$from_lang([
+        "en" => "th",
+        "sv" => "de"
+    ])}",
+}
 
 </script>
 

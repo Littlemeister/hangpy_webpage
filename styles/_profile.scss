@@ -3,9 +3,14 @@ $profile_pic_size: 256px;
 #profile_page {
   width: 100%;
   margin-top: #{$profile_pic_size / 2};
-  max-width: 1040px;
+  max-width: 960px;
   box-sizing: border-box;
   top: 150px;
+
+  /* Profile section */
+  .section {
+    margin-top: 36px;
+  }
 }
 
 #profile_picture,
@@ -23,6 +28,7 @@ $profile_pic_size: 256px;
 
 #profile_picture {
   background-color: #FAFAFA;
+  background-position: center; 
 }
 
 .profile_pic_options {
@@ -47,46 +53,26 @@ $profile_pic_size: 256px;
 }
 
 #name_wrap {
-  margin-top: 150px;
+  margin-top: #{$profile_pic_size / 2 + 24px - $page_padding};
+  margin-bottom: 24px;
   display: inline-block;
   width: 100%;
   text-align: center;
+}
+
+#full_name {
+  margin: 0;
+}
+
+#phone_number {
+  color: #646464;
+  margin: 18px 0 0 0;
 }
 
 ///////////
 /// NAV ///
 ///////////
 
-#nav_underline{
-  height: 10px;
-  background-color:lightgreen;
-  width: 33%;
-  position: relative;
-  border-radius: 5px;
-  left: 0;
-  margin-top: -15px;
-  transition: left 250ms $ease_out;
-}
-
-#nav_wrapper nav ul li{
-  list-style-type: none;
-  display: inline-block;
-  float:left;
-  width: 33%;
-  padding-bottom: 7px;
-  padding-top: 7px;
-  cursor: pointer;
-}
-#nav_wrapper nav ul{
-  margin: 0;
-  padding: 0px;
-  text-align: center;
-  margin-top: 45px;
-}
-#nav_wrapper nav hr{
-  position: relative;
-  width: 100%;
-}
 
 /////////////////////
 // profile_content //
@@ -136,9 +122,9 @@ $profile_pic_size: 256px;
 //////////////
 // Settings //
 //////////////
-#profile_bio{
-  height: 50px;
-  width: 50px;
+#bio {
+  width: 50%;
+  max-width: 480px;
 }
 
 
@@ -151,6 +137,92 @@ $profile_pic_size: 256px;
 /* Loading indicator for my events */
 #my_events_loading {
   margin-top: 80px;
+}
+
+#achievements_section {
+  /* Percent progrss label */
+  .percent {
+    margin-bottom: 8px;
+    font-size: 22px;
+    width: 64px;
+    height: 64px;
+    background: #FAFAFA;
+    border-radius: 50%;
+    position: absolute;
+    left: calc(50% - 32px);
+    margin-top: -28px;
+    text-align: center;
+    box-sizing: border-box;
+    color: $primary_dark;
+    padding-top: 18px;
+  }
+}
+
+/* Progress bar */
+#achievements_progress {
+  height: 8px;
+  background: #E0E0E0;
+  margin: 80px 0 64px 0;
+  border-radius: 4px;
+
+  div {
+    display: inline-block;
+    background: $primary_dark;
+    height: 100%;
+    width: 0;
+    transition: width 500ms $ease_out;
+    border-radius: 4px;
+  }
+}
+
+/* Achievements section */
+/* Achievements list */
+#achievements {
+  article.unlocked {
+    .icon {
+      filter: none;
+    }
+  }
+
+  /* Text container */
+  article {
+    > div {
+      display: inline-block;
+      margin-left: 24px;
+
+      position: relative;
+      bottom: 18px;
+    }
+
+    width: 50%;
+    min-width: 400px;
+    display: inline-block;
+    margin: 16px 0;
+  }
+
+  /* Achievement name */
+  .name {
+    display: inline-block;
+    margin: 0 0 18px 0;
+  }
+
+  .description {
+    margin: 0;
+  }
+
+  .icon {
+    filter: grayscale(100%);
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+    border-radius: 8px;
+  }
+
+  .unlocked_badge {
+    position: absolute;
+    margin-left: -16px;
+    margin-top: -16px;
+  }
 }
 
 /* Settings label */
@@ -172,4 +244,41 @@ $profile_pic_size: 256px;
 
 /* Sign out button */
 #sign_out {
+}
+
+$camera_width: 640px;
+$camera_height: 480px;
+
+/* Camera capture dialog */
+#camera_capture {
+  max-height: initial;
+
+  /* Video stream & capture result */
+  .target,
+  #camera_img_target,
+  #camera_container {
+    width: $camera_width;
+    height: $camera_height;
+    overflow: hidden;
+    position: relative;
+  }
+}
+
+/* Circle overlay */
+#camera_circle_overlay {
+  position: absolute;
+  z-index: 2;
+  width: $camera_height;
+  height: $camera_height;
+  margin-left: #{($camera_width - $camera_height) / 2};
+  box-sizing: border-box;
+  padding: #{$camera_height / 2};
+  transform: translate(#{-$camera_height / 2}, #{-$camera_height / 2});
+  border-radius: 50%;
+  border: #{$camera_height / 2} solid rgba(#FAFAFA, 0.66);
+}
+
+/* Capture button */
+#camera_capture_snap {
+  margin-top: 24px;
 }

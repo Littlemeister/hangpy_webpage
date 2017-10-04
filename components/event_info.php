@@ -11,12 +11,28 @@
   </p>
   <header id="event_header">
     <div id="event_gallery_nav">
-      <a id="event_gallery_prev">Prev</a>
+      <a id="event_gallery_prev">
+        <img src="assets/ic_prev_white.png" alt="<?php
+        echo $from_lang([
+          "en" => "Previous image",
+          "se" => "Förgående bild"
+        ]);
+
+        ?>">
+      </a>
       
       <div id="quick_container">
       </div>
 
-      <a id="event_gallery_next">Next</a>
+      <a id="event_gallery_next">
+        <img src="assets/ic_next_white.png" alt="<?php
+        echo $from_lang([
+          "en" => "Next image",
+          "se" => "Nästa bild"
+        ]);
+
+        ?>">
+      </a>
     </div>
     
     <div id="event_gallery">
@@ -25,7 +41,7 @@
   </header>
 
   <div id="event_info_meta">
-    <ul>
+    <ul class="event_info_list">
       <li>
         <img src="assets/ic_location.png" alt="Location">
         <h3>
@@ -62,7 +78,7 @@
 
           ?>
 
-          <span class="event_host">Eric Dahlström</span>
+          <span class="event_host">Host</span>
         </h3>
       </li>
     </ul>
@@ -124,7 +140,7 @@
         
         </button>
 
-        <button id="event_info_delete">
+        <button id="event_info_delete" class="danger">
         <?php
 
         echo $from_lang([
@@ -197,8 +213,18 @@
     </h2>
 
     <form id="comment_form" method="post">
-      <input type="text" class="input" value="" placeholder="Write something to the group"></textarea>
-      <input class="submit" type="submit" name="" value="Submit">
+      <input type="text" class="input" value="" placeholder="<?php
+
+        echo $from_lang([
+          "en" => "Write an update to others",
+          "se" => "Skriv en uppdatering till de andra"
+        ]);
+
+        ?>">
+        <div class="submit_c">
+          <div></div>
+          <input type="submit" value="">
+        </div>
     </form>
 
     <ul id="event_info_comments">

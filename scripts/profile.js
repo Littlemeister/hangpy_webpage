@@ -44,7 +44,8 @@ Profile.setupElements = function(){
 		//	Display name did change
 		Profile.saveData({ display_name: $(this).val() });
 	});
-    $('#full_name').text(data.name);
+	$('#full_name').text(data.name);
+    $('#phone_number').text(data.phoneNumber);
 
     //  Profile.dirty has underscores so it can be passed in POST
 
@@ -99,7 +100,6 @@ Profile.parseMyEvents = function(response){
 
 	var obj = JSON.parse(response);
 	var events = obj.events;
-	debugger;
 
     var eventList = $('#my_events');
 
@@ -124,18 +124,50 @@ Profile.parseMyEvents = function(response){
 }
 
 /**
-*   Converts an array of achievements to HTML.
-*/
-Profile.convertAchievementsToHtml = function(achievements){
-    var list = $('#achievements');
+ * Fetches events for the my events section.
+ */
+Profile.fetchAchievements = function() {
+	$('#achievements_loading').removeClass('hidden');
+    Backend.request('out=achievements', null, Profile.parseAchievements);
+}
 
-    for (let event of events){
-        eventList.append(
-            $('<li>').append(
-                $('<h3 class="event-header">')
-            )
-        );
-    }
+Profile.parseAchievements = function(response){
+	$('#achievements_loading').addClass('hidden');
+
+	var obj = JSON.parse(response);
+	var numUnlocked = 0;
+
+	let container = $('#achievements');
+	var article;
+	for (let item of obj.items) {
+		article = $('<article>')
+			.append(
+				$('<img class="icon">')
+					.attr('src', obj.base_icon_url + item.icon)
+					.attr('alt', item.name)
+			).append(
+				item.unlocked ? $('<img class="unlocked_badge" src="assets/ic_checked_circle.png">').attr('alt', Strings.profile.achievements.unlocked)
+					: null
+			)
+			.append(
+				$('<div>')	
+					.append(
+						$('<h4 class="name">').text(item.name)
+					).append(
+						$('<p class="description">').text(item.description)
+					)
+			).toggleClass('unlocked', item.unlocked)
+			.appendTo(container);
+
+		if (item.unlocked) {
+			numUnlocked++;
+		}
+	}
+
+	const percentUnlocked = Math.floor(100 * (numUnlocked / obj.items.length));
+
+	$('#achievements_section .percent').text(percentUnlocked + '%');
+	$('#achievements_progress').show().find('div').css('width', percentUnlocked + '%');
 }
 
 /**
@@ -143,6 +175,8 @@ Profile.convertAchievementsToHtml = function(achievements){
  */
 Profile.changeSection = function(sectionId){
 	var underlineLeft;
+	var nthCurrentNavLi;
+
 	switch (sectionId){
 		case 'my_events_section':
 		underlineLeft = '0';
@@ -150,16 +184,26 @@ Profile.changeSection = function(sectionId){
 		if (!Profile.fetchedMyEvents){
 			//	Need to fetch my events
 			Profile.fetchMyEvents();
+			Profile.fetchedMyEvents = true;
 		}
+		nthCurrentNavLi = 1;
 
 		break;
 
 		case 'achievements_section':
 		underlineLeft = '33.33%';
+		
+		if (!Profile.fetchedAchievements){
+			//	Need to fetch my events
+			Profile.fetchAchievements();
+			Profile.fetchedAchievements = true;
+		}
+		nthCurrentNavLi = 2;
 		break;
 		
 		case 'settings_section':
-		underlineLeft = '66.66%';
+		underlineLeft = '67%';
+		nthCurrentNavLi = 3;
 		break;
 
 		default:
@@ -167,13 +211,21 @@ Profile.changeSection = function(sectionId){
 		return;
 	}
 
-	$('#nav_underline').css('left', underlineLeft);
+	$('#profile_page .nav_underline').css('left', underlineLeft);
 	var section = $('#' + sectionId);
 
 	if (Profile.currentSection){
+		if (section == Profile.currentSection) {
+			//	Not changing section
+			return;
+		}
 		//	Hide old section
 		Profile.currentSection.hide();
 	}
+
+	let baseNavLiSelector = '#profile_page .tab_nav li', baseNavLiClass = 'current';
+	$(baseNavLiSelector + '.current').removeClass(baseNavLiClass);
+	$(baseNavLiSelector + ':nth-child(' + nthCurrentNavLi + ')').addClass(baseNavLiClass);
 
 	Profile.currentSection = section;
 	section.show();
@@ -214,10 +266,9 @@ Profile.setupSectionNav = function(){
  * Called once a profile picture is pending upload.
  */
 Profile.uploadProfilePicture = function(file){
-	debugger;
 	let fileName = 'uploaded_file';
 	let data = new FormData();
-	data.append(fileName, file);
+	data.append(fileName, file, '1.jpg');
 
 	Backend.request('action=change_profile_picture', data, function(response){
 		Profile.parseProfilePicture(response, file);
@@ -231,6 +282,12 @@ Profile.parseProfilePicture = function(response, file){
 	if (response == SUCCESS){
 		Profile.changeProfilePicture(file);
 		notify(Strings.didUpload);
+
+		//	Hide camera capture dialog if visible
+		if (ModalDialog.hide($('#camera_capture'))){
+			//	Did upload via camera capture
+			CameraCapture.stop();
+		}
 	} else {
 		notify(Strings.genericError);
 	}
@@ -251,7 +308,9 @@ $(function() {
 	Profile.setupSectionNav();
 
 	//	Only show default section
-	$('#profile .section:not(#' + Profile.initialSection + ')').hide();
+	$('#profile .section').hide();
+
+	Profile.changeSection(Profile.initialSection);
 
 	const profilePicFileInput = '#profile_pic_file';
 
@@ -290,4 +349,7 @@ $(function() {
 		//	First step in deleting account
 		ModalDialog.show($(confirmDeleteAccountDialog));
 	});
+
+	//	Hide achievements progress
+	$('#achievements_progress').hide();
 });

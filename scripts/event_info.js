@@ -524,6 +524,11 @@ $(function(){
 		$('#event_info_meta').toggleClass('expanded');
 	});
 
+	$(prefix + 'info_meta').on('webkitTransitionEnd transitionend', function(){
+		//	Did finish expand animation; did change size
+		google.maps.event.trigger(EventInfo.map, "resize");
+	});
+
 	//	Share button
 	$(prefix + 'info_share').click(function(e){
 		e.stopPropagation();
@@ -538,11 +543,6 @@ $(function(){
 	});
 
 	prefix += 'info_';
-
-	$(prefix + 'info_map_c').on('webkitTransitionEnd transitionend', function(){
-		//	Did finish expand animation; did change size
-		google.maps.event.trigger(EventInfo.map, "resize");
-	});
 
 	$(prefix + 'info_delete').click(function(){
 		//	Confirm event delete
