@@ -1,32 +1,95 @@
-/* Start - Making the header responsive design, with compability IE6+*/
+/* Logo */
+#home_nav {
+  top: 16px;
 
-.header_wrapper img{
-  height:80px;
-  margin-top:10px;
+  > img {
+    height: 80px;
+  }
 }
 
-.header_wrapper{
-  width:100%;
+#header_wrapper {
+  width: 100%;
   position: relative;
+  left: -36px; /* Pseudo-center */
   text-align: center;
   max-width: 650px;
   max-height: 430px;
   margin: auto;
-  height: 100px;
+  height: 128px;
+  transition: left 250ms $ease;
+  
+  /* Center children */
+  > * {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  #header_login {
+    font-size: 28px;
+    color: #FAFAFA;
+    background: none;
+    border: none;
+    cursor: pointer;
+
+    .profile_picture {
+      display: none;
+    }
+  }
 }
-/* End - Making the header responsive design, with compability IE6+*/
 
-#header_register, .header_wrapper button{
-  position: relative;
-  top: -25px;
-  margin-left: 10%;
+#header_user_c {
+  display: inline-block;
+  transform: translateX(160px);
+  top: 20px;
+  text-align: right;
+  transition: top 250ms $ease, transform 250ms $ease;
 
-  /* start - make the button transparent and style */
-  font-size:2em;
-  color:white;
-  background-color: Transparent;
-  border: none;
-  cursor:pointer;
-  outline:none;
-  /* end - make the button transparent and style */
+  .sign_out {
+    display: none;
+  }
+}
+
+/* Once signed in */
+#header_wrapper.signed_in {
+  left: 36px; /* Pseudo-center */
+
+  /* Sign out button */
+  .sign_out {
+    display: inline-block;
+    transform: translateX(-36px);
+    opacity: 0;
+    position: relative;
+    right: 16px;
+
+    transition: transform 250ms $ease_in, opacity 250ms $ease_in;
+  }
+
+  #header_user_c {
+    transform: translateX(calc(-100% - 136px));
+    top: 12px;
+  }
+  
+  #header_user_c:hover {
+    .sign_out {
+      opacity: 1;
+      transform: none;
+      transition-timing-function: $ease_out, $ease_out;
+    }
+  }
+
+  #header_login {
+    background: none;
+    border: none;
+    cursor: pointer;
+
+    .profile_picture {
+      position: relative;
+      top: 6px;
+      margin-right: 12px;
+      width: 36px;
+      height: 36px;
+      display: inline-block;
+    }
+  }
 }

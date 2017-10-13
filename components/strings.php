@@ -9,8 +9,26 @@
 *   See http://www.nationsonline.org/oneworld/country_code_list.htm
 */
 
+$languages = [
+    "en",
+    "se"
+];
 
-$lang = isset($_COOKIE['lang']) ? $_COOKIE['lang'] : 'en';
+$req_uri = str_replace('/hangpy_web', '', $_SERVER['REQUEST_URI']);
+foreach ($languages as $language) {
+    if (preg_match("/\/$language\//", $req_uri)){
+        //  Lang specified in url
+        $lang = $language;
+        break;
+    }
+}
+
+if (!isset($lang)){
+    //  Redirect with language specified
+    $lang = isset($_COOKIE['ui_lang']) ? $_COOKIE['ui_lang'] : 'en';
+    header("Location: http://localhost/hangpy_web/$lang$req_uri");
+    die();
+}
 
 /**
 *   Chooses a string from an associative array of ISO ALPHA-2 two-letter country code
@@ -40,193 +58,281 @@ function Strings(){}
 var str = Strings;
 
 str.frontpage = {
-    explorePrefix: "{$from_lang([
-        "en" => "Explore ",
-        "sv" => "Utforska "
+    discover:"{$from_lang([
+        "en" => "Explore $",
+        "se" => "Utforska $"
     ])}",
     mainEventsHeading: {
-        day: "{$from_lang([
+        day:"{$from_lang([
             "en" => random(["Get the day rollin'", "Let's jog the mind", "Hangover's gone?", "Make the day yours"]),
-            "sv" => random(["Explore "])
+            "se" => random(["Explore "])
         ])}",
-        night: "{$from_lang([
+        night:"{$from_lang([
             "en" => random(["Today's looking bright", "Anything can happen today", "Now's the time to hang out", "How's today's journey?"]),
-            "sv" => random(["Explore "])
+            "se" => random(["Explore "])
         ])}",
-        morning: "{$from_lang([
+        morning:"{$from_lang([
             "en" => random(["Sun's gone!", "It's time to shine"]),
-            "sv" => random(["Explore "])
+            "se" => random(["Explore "])
         ])}"
     }
 };
 
 str.eventInfo = {
-    didApprove: "{$from_lang([
+    didApprove:"{$from_lang([
         "en" => "You've joined $",
-        "sv" => "Du har intresserat dig för $"
+        "se" => "Du har intresserat dig för $"
     ])}",
-    noDescription: "{$from_lang([
-        "en" => "Event has no additional info.",
-        "sv" => "Evenemanget har ingen ytterligare info."
-    ])}",
-    notFound: "{$from_lang([
-        "en" => "The event doesn't exist",
-        "sv" => "Evenemanget finns inte"
-    ])}",
-    leave: "{$from_lang([
+    leave:"{$from_lang([
         "en" => "Leave",
-        "sv" => "Hoppa ur"
+        "se" => "Hoppa ur"
     ])}",
-    didDelete: "{$from_lang([
+    noDescription:"{$from_lang([
+        "en" => "Event has no additional info.",
+        "se" => "Evenemanget har ingen ytterligare info."
+    ])}",
+    notFound:"{$from_lang([
+        "en" => "The event doesn't exist",
+        "se" => "Evenemanget finns inte"
+    ])}",
+    leave:"{$from_lang([
+        "en" => "Leave",
+        "se" => "Hoppa ur"
+    ])}",
+    didDelete:"{$from_lang([
         "en" => "Deleted $",
-        "sv" => "Tog bort $"
+        "se" => "Tog bort $"
     ])}",
+    replyToPost:"{$from_lang([
+        "en" => "Reply",
+        "se" => "Svara"
+    ])}",
+    duration: {
+        base:"{$from_lang([
+            "en" => "$ ago",
+            "se" => "$ sedan"
+        ])}",
+        hour:"{$from_lang([
+            "en" => "an hour",
+            "se" => "en timme"
+        ])}",
+        hours:"{$from_lang([
+            "en" => "$ hours",
+            "se" => "$ timmar"
+        ])}",
+        minute:"{$from_lang([
+            "en" => "a minute",
+            "se" => "en minut"
+        ])}",
+        minutes:"{$from_lang([
+            "en" => "$ minutes",
+            "se" => "$ minuter"
+        ])}",
+        day:"{$from_lang([
+            "en" => "a day",
+            "se" => "en dag"
+        ])}",
+        days:"{$from_lang([
+            "en" => "$ days",
+            "se" => "$ dagar"
+        ])}"
+    },
 };
 
 str.createEvent = {
-    addPhoto: "{$from_lang([
+    addPhoto:"{$from_lang([
         "en" => "Add photo",
-        "sv" => "Lägg till foto"
+        "se" => "Lägg till foto"
     ])}",
     
     duration: {
-        base: "{$from_lang([
+        base:"{$from_lang([
             "en" => "Event will last $",
-            "sv" => "Evenemanget håller på i $"
+            "se" => "Evenemanget håller på i $"
         ])}",
-        approxHour: "{$from_lang([
+        approxHour:"{$from_lang([
             "en" => "around an hour",
-            "sv" => "ungefär en timme"
+            "se" => "ungefär en timme"
         ])}",
-        approxHours: "{$from_lang([
+        approxHours:"{$from_lang([
             "en" => "around $ hours",
-            "sv" => "ungefär $ timmar"
+            "se" => "ungefär $ timmar"
         ])}",
-        hour: "{$from_lang([
+        hour:"{$from_lang([
             "en" => "an hour",
-            "sv" => "en timme"
+            "se" => "en timme"
         ])}",
-        hours: "{$from_lang([
+        hours:"{$from_lang([
             "en" => "$ hours",
-            "sv" => "$ timmar"
+            "se" => "$ timmar"
         ])}",
-        day: "{$from_lang([
+        day:"{$from_lang([
             "en" => "a day",
-            "sv" => "en dag"
+            "se" => "en dag"
         ])}",
-        days: "{$from_lang([
+        days:"{$from_lang([
             "en" => "$ days",
-            "sv" => "$ dagar"
+            "se" => "$ dagar"
         ])}",
-        dayHour: "{$from_lang([
+        dayHour:"{$from_lang([
             "en" => "a day and an hour",
-            "sv" => "en dag och en timme"
+            "se" => "en dag och en timme"
         ])}",
-        dayHours: "{$from_lang([
+        dayHours:"{$from_lang([
             "en" => "a day and $ hours",
-            "sv" => "en dag och $ timmar"
+            "se" => "en dag och $ timmar"
         ])}",
-        daysHours: "{$from_lang([
+        daysHours:"{$from_lang([
             "en" => "$ days and $ hours",
-            "sv" => "$ dagar och $ timmar"
+            "se" => "$ dagar och $ timmar"
         ])}",
     },
     
-    nameSuggestion: "{$from_lang([
+    nameSuggestion:"{$from_lang([
         "en" => "$0 on $1",
-        "sv" => "$0 på $1"
+        "se" => "$0 på $1"
     ])}",
     
     invalidField: {
-        location: "{$from_lang([
+        location:"{$from_lang([
             "en" => "Where is your event located?",
-            "sv" => "Var hålls evenemanget?"
+            "se" => "Var hålls evenemanget?"
         ])}",
-        duration: "{$from_lang([
+        duration:"{$from_lang([
             "en" => "How long is the event?",
-            "sv" => "Hur länge hålls evenemanget?"
+            "se" => "Hur länge hålls evenemanget?"
         ])}",
-        category: "{$from_lang([
+        category:"{$from_lang([
             "en" => "What happens at the event?",
-            "sv" => "Vad händer på evenemanget?"
+            "se" => "Vad händer på evenemanget?"
         ])}",
-        name: "{$from_lang([
+        name:"{$from_lang([
             "en" => "Name your event.",
-            "sv" => "Namnge ditt evenemang."
+            "se" => "Namnge ditt evenemang."
         ])}",
-        photo: "{$from_lang([
+        photo:"{$from_lang([
             "en" => "Add atleast one photo.",
-            "sv" => "Lägg till minst ett foto."
+            "se" => "Lägg till minst ett foto."
         ])}",
-        endBeforeStart: "{$from_lang([
+        endBeforeStart:"{$from_lang([
             "en" => "Event cannot end before it starts!",
-            "sv" => "Evenemanget kan inte avslutas innan det börjat!"
+            "se" => "Evenemanget kan inte avslutas innan det börjat!"
         ])}",
-        durationTooShort: "{$from_lang([
+        durationTooShort:"{$from_lang([
             "en" => "Event needs to last atleast half an hour.",
-            "sv" => "Minst en halvtimme behöver gå."
+            "se" => "Minst en halvtimme behöver gå."
         ])}",
     }
 };
 
 str.profile = {
-    didSave: "{$from_lang([
+    didSave:"{$from_lang([
         "en" => "Your profile has been updated.",
-        "sv" => "Din profil har uppdaterats."
+        "se" => "Din profil har uppdaterats."
     ])}",
-    unsavedWarning: "{$from_lang([
+    unsavedWarning:"{$from_lang([
         "en" => "You've made unsaved changes, which will be discarded if you leave.",
-        "sv" => "Osparade ändringar på din profil kommer att förkastas om du lämnar sidan."
+        "se" => "Osparade ändringar på din profil kommer att förkastas om du lämnar sidan."
     ])}",
     achievements: {
-        unlocked: "{$from_lang([
+        unlocked:"{$from_lang([
             "en" => "Unlocked",
-            "sv" => "Upplåst"
+            "se" => "Upplåst"
         ])}"
     }
 };
 
 str.signIn = "{$from_lang([
     "en" => "Sign in",
-    "sv" => "Logga in"
+    "se" => "Logga in"
 ])}";
 
+str.signInDialog = {
+    invalidVerification:"{$from_lang([
+        "en" => "Your verification code doesn't match",
+        "se" => "Din verifieringskod stämmer inte"
+    ])}",
+    resentVerification:"{$from_lang([
+        "en" => "Verification code was re-sent",
+        "se" => "Verifieringskoden skickades igen"
+    ])}"
+};
+
+str.setupPaid = {
+    cardPlaceholder:"{$from_lang([
+        "en" => "Card number",
+        "se" => "Kortnummer"
+    ])}",
+};
+
 str.userNavProfile = "{$from_lang([
-    "en" => "\$'s profile",
-    "sv" => "\$s profil"
+    "en" => "\$'s",
+    "se" => "\$s"
+])}";
+
+str.profileHint = "{$from_lang([
+    "en" => "View your profile",
+    "se" => "Visa din profil"
 ])}";
 
 str.didUpload = "{$from_lang([
     "en" => "Upload successful",
-    "sv" => "Logga in"
+    "se" => "Logga in"
 ])}";
 
 str.genericError = "{$from_lang([
     "en" => "Something went wrong",
-    "sv" => "Något gick fel"
+    "se" => "Något gick fel"
 ])}";
 
 str.months = {$from_lang([
     "en" => "[ 'January', 'February', 'Mars', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ]",
-    "sv" => "[ 'januari', 'februari', 'mars', 'april', 'maj', 'juni', 'juli', 'augusti', 'september', 'oktober', 'november', 'december' ]"
+    "se" => "[ 'januari', 'februari', 'mars', 'april', 'maj', 'juni', 'juli', 'augusti', 'september', 'oktober', 'november', 'december' ]"
 ])};
 
 str.quantitySuffix = {
-    _1: "{$from_lang([
+    _1:"{$from_lang([
         "en" => "st",
-        "sv" => "sta"
+        "se" => "sta"
     ])}",
-    _2: "{$from_lang([
+    _2:"{$from_lang([
         "en" => "nd",
-        "sv" => "dra"
+        "se" => "dra"
     ])}",
-    _3: "{$from_lang([
+    _3:"{$from_lang([
         "en" => "rd",
-        "sv" => "dje"
+        "se" => "dje"
     ])}",
-    other: "{$from_lang([
+    other:"{$from_lang([
         "en" => "th",
-        "sv" => "de"
+        "se" => "de"
+    ])}",
+};
+
+str.eventPreviewStart = {
+    startsIn:"{$from_lang([
+        "en" => "In $",
+        "se" => "Om $"
+    ])}",
+    minutes:"{$from_lang([
+        "en" => "$ minutes",
+        "se" => "$ minuter"
+    ])}",
+    hour:"{$from_lang([
+        "en" => "an hour",
+        "se" => "en timme"
+    ])}",
+    hours:"{$from_lang([
+        "en" => "$ hours",
+        "se" => "$ timmar"
+    ])}",
+    day:"{$from_lang([
+        "en" => "a day",
+        "se" => "en dag"
+    ])}",
+    days:"{$from_lang([
+        "en" => "$ days",
+        "se" => "$ dagar"
     ])}",
 }
 

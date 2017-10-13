@@ -89,8 +89,15 @@
 		</div>
 
 		
-		<h2 id="main_events_heading">
-			Main events
+		<h2>
+			<?php
+			
+			echo $from_lang([
+				"en" => "What's up?",
+				"se" => "Vad händer?"
+			]);
+
+			?>
 		</h2>
 
 		<h3>

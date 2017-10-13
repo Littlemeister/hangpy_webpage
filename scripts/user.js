@@ -23,23 +23,26 @@ User.isSignedIn = function(){
 */
 User.parseCookies = function(){
     var cookie = document.cookie;
-    var user = cookie.match(/user=(.+)&/);
-    user = "+46721521129";
+    var user = cookie.match(/user=(.*?(?=;));/);
     
-    var authToken = cookie.match(/auth_token=(.+)&/);
-    authToken = "7WyLpDyDhNid1H9MO0ptd1TRN1Qncksj";
+    var authToken = cookie.match(/auth_token=(.*?(?=;));/);
     
-    if (user && user.length > 1 && authToken.length > 1) {
+    if (user && user.length > 1 && authToken && authToken.length > 1) {
         //  Has user
-        //user = user[1];
+        user = user[1];
+        authToken = authToken[1];
         User.current.phoneNumber = user;
         User.current.authToken = authToken;
 
         User.fetchData();
     } else {
         //  Alter navbar login button
-        $('#header_login').text(Strings.signIn);
+        User.onNotSignedIn();
     }
+}
+
+User.onNotSignedIn = function(){
+    $('#header_login span').text(Strings.signIn);
 }
 
 /**
@@ -97,9 +100,6 @@ User.parseCheckVerification = function(response, callback) {
     var user = User.current;
     user.authToken = obj.auth_token;
     
-    $('#_user').html('Respose: ' + response);
-    $('#_verif-status').html('Correct verification. Auth token: ' + obj.auth_token);
-    
     if (obj.already_signed_up) {
         User.fetchData(callback);
     } else {
@@ -140,24 +140,33 @@ User.fetchData = function(verificationCallback) {
 }
 
 User.parseData = function(response, verificationCallback) {
-    console.log("Fetch user data response: " + response);
+    if (response == UNAUTHORIZED) {
+        //  Invalid credentials
+        User.current = {};
+        User.onNotSignedIn();
+        return;
+    }
 
     var obj = JSON.parse(response);
-	
-	console.log(obj);
 	
     obj.first_name = obj.name.match(/^([\w]+)/)[0];
 
     //  Update navbar
-    $('#header_login').html(Strings.userNavProfile.replace('$', obj.first_name)).addClass('signed_in');
+    $('#header_wrapper').addClass('signed_in');
+    let headerBtn = $('#header_login').attr('title', Strings.profileHint);
+    headerBtn.find('span')
+        .html(Strings.userNavProfile.replace('$', obj.first_name));
+    headerBtn.find('.profile_picture').css('background-image', 'url(' + obj.picture_url + ')');
     
     $.extend(User.current, obj);
     
     Profile.setupElements();
-	
-	verificationCallback(SUCCESS);
     
-    $('#_user-data').html("User data: " + response);
+    if (verificationCallback) {
+        verificationCallback(SUCCESS);
+    }
+
+    User.setCookies();
 }
 
 /**
@@ -243,6 +252,7 @@ User.onSignedOut = function(){
     
     GUI.hideFullscreenLoading();
 
-    $('#header_login').text(Strings.signIn);
+    const header = $('#header_wrapper').removeClass('signed_in');
+    header.find('#header_login span').text(Strings.signIn);
     GUI.changeLayout($('#frontpage_page'));
 }

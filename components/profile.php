@@ -2,11 +2,29 @@
 	<div id="profile">
 		<section id="personal_section">
 
-			<input id="profile_pic_file" type="file" class="hidden">
+			<input id="profile_pic_file" type="file" class="hidden" accept="image/jpeg,image/png,image/gif,image/bmp,image/jpg">
 			<div id="profile_picture"></div>
 			<div class="profile_pic_options">
-				<button id="capture_profile_pic">Take picture</button>
-				<button id="change_profile_pic">Change picture</button>
+				<button id="capture_profile_pic">
+					<?php
+					
+					echo $from_lang([
+						"en" => "Take picture",
+						"se" => "Ta bild"
+					]);
+			
+					?>
+				</button>
+				<button id="change_profile_pic">
+					<?php
+					
+					echo $from_lang([
+						"en" => "Choose picture",
+						"se" => "Välj bild"
+					]);
+			
+					?>
+				</button>
 			</div>
 
 			<div id="name_wrap">
@@ -23,10 +41,6 @@
 					?>
 				</label>
 				<input id="display_name" type="text" placeholder="Add a display name" autocomplete="off" spellcheck="false">
-			</div>
-
-			<div class="picture_settings">
-				<!-- INTE KLAR INGEN CSS INGENTING -->
 			</div>
 
 			<nav class="tab_nav">
@@ -68,6 +82,21 @@
 		</section>
 
 		<section id="my_events_section" class="section">
+			<div class="no_events center" style="display:none">
+				<figure>  
+					<img src="assets/no_events.png" alt="Empty catbowl">
+					<figcaption class="caption">
+					<?php
+					
+					echo $from_lang([
+						"en" => "Join or <a>create</a> an event and it will<br>show up here.",
+						"se" => "Häng med eller <a>skapa</a> ett evenemang, då<br>visas det här."
+					]);
+
+					?>
+					</figcaption>
+				</figure>
+			</div>
 			<div id="my_events">
 				<?php
 
@@ -97,7 +126,41 @@
 		</section>
 
 		<section id="settings_section" class="section">
-			<p class="phone_num"></p>
+			<div>
+				<input id="lang_en" type="radio" name="lang" data_lang="en"
+					<?php
+						
+					echo $from_lang([
+						"en" => "checked",
+						"se" => ""
+					]);
+			
+					?>>
+				<label for="lang_en" class="inline">English</label>
+
+				<input id="lang_se" type="radio" name="lang" data_lang="se"
+					<?php
+						
+					echo $from_lang([
+						"en" => "",
+						"se" => "checked"
+					]);
+			
+					?>>
+				<label for="lang_se" class="inline">Svenska</label>
+			</div>
+			<div>
+			<button id="apply_language">
+			<?php
+				
+			echo $from_lang([
+				"en" => "Reload and apply",
+				"se" => "Ladda om och verkställ"
+			]);
+	
+			?>
+			</button>
+			</div>
 
 			<input id="phone_num_hidden" type="checkbox">
 			<label for="phone_num_hidden" class="inline">
@@ -115,8 +178,8 @@
 				<?php
 				
 				echo $from_lang([
-					"en" => "Describe yourself",
-					"se" => "Beskriv dig själv"
+					"en" => "Motto",
+					"se" => "Motto"
 				]);
 		
 				?>
@@ -168,7 +231,7 @@
 			
 			echo $from_lang([
 				"en" => "Moving on?",
-				"se" => "Logga ut"
+				"se" => "Dags för flytt?"
 			]);
 
 			?>
@@ -178,7 +241,7 @@
 			
 			echo $from_lang([
 				"en" => "We're sorry to see you go. After 7 days your account will be deleted, but you may return before that.",
-				"se" => "Bla bla bla bla"
+				"se" => "Vi förstår om du vill gå vidare med annat. Efter 7 dagar tas ditt konto bort, men du kan alltid komma tillbaka innan dess."
 			]);
 
 			?>

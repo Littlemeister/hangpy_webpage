@@ -45,8 +45,14 @@ Global.initNavbar = function(){
 	});
 }
 
+Global.fetchConfig = function(){
+	EventInfo.maxUserPostLen = 300;
+}
+
 $(function(){
-	$('#header_login').click(function(){
+	const header = $('#header_wrapper');
+
+	header.find('#header_login').click(function(){
 		if (User.isSignedIn()){
 			//	Signed in; view profile
 			GUI.changeLayout($('#profile_page'));
@@ -54,6 +60,10 @@ $(function(){
 			//	Show sign-in dialog
 			ModalDialog.show($('#sign_in_dialog'));
 		}
+	});
+
+	header.find('.sign_out').click(function(){
+		User.signOut();
 	});
 
 	//	Textareas which grows with scroll increase
@@ -73,6 +83,8 @@ $(function(){
 			$(this).remove();
 		});
 	}, 5);
+
+	Global.fetchConfig();
 });
 
 /**

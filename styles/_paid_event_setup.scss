@@ -216,3 +216,33 @@ $active_color: #212121;	//	Current
 	margin-top: 144px;
 	display: inline-block;
 }
+
+#paypal_header {
+	font-weight: normal;
+	font-size: 18px;
+	color: #757575;
+}
+
+/* Dialog once setup has successfully finished */
+#paid_event_post {
+	$article_width: 420px;
+	$article_height: 315px;
+
+	.article_preview {
+		margin: auto;
+		float: none;
+		width: $article_width;
+		height: $article_height;
+
+		> div {
+			width: $article_width;
+			height: $article_height;	
+		}
+	}
+
+	/* Buttons container */
+	.buttons {
+		text-align: right;
+		margin-top: 24px;
+	}
+}

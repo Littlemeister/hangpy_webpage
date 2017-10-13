@@ -4,6 +4,8 @@
 
 /* Main page */
 #create_event_page {
+    max-width: 840px;
+    min-width: 693px;
 }
 
 /* Event for location placement */
@@ -168,6 +170,12 @@
 
 .event_gallery.small:first-child {
     margin-left: 0;
+}
+
+/* Description input */
+#event_description_input {
+    width: 693px;
+    margin: auto;
 }
 
 /* Submit button */

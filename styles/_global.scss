@@ -224,7 +224,9 @@ select:focus {
 */
 .profile_picture {
   background-size: cover;
+  background-position: center;
   border-radius: 50%;
+  background-color: #FAFAFA;
 }
 
 /* Invisible but accessible */

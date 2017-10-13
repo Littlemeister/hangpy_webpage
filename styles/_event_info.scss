@@ -343,7 +343,39 @@ $attendee_width: 146px;
 
 /* User posts (comments) */
 #event_info_comments {
-  margin-top: 128px; /* Since comment form is absolute */
+  margin: 128px 0 48px 18px; /* Since comment form is absolute */
+
+  /* Label, sender */
+  .sender {
+    margin: 0 0 12px 0;
+    font-size: 14px;
+    color: rgba(#FAFAFA, 0.75);
+  }
+
+  /* Label, since created */
+  .since_created {
+    display: inline-block;
+    font-size: 14px;
+    position: relative;
+    top: 8px;
+  }
+
+  li.reply_form {
+    position: absolute;
+
+    form {
+      margin: 0;
+    }
+
+    form:hover {
+      .submit_c {
+        div {
+          background: $primary_dark;
+          transform: translateY(-50%);
+        }
+      }
+    }
+  }
 
   li {
     /* Button for deleting post */
@@ -351,9 +383,16 @@ $attendee_width: 146px;
       display: inline-block;
       width: 24px;
       height: 24px;
-      background: red;
-      right: 5%;
+      background-color: $primary_dark;
+      background-image: url('assets/ic_remove_24dp.png');
+      margin-left: -30px;
+      margin-top: 2px;
+      border-radius: 50%;
       position: absolute;
+    }
+    
+    .delete:hover {
+      background-color: mix($primary_dark, $primary, 50%);
     }
 
     .profile_picture {
@@ -366,54 +405,50 @@ $attendee_width: 146px;
       background-position: center;
     }
 
+    $content_bg: $primary_dark;
+
     .content {
-      margin: 15px;
-      min-width: 70%;
-      display: table;
-      background-color: whitesmoke;
-      border-radius: 15px;
-      padding: 15px;
-      padding-bottom: 2px;
+      margin: 8px 16px;
+      margin-left: 0;
+      display: inline-block;
+      background-color: $content_bg;
+      border-radius: 16px;
+      padding: 16px;
+      max-width: 360px;
       
       .message {
         margin: 0;
-      }
-    }
-
-    /* Replying field */
-    .reply_wrapper {
-      .input {
-        margin-top: 5px;
-        height: 30px;
-        padding: 0px;
-        min-width: 100px;
-        cursor: pointer;
-        width: calc(100% - 150px);
-        border-radius: 15px;
-        margin-top: 15px;
-        padding: 15px;
-        overflow: hidden;
-        padding-right: 132px;
-      }
-
-      .submit {
-        background: #469ea0;
         color: #FAFAFA;
-        font-size: 17px;
-        height: 40px;
-        width: 100px;
-        border: none;
-        border-radius: 12px;
-        float: right;
-        margin-right: 5px;
-        margin-top: -49px;
-        position: relative;
+      }
+
+      /* Speech bubble notch */
+      .notch {
+        position: absolute;
+        border: 8px solid transparent;
+        border-right-color: $content_bg;
+        margin-left: -#{16px + 16px};
       }
     }
   }
 
+  li.reply_form {
+    /* Without preceding replies*/
+    margin-left: 0;
+    padding-left: 64px;
+  }
+  
+  li.reply_form + li {
+    /* Space next item */
+    margin-top: 64px;
+  }
+
+  li:not(.reply_form) {
+    padding: 4px;
+  }
+
   /* This is a reply to the preceding user post */
-  li.reply {
+  li.reply,
+  li.reply + li.reply_form {
     margin-left: 48px;
   }
 }
@@ -471,16 +506,12 @@ $attendee_width: 146px;
   padding: 3px;
 }
 
-/* Form for writing a user post */
-#comment_form {
-  white-space: nowrap;
-  $submit_button_width: 80px;
-  position: absolute;
-  width: 100%;
+$submit_button_width: 48px;
 
-  /* Input field */
+/* User post input field */
+#comment_form,
+#event_info_comments {
   .input {
-    min-height: 64px;
     position: relative;
     width: calc(100% - 60px);
     max-width: 480px;
@@ -502,7 +533,7 @@ $attendee_width: 146px;
     input {
       z-index: 1;
       border: 0;
-      background: url('assets/ic_next_white.png') center no-repeat;
+      background: url('assets/ic_next_white_24dp.png') center no-repeat;
       width: 100%;
       height: 100%;
     }
@@ -512,13 +543,22 @@ $attendee_width: 146px;
       position: absolute;
       width: 128px;
       height: 128px;
-      background: $primary_dark;
-      transform: translateY(-50%);
+      background: transparent;
+      transform: translateY(-50%) scale(0.6);
       top: 50%;
       border-radius: 50%;
       z-index: -1;
+      transition: background 250ms $ease,
+        transform 250ms $ease;
     }
   }
+}
+
+/* Form for writing a user post */
+#comment_form {
+  white-space: nowrap;
+  position: absolute;
+  width: 100%;
 }
 
 /* Attendee details dialog */

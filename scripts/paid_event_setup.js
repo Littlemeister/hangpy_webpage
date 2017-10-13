@@ -11,10 +11,13 @@ PaidEventSetup.startAmount = 25;
 PaidEventSetup.amountIncrement = 25;
 PaidEventSetup.scrollSteps = 0;
 
+
 /**
  * Sets up several elements from an event object, and changes the layout to this.
  */
 PaidEventSetup.setupFromEvent = function(eventObj){
+	PaidEventSetup.eventData = eventObj;
+
 	//	Event name
 	$('.paid_event_name').text(eventObj.name);
 
@@ -90,9 +93,166 @@ PaidEventSetup.setupInvestmentSpinner = function(){
 	});
 }
 
+PaidEventSetup.setupPayPal = function() {
+	paypal.Button.render({
+		env: 'sandbox',
+		commit: true,
+		payment: function(){
+			Backend.request("action=init_paypal", null, function(response){
+				debugger;
+			});
+		},
+		onAuthorize: function(data, actions){
+			debugger;
+		}
+	}, '#paypal_auth');
+}
+
+/**
+ * Sets up the card payment service.
+ */
+PaidEventSetup.setupCard = function() {
+	let stripe = PaidEventSetup.stripe = Stripe("pk_test_F3lAL3shzlokFtuhUAwZN5Ib");
+	let elements = stripe.elements();
+	let card = PaidEventSetup.cardElement = elements.create('card', {
+		placeholder: Strings.setupPaid.cardPlaceholder
+	});
+	
+	card.mount('#card_auth');
+}
+
+/**
+ * Executes the payment.
+ */
+PaidEventSetup.execPayment = function() {
+	GUI.showFullscreenLoading();
+
+	if (true) {
+		//	Submit card payment
+		let stripe = PaidEventSetup.stripe;
+		stripe.createToken(PaidEventSetup.cardElement).then(function(result){
+			Backend.request("action=exec_card", {
+				token_id: result.token.id,
+				investment: PaidEventSetup.investment
+			}, function(response){
+				PaidEventSetup.parseExecPaymentResponse(response, 1);
+			});
+		});
+	}
+}
+
+PaidEventSetup.parseExecPaymentResponse = function(response, isCard) {
+	GUI.hideFullscreenLoading();
+	
+	if (true) {
+		//	Successful
+		PaidEventSetup.onSuccess();
+	}
+}
+
+/**
+ * Propmpts for a confirmation before submitting/paying.
+ */
+PaidEventSetup.showSubmitConfirm = function() {
+	let dialog = $('#paid_event_confirm');
+	ModalDialog.show(dialog);
+}
+
+/**
+ * Called if the paid event setup finished successfully; the event is now marketed.
+ */
+PaidEventSetup.onSuccess = function() {
+	let dialog = $('#paid_event_post');
+	let eventPreview = dialog.find('.article_preview');
+
+	let data = PaidEventSetup.eventData;
+	eventPreview.find('.event_name').text(data.name);
+	eventPreview.find('.cover').css('background-image', 'url(' + data.base_image_url + data.gallery[0] + ')');
+	dialog.find('> h2 span').text(PaidEventSetup.investment);
+
+	ModalDialog.show(dialog);
+}
+
+/**
+ * Sets up the post paid dialog.
+ */
+PaidEventSetup.setupPostDialog = function(){
+	let prefix = '#paid_to_';
+	const dialog = $('#paid_event_post');
+	$(prefix + 'info').click(function(){
+		//	View event info
+		ModalDialog.hide(dialog);
+		Frontpage.initEventInfo(PaidEventSetup.eventData.id);
+	});
+	$(prefix + 'frontpage').click(function(){
+		//	View on frontpage
+		ModalDialog.hide(dialog);
+
+	});
+}
+
+/**
+ * TODO: Move to tab_nav.js
+ */
+PaidEventSetup.changeBillingSection = function(sectionId){
+
+	var underlineLeft;
+	var nthCurrentNavLi;
+	const sectionSuffix = '_payment_section';
+
+	switch (sectionId){
+		case 'paypal' + sectionSuffix:
+		underlineLeft = '0';
+
+		nthCurrentNavLi = 1;
+
+		break;
+
+		case 'card' + sectionSuffix:
+		underlineLeft = '50%';
+		
+		nthCurrentNavLi = 2;
+		break;
+
+		default:
+		console.log("Invalid section: " + sectionId);
+		return;
+	}
+
+	$('#paid_event_setup_page .nav_underline').css('left', underlineLeft);
+	var section = $('#' + sectionId);
+
+	if (PaidEventSetup.currentBillingSection){
+		if (section == PaidEventSetup.currentBillingSection) {
+			//	Not changing section
+			return;
+		}
+		//	Hide old section
+		PaidEventSetup.currentBillingSection.hide();
+	}
+
+	let baseNavLiSelector = '#profile_page .tab_nav li', baseNavLiClass = 'current';
+	$(baseNavLiSelector + '.current').removeClass(baseNavLiClass);
+	$(baseNavLiSelector + ':nth-child(' + nthCurrentNavLi + ')').addClass(baseNavLiClass);
+
+	PaidEventSetup.currentBillingSection = section;
+	section.show();
+}
+
 $(function(){
 	//	Setup invest spinner
 	PaidEventSetup.setupInvestmentSpinner();
+	PaidEventSetup.setupPayPal();
+	PaidEventSetup.setupCard();
+	PaidEventSetup.setupPostDialog();
+
+	$('#paid_event_submit').click(function(){
+		PaidEventSetup.showSubmitConfirm();
+	});
+
+	$('#paid_event_confirm .confirm').click(function(){
+		PaidEventSetup.execPayment();
+	});
 });
 
 /**

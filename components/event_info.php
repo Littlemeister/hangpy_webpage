@@ -176,16 +176,13 @@
 
   </div>
 
-  <p id="event_description">Vi tänkte dra ihop en liten grillfest, alla tar med det de vill grilla och dricka så fixar vi grill! Vi kommer också leka lekar, ha musik osv. Vädret ser ut att bli bra men ifall det regnar för mycket kan det bli inställt så vi får se. Bussar går hela kvällen om man vill ta det. Vem som helst är välkommen! (nästan)
-    <br><br>Ålder: 18-30 ungefär
-    <br>Alkohol förekommer
-  </p>
+  <p id="event_description"></p>
 
   <h3>
     <?php
     echo $from_lang([
       "en" => "Attendees",
-      "se" => "Kommer"
+      "se" => "Intresserade"
     ]);
     ?>
   </h3>
@@ -212,6 +209,7 @@
       ?>
     </h2>
 
+    <p id="user_post_char_count"></p>
     <form id="comment_form" method="post">
       <input type="text" class="input" value="" placeholder="<?php
 
@@ -229,6 +227,22 @@
 
     <ul id="event_info_comments">
     </ul>
+
+    <div id="no_user_posts" class="no_events center">
+      <figure>  
+        <img src="assets/no_user_posts.png" alt="Empty catbowl">
+        <figcaption class="caption">
+          <?php
+          
+          echo $from_lang([
+            "en" => "No posts yet.<br>Be the first to post!",
+            "se" => "Inga inlägg än.<br>Bli den förste att skriva!"
+          ]);
+
+          ?>
+        </figcaption>
+      </figure>
+    </div>
 
   </div>
 

@@ -65,8 +65,11 @@ Categories.parseDefaultImage = function(response) {
 *	Selects a specific category for a filter.
 */
 Categories.selectForFilter = function(category) {
-	$('#events_header').html(Strings.frontpage.explorePrefix)
-		.append($('<span>').text(category));
+	$('#events_header').html(
+		Strings.frontpage.discover.replace(
+			'$', $('<span>').text(category).html()
+		)
+	);
 	
 	Events.filters.category = category;
 	Events.clear();

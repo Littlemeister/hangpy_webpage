@@ -6,7 +6,6 @@
 
 $dialog_transition_dur: 200ms;
 $dialog_hidden_scale: 0.925;
-$dialog_padding: 36px;
 
 /* Screen-fixed background */
 .modal_bg {
@@ -17,6 +16,7 @@ $dialog_padding: 36px;
 	bottom: -40vh;
 	background: rgba(0, 0, 0, 0.75);
 	visibility: hidden;
+	overflow-y: auto;
 	transition: opacity $dialog_transition_dur $ease, transform $dialog_transition_dur $ease;
 	transform: scale($dialog_hidden_scale);
 	opacity: 0;
@@ -53,6 +53,11 @@ $dialog_padding: 36px;
 	.dialog.dark {
 		background: $primary_dark;
 		color: #FAFAFA;
+	}
+
+	/* */
+	.dialog.scroll {
+
 	}
 }
 

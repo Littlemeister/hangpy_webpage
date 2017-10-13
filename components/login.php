@@ -9,26 +9,27 @@
 <div class="modal_bg">
 	<div id="sign_in_dialog" class="dialog">
 		<div id="login_background">
-		
-			<h2>
-			<?php
-
-			echo $from_lang([
-				"en" => "Welcome",
-				"se" => "Välkommen"
-			]);
-
-			?>
-			</h2>
 			<p>
 			<?php
 
 			echo $from_lang([
-				"en" => "Attend any event, meet new people.<br>Your phone number is all that's needed to get going!",
-				"se" => "Delta i evenemang och träffa nya människor.<br>Ditt telefonnummer är det enda som behövs för att komma igång!"
+				"en" => "Attend any event, meet new people.",
+				"se" => "Delta i evenemang och träffa nya människor."
 			]);
 
 			?>	
+			</p>
+
+			<p>
+			<?php
+
+			echo $from_lang([
+				"en" => "Your phone number is all that's needed to get going!",
+				"se" => "Ditt telefonnummer är det enda som behövs för att komma igång!"
+			]);
+
+			?>	
+			
 			</p>
 			
 		</div>
@@ -47,9 +48,16 @@
 						?>	
 					</label>
 					<p>+46</p>
-					<input id="login_phone" type="text" placeholder="Phone number" maxlength="10">
+					<input id="login_phone" type="text" spellcheck="false" placeholder="<?php
+
+					echo $from_lang([
+						"en" => "Phone number",
+						"se" => "Telefonnummer"
+					]);
+
+					?>" maxlength="10">
 					<a id="login_phone_action">
-						<img class="disabled icon" src="assets/ic_continue.png" alt="Continue">
+						<div class="disabled icon"></div>
 					</a>
 				</div>
 				<div id="login_verification">
@@ -63,29 +71,63 @@
 
 						?>
 					</label>
-					<input type="text" placeholder="Verification code">
+					<input type="text" spellcheck="false" autocorrect="off" maxlength="6" placeholder="<?php
+
+						echo $from_lang([
+							"en" => "Verification code",
+							"se" => "Verifieringskod"
+						]);
+
+						?>">
 					<a id="submit_verification">
-						<img class="disabled icon" src="assets/ic_continue.png" alt="Continue">
+						<img class="disabled icon" src="assets/ic_continue.png" alt="<?php
+
+						echo $from_lang([
+							"en" => "Continue",
+							"se" => "Fortsätt"
+						]);
+
+						?>">
 					</a>
 				</div>
 			</div>
 			
 			<div id="incomplete_profile_c">
+				<p>
+				<?php
+
+				echo $from_lang([
+					"en" => "Almost there! Let's setup your profile.",
+					"se" => "Nästan där! Din profil saknar ditt fullständiga namn."
+				]);
+
+				?>
+				</p>
+				<label>
+				<?php
+
+				echo $from_lang([
+					"en" => "Full name",
+					"se" => "Fullständigt namn"
+				]);
+
+				?>
+				</label>
 				<input id="login_name_input" type="text">
 				<button id="complete_profile_btn">
-					<?php
+				<?php
 
-					echo $from_lang([
-						"en" => "Start hanging out",
-						"se" => "Börja umgås"
-					]);
+				echo $from_lang([
+					"en" => "Find events!",
+					"se" => "Hitta evenemang!"
+				]);
 
-					?>
+				?>
 				</button>
 			</div>
 		</div>
 		
-		<a id="login_privacy">
+		<a id="login_privacy" href="privacy/" target="_blank">
 		<?php
 
 		echo $from_lang([

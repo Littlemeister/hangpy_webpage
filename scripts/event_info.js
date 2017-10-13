@@ -33,7 +33,7 @@ EventInfo.numOfPreviewPosts = 4;
  */
 EventInfo.reset = function(){
 	//	Initially hide the button to show all attendees
-	$('#event_info_attendees_show_all').hide();
+	$('#event_info_attendees_show_all,#no_user_posts').hide();
 	EventInfo.hasPreviewAttendees = false;
 }
 
@@ -214,16 +214,30 @@ EventInfo.parseUserPosts = function(eventId){
 	var numOfReplies;
 	var appendData;
 	var lastTopLevelPost;	//	ID of last non-reply
+
+	if (obj.posts.length == 0){
+		//	No user posts
+		$('#no_user_posts').show();
+		return;
+	}
+
 	for (let post of obj.posts) {
 		author = authors[post.author];
 
 		appendData = {
 			id: post.id,
+			since_created: post.since_created,
 			list: userPostList,
+			author: author.name,
 			author_picture_url: author.picture_url,
 			author_id: author.id,
 			message: post.text
 		};
+		appendData.is_last_reply = obj.posts.length > i + 1 &&
+			!obj.posts[i + 1].is_reply;
+
+		//	If last user post
+		appendData.is_last_reply |= obj.posts.length == i + 1;
 
 		if (post.is_reply) {
 			appendData.reply_to = lastTopLevelPost;
@@ -233,7 +247,7 @@ EventInfo.parseUserPosts = function(eventId){
 
 		userPostElement = EventInfo.insertUserPost(appendData);
 
-		if (!post.is_reply){
+		if (!post.is_reply) {
 			//	Check num of replies
 			numOfReplies = 0;
 			for (let j = i + 1, n = obj.posts.length; j < n; j++){
@@ -257,12 +271,14 @@ EventInfo.parseUserPosts = function(eventId){
  * Appends a user post element to the list.
  * The parameter object may contain the following:
  * id : post ID
+ * since_created : minutes since post was created
  * list : if the parent list is provided, it doesn't need to be sought up
+ * author : author name
  * author_id : author ID
  * author_picture_url : author profile picture URL
  * message : post message
  * reply_to : optional user post ID which this is a reply to
- * is_last_reply : optionally whether this is the last reply
+ * is_last_reply : optionally whether this is the last reply (or top-lever without replies)
  * insert_after : optional user post element which to insert this after
  * prepend : optional whether to prepend to the list
  */
@@ -272,32 +288,7 @@ EventInfo.insertUserPost = function(postObj){
 		postObj.list = $('#event_info_comments');
 	}
 
-	var useReplyForm = true || postObj.is_last_reply || !postObj.reply_to;
-
-	var replyForm = !useReplyForm ? null : 
-		$('<form class="reply_wrapper" method="post">').append(
-			$('<input type="text" class="input">')
-		).append(
-			$('<input type="submit" class="submit">')
-		).on('submit', function(e){
-			e.preventDefault();
-
-			var _this = $(this);
-			var userPostParent = _this.closest('li');
-			
-			if (userPostParent.hasClass('reply')) {
-				//	Find top-level user post
-				var replyingTo = userPostParent.prev('li').attr('data-id');
-			} else {
-				//	Replying to this post
-				var replyingTo = userPostParent.attr('data-id');
-			}
-
-			var message = _this.find('.input').val();
-
-			EventInfo.createUserPost(message, replyingTo);
-		});
-
+	var insertReplyForm = postObj.is_last_reply;
 
 	var li = $('<li>').append(
 		$('<div class="profile_picture">').css(
@@ -306,26 +297,63 @@ EventInfo.insertUserPost = function(postObj){
 		)
 	).append(
 		$('<div class="content">').append(
-			$('<p class="message">').text(postObj.message)
+			'<span class="notch">'
 		).append(
-			replyForm
+			$('<p class="sender">').text(postObj.author)
+		).append(
+			$('<p class="message">').text(postObj.message)
 		)
 	).toggleClass('reply', postObj.reply_to !== undefined)
-		.attr('data-id', postObj.id);
+		.attr('data_id', postObj.id);
 
+	var createdStrs = Strings.eventInfo.duration;
+	var createdStr = createdStrs.minute;
+
+	var sinceCreated = postObj.since_created;
+
+	if (sinceCreated > 0) {
+		if (sinceCreated > 60) {
+			//	Hours since
+			sinceCreated = Math.floor(sinceCreated / 60);
+			
+			if (sinceCreated == 1){
+				createdStr = createdStrs.hour;
+			} else {
+				createdStr = createdStrs.hours.replace('$', sinceCreated);
+			}
+
+			if (sinceCreated > 24){
+				//	Days since
+				sinceCreated = Math.floor(sinceCreated / 24);
+
+				if (sinceCreated == 1){
+					createdStr = createdStrs.day;
+				} else {
+					createdStr = createdStrs.days.replace('$', sinceCreated);
+				}
+			}
+		} else {
+			createdStr = createdStrs.minutes.replace('$', sinceCreated);
+		}
+	}
+	
 	var canDelete = postObj.author_id == User.current.id;
 	if (canDelete) {
 		//	User can delete this comment
 		const id = postObj.id;
 
-		$('<a class="delete">').prependTo(li).click(function(){
+		$('<a class="delete">').click(function(){
 			EventInfo.deletePost(id);
-		});
+		}).appendTo(li);
 	}
+
+	li.append(
+		$('<p class="since_created">').text(createdStrs.base.replace('$', createdStr))
+	);
 
 
 	if (postObj.reply_to) {
-		li.attr('data-reply-to', postObj.reply_to);
+		li.attr('data_reply_to', postObj.reply_to);
 	}
 	
 	if (insertAfter){
@@ -339,7 +367,39 @@ EventInfo.insertUserPost = function(postObj){
 		}
 	}
 
+	if (insertReplyForm) { 
+		$('<li class="reply_form">').append(
+			$(`<form class="reply_wrapper" method="post">`).append(
+				$('<input type="text" class="input">')
+					.attr('placeholder', Strings.eventInfo.replyToPost)
+			).append(
+				$('<div class="submit_c">')
+					.append(
+						'<div></div>'
+					)
+					.append(
+						'<input type="submit" value="">'
+					)
+			).on('submit', function(e){
+				e.preventDefault();
+				EventInfo.submitUserPostReply($(this));
+			})
+		)
+		.insertAfter(li)
+		.attr('data_parent_id', postObj.reply_to ? postObj.reply_to : postObj.id);
+	}
+
+
 	return li;
+}
+
+EventInfo.submitUserPostReply = function(sender){
+	var li = sender.closest('li');
+	var replyingTo = li.attr('data_parent_id');
+	
+	var message = sender.find('.input').val();
+
+	EventInfo.createUserPost(message, replyingTo);
 }
 
 /**
@@ -375,29 +435,30 @@ EventInfo.parseCreateUserPost = function(response, message, replyTo) {
 		return;
 	}
 
+	const user = User.current;
+
 	var appendData = {
 		message: message,
 		id: obj.post_id,
+		author: user.display_name,
+		author_id: user.id,
 		author_picture_url: User.current.picture_url,
 		reply_to: replyTo,
 		prepend: replyTo === undefined
 	}
 
 	if (replyTo !== undefined) {
-		debugger;
-
 		var replies =
-			$('#event_info_comments li[data-reply-to=' + replyTo + ']');
+			$('#event_info_comments .reply[data_reply_to=' + replyTo + ']');
 
 		if (replies.length == 0) {
 			//	Insert after top-level post
-			appendData.insert_after = $('#event_info_comments li[data-id=' + replyTo + ']');
+			appendData.insert_after = $('#event_info_comments li[data_id=' + replyTo + ']');
 		} else {
 			appendData.insert_after = $(replies[replies.length - 1]);
-
-			//	Move reply field
-			appendData.insert_after.find('.reply_wrapper').remove();
 		}
+	} else {
+		appendData.is_last_reply = true;
 	}
 
 	EventInfo.insertUserPost(appendData);
@@ -429,8 +490,8 @@ EventInfo.parseDeletePost = function(response, postId) {
 	}
 
 	//	Delete post and replies
-	$('#event_info_comments li[data-id=' + postId + '],' + 
-		'#event_info_comments li[data-reply-to=' + postId + ']').remove();
+	$('#event_info_comments li[data_id=' + postId + '],' + 
+		'#event_info_comments li[data_reply_to=' + postId + ']').remove();
 }
 
 EventInfo.changeGalleryItem = function(childIndex){
@@ -510,7 +571,13 @@ $(function(){
 		);
 
 		input.val('');
-	});
+	}).find('input').change(function(){
+		//	Update character count
+		let length = $(this).val().length;
+		let maxLength = EventInfo.maxUserPostLen;
+
+		$('#user_post_char_count').text(length + ' / ' + maxLength);
+	}).attr('maxlength', EventInfo.maxUserPostLen);
 
 	var prefix = '#event_';
 

@@ -4,22 +4,22 @@
 
 //  Height of the event filters element
 $event_filters_height: 64px;
-$event_filters_radius: $event_filters_height / 2;
 
 /* Event filters */
 #event_filters {
-	background: #FAFAFA;
-	border-radius: $event_filters_radius;
-	border-top-left-radius: 3px;
-	height: $event_filters_height;
+	background: $primary_dark;
+	border-radius: 24px;
+	border-top-right-radius: 3px;
 	padding: 0;
 	box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25);
 	position: absolute;
 	z-index: 10;
-	margin-left: 420px;
 	margin-top: -12px;
 	display: none;
-	transform-origin: 0 0;
+	transform: translateX(-100%);
+	transform-origin: 100% 0;
+	color: #FAFAFA;
+	overflow: hidden;
 }
 
 /* Just visible */
@@ -37,10 +37,24 @@ $event_filters_radius: $event_filters_height / 2;
 	animation: event_filters_hide 250ms $ease_out;
 }
 
-#event_filters li {
-	width: 96px;
-	height: 100%;
-	display: inline-block;
+#event_filters {
+	li {
+		width: 96px;
+		height: 100%;
+		display: inline-block;
+		text-align: center;
+		padding: 16px 8px;
+		transition: background 250ms $ease;
+	}
+
+	li:hover {
+		background: mix($primary, $primary_dark, 25%);
+		cursor: pointer;
+	}
+
+	figcaption {
+		margin-top: 4px;
+	}
 }
 
 #event_filters figure {
@@ -49,14 +63,14 @@ $event_filters_radius: $event_filters_height / 2;
 
 @keyframes event_filters_show {
 	0% {
-		transform: scale(0.6);
+		transform: transformX(-100%), scale(0.6);
 		opacity: 0;
 	}
 }
 
 @keyframes event_filters_hide {
 	100% {
-		transform: scale(0.6);
+		transform: transformX(-100%), scale(0.6);
 		opacity: 0;
 	}
 }

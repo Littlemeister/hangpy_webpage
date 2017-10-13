@@ -116,13 +116,13 @@ Events.fetch = function(page = 0) {
 
 Events.parseEvents = function(response) {
 	Events.fetching = false;
-	
+
 	for (var listener of Events.onFetched){
 		listener();
 	}
 	
 	$('#events_loading').addClass('hidden');
-	
+
     if (response == UNAUTHORIZED) {
         //$('#_events').html('Can\'t fetch events: unauthorized');
         return;
@@ -136,9 +136,6 @@ Events.parseEvents = function(response) {
         eventsPerPage: Events.eventsPerPage,
         container: $('#article_previews')
     });
-    
-	
-    $('#_events').html(JSON.stringify(events));
 }
 
 /**
@@ -170,15 +167,47 @@ Events.appendEvents = function(params) {
         params.lastEventsFetchedCallback();
     }
     
+    const timeStrs = Strings.eventPreviewStart;
+    var animDelay = 0;
     for (let event of events) {
         const id = event.id;
+        let startTimeRemaining = 30 + 60 * 24 * 2 * Math.random(); //event.start_mins_remaining;
+        let startTimeStr = timeStrs.minutes;
+        var startsSoon = true;
+
+        if (startTimeRemaining >= 60) {
+            startTimeRemaining = Math.floor(startTimeRemaining / 60);
+            if (startTimeRemaining == 1){
+                startTimeStr = timeStrs.hour;    
+            } else {
+                startTimeStr = timeStrs.hours;
+            }
+
+            startsSoon = startTimeRemaining <= 2;
+            
+            if (startTimeRemaining >= 24) {
+                //  Days remaining
+                startTimeRemaining = Math.floor(startTimeRemaining / 24);
+                if (startTimeRemaining == 1){
+                    startTimeStr = timeStrs.day;
+                } else {
+                    startTimeStr = timeStrs.days;
+                }
+            }
+        }
 
         $('<article class="article_preview">')
             .toggleClass('paid', event.special)
+            .css('animation-delay', animDelay + 'ms')
             .append(
                 $('<div>').
                     append(
                         $('<h2 class="event_name overlay"></h2>').text(event.name)
+                    ).
+                    append(
+                        $('<h2 class="event_start_remaining"></h2>').text(
+                            timeStrs.startsIn.replace('$', startTimeStr.replace('$', startTimeRemaining))
+                        ).toggleClass('soon', startsSoon)
                     ).append(
                         $('<div class="cover">').
                             css('background-image', 'url("' + obj.base_image_url + event.cover_image + '")')
@@ -187,6 +216,8 @@ Events.appendEvents = function(params) {
                         Frontpage.initEventInfo(id);
                     })
                 ).appendTo(params.container);
+                
+        animDelay += 50;
     }
 }
 
@@ -194,7 +225,7 @@ Events.appendEvents = function(params) {
 *   Called if no events are present.
 */
 Events.onNoEvents = function(){
-    $('#frontpage_no_events').removeAttr('style');
+    $('#frontpage_page .no_events').removeAttr('style');
 }
 
 /**

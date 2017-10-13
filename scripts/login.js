@@ -9,6 +9,7 @@ function Login(){}
 const LOGIN_PHONE_LENGTH = 9;
 
 Login.submitPhone = function(){
+	const phoneAction = $('#login_phone_action .icon').addClass('disbled');
 	var phone = $('#login_phone').val();
 	
 	var countryCode = "+46";
@@ -23,17 +24,28 @@ Login.submitPhone = function(){
 	}
 	
 	phone = countryCode + phone;
+
+	User.current.phoneNumber = phone;
 	
-	User.queueVerification(phone, function(status){
+	User.queueVerification(phone, function(){
+		if (Login.resendingVerification) {
+			Notification.show(Strings.signInDialog.resentVerification);
+			Login.resendingVerification = false;
+		}
+
 		//	Did query verification
 		$('#login_inputs').addClass('verification');
 		
-		$('#login_phone_action .icon').attr('src', 'assets/ic_refresh.png');
+		phoneAction.attr('src', 'assets/ic_refresh.png').removeClass('disabled');
 	});
 }
 
+/**
+ * Resends a verification code to the number provided
+ */
 Login.resendVerification = function(){
-	
+	Login.resendingVerification = true;
+	Login.submitPhone();
 }
 
 Login.submitVerification = function(){
@@ -59,6 +71,9 @@ Login.submitVerification = function(){
 }
 
 Login.onInvalidVerification = function(){
+	$('#login_verification label').fadeOut(250, function(){
+		$(this).text(Strings.signInDialog.invalidVerification).addClass('invalid').fadeIn(250);
+	});
 }
 
 Login.onIncompleteProfile = function(){
@@ -74,7 +89,9 @@ Login.completeProfile = function(){
 	User.updateProfile({
 		full_name: fullName
 	}, function(){
-		Login.onSignedIn();
+		User.fetchData(function(status){
+			Login.onSignedIn();
+		});
 	});
 }
 
@@ -93,6 +110,7 @@ $(function(){
 			$('#login_phone_action').click();
 			e.preventDefault();
 			e.stopPropagation();
+			return;
 		}
 		
 		//	Validate phone
@@ -106,11 +124,27 @@ $(function(){
 		//	Numeric filter
 		return e.charCode >= 48 && e.charCode <= 57
 	};
+
+	//	Verification code input
+	$('#login_verification input').keyup(function(e){
+		if (e.keyCode == 13){
+			//	Enter pressed
+			$('#submit_verification').click();
+		}
+	});
 	
 	$('#login_phone_action').click(function(){
+		if ($(this).hasClass('disabled')){
+			return;
+		}
+
 		//	Continue to verification or resend verification
-		
-		Login.submitPhone();
+		if ($('#login_inputs').hasClass('verification')) {
+			//	Resend
+			Login.resendVerification();
+		} else {
+			Login.submitPhone();
+		}
 	});
 	
 	$('#submit_verification').click(function(){
@@ -119,5 +153,22 @@ $(function(){
 	
 	$('#complete_profile_btn').click(function(){
 		Login.completeProfile();
+	});
+
+	ModalDialog.showListeners.push(function(sectionId){
+		if (sectionId == 'sign_in_dialog'){
+			//	Reset form
+			const inputs = $('#login_inputs').removeClass('verification');
+
+			inputs.find('#login_phone').val('');
+		}
+	});
+
+	//	Enter to submit
+	$('#login_name_input').keyup(function(e){
+		if (e.keyCode == 13){
+			//	Enter pressed
+			$('#complete_profile_btn').click();
+		}
 	});
 });

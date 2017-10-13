@@ -120,11 +120,6 @@ $start_page = "frontpage_page";
       </div>
     </div>
 
-    <!-- Sticky footer - have to be outside of page-wrap -->
-    <?php
-      //require_once 'components/footer.php';
-    ?>
-
     <!-- Notification -->
     <p id="notification" style="display:none"></p>
 

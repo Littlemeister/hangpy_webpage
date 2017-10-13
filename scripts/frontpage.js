@@ -83,6 +83,10 @@ if(!/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(naviga
 
 //	Setup fetching next page of events upon body scrolled to bottom
 $(window).scroll(function(){
+	if (!$('#frontpage_page[data-current="1"]').length) {
+		//	Frontpage not current
+		return;
+	}
 	
 	if (Frontpage.eventsFetchedWithScroll >= Frontpage.maxEventsFetchedWithScroll) {
 		//	Use a button from here on now
@@ -100,31 +104,38 @@ $(window).scroll(function(){
 	
 });
 
-var fetchNextPageBtn = $('#fetch_next_page').
-	click(function(){
-		Events.fetchNextPage();
+$(function(){
+
+	var fetchNextPageBtn = $('#fetch_next_page').
+		click(function(){
+			Events.fetchNextPage();
+		}).hide();
+
+	Events.onFetch.push(function(){
+		//	Started fetch
+		fetchNextPageBtn.attr('disabled', 'true');
 	});
 
-Events.onFetch.push(function(){
-	//	Started fetch
-	fetchNextPageBtn.attr('disabled', 'true');
-});
 
+	Events.onFetched.push(function(){
+		//	Did fetch
+		fetchNextPageBtn.removeAttr('disabled');
+	});
 
-Events.onFetched.push(function(){
-	//	Did fetch
-	fetchNextPageBtn.removeAttr('disabled');
-});
-
-
-$(function(){
 	Events.eventsPerPage = 8;
 	Events.fetch();
 	Events.fetchSpecials();
 
 	//	Button to go to create event page
-	$('#create_event_btn, #frontpage_no_events a').click(function(){
+	$('#create_event_btn, .no_events a').click(function(){
 		GUI.changeLayout($('#create_event_page'));
+	});
+
+	$('#frontpage_tool_search').keyup(function(e){
+		if (e.keyCode == 13){
+			//	Search hotkey
+			$('#frontpage_search_icon').click();
+		}
 	});
 
 	//	Update main events heading

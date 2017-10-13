@@ -2,5 +2,5 @@ RewriteEngine On
 
 #	Add any directories for redirection here
 RewriteCond %{REQUEST_URI} !\.[a-z0-9]+$ [NC]
-RewriteRule ^(.*)([^/])$ http://%{HTTP_HOST}/hangpy_web/$1$2/ [L,R=301]
-RewriteRule (event|create|me|user)\/.* ./index.php
+RewriteRule ^(.*)([^/])$ http://%{HTTP_HOST}/hangpy_web/$1$2/ [L,R]
+RewriteRule (en|se|event|create|me|user)\/.* ./index.php

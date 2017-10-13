@@ -96,10 +96,18 @@ Profile.fetchMyEvents = function() {
 }
 
 Profile.parseMyEvents = function(response){
+	Profile.fetchedMyEvents = true;
+
 	$('#my_events_loading').addClass('hidden');
 
 	var obj = JSON.parse(response);
 	var events = obj.events;
+
+	if (events.length == 0){
+		//	Has no my events
+		$('#my_events_section .no_events').removeAttr('style');
+		return;
+	}
 
     var eventList = $('#my_events');
 
@@ -127,8 +135,6 @@ Profile.parseMyEvents = function(response){
 			})
         );
 	}
-
-	Profile.fetchedMyEvents = true;
 }
 
 /**
@@ -305,57 +311,82 @@ Profile.parseProfilePicture = function(response, file){
 Profile.changeProfilePicture = function(file){
 	let fileReader = new FileReader();
 	fileReader.onload = function(){
-		$('#profile_picture').css('background-image', 'url(' + fileReader.result + ')');
+		$('#profile_picture, #header_wrapper .profile_picture')
+			.css('background-image', 'url(' + fileReader.result + ')');
 	};
 	fileReader.readAsDataURL(file);
 }
 
+/**
+ * Reloads the app and apllies the selected language.
+ */
+Profile.applyLanguage = function(){
+	let checked = $('#settings_section input[name="lang"]:checked'),
+		lang = checked.attr('data_lang');
+
+	document.cookie = "ui_lang=" + lang + ";expires=Sat, Jan 01 2050 01:00:00";
+	let loc = document.location;
+
+	document.location = loc.origin + '/' + lang + '/' + loc.pathname;
+}
+
 $(function() {
-	Profile.setupSectionNav();
-
-	//	Only show default section
-	$('#profile .section').hide();
-
-	Profile.changeSection(Profile.initialSection);
-
-	const profilePicFileInput = '#profile_pic_file';
-
-	//	Button to change profile picture from file
-	$('#change_profile_pic').click(function(){
-		$(profilePicFileInput).click();
-	});
-
-	//	Button to change profile picture from camera capture
-	$('#capture_profile_pic').click(function(){
-		CameraCapture.showDialog();
-	});
-
-	/* Profile picture file was uploaded */
-	$(profilePicFileInput).change(function(){
-		let file = this.files[0];
-		if (file) {
-			Profile.uploadProfilePicture(file);
+	GUI.showListeners.push(function(pageId){
+		if (pageId == 'profile_page' && !Profile.isSetup) {
+			//	Perform initial setup
+			Profile.isSetup = true;
+		
+			Profile.setupSectionNav();
+		
+			//	Only show default section
+			$('#profile .section').hide();
+		
+			Profile.changeSection(Profile.initialSection);
+		
+			const profilePicFileInput = '#profile_pic_file';
+		
+			//	Button to change profile picture from file
+			$('#change_profile_pic').click(function(){
+				$(profilePicFileInput).click();
+			});
+		
+			//	Button to change profile picture from camera capture
+			$('#capture_profile_pic').click(function(){
+				CameraCapture.showDialog();
+			});
+		
+			/* Profile picture file was uploaded */
+			$(profilePicFileInput).change(function(){
+				let file = this.files[0];
+				if (file) {
+					Profile.uploadProfilePicture(file);
+				}
+			});
+		
+			const confirmDeleteAccountDialog = '#confirm_delete_account';
+			$(confirmDeleteAccountDialog + ' .confirm').click(function(){
+				//	Confirmed delete account
+				ModalDialog.hide($(confirmDeleteAccountDialog));
+				User.deleteAccount();
+			});
+		
+			//	Sign out button
+			$('#sign_out').click(function(){
+				User.signOut();
+			});
+		
+			//	Delete account button
+			$('#delete_account').click(function(){
+				//	First step in deleting account
+				ModalDialog.show($(confirmDeleteAccountDialog));
+			});
+		
+			//	Hide achievements progress
+			$('#achievements_progress').hide();
+		
+			$('#apply_language').click(function(){
+				Profile.applyLanguage();
+			});
 		}
 	});
-
-	const confirmDeleteAccountDialog = '#confirm_delete_account';
-	$(confirmDeleteAccountDialog + ' .confirm').click(function(){
-		//	Confirmed delete account
-		ModalDialog.hide($(confirmDeleteAccountDialog));
-		User.deleteAccount();
-	});
-
-	//	Sign out button
-	$('#sign_out').click(function(){
-		User.signOut();
-	});
-
-	//	Delete account button
-	$('#delete_account').click(function(){
-		//	First step in deleting account
-		ModalDialog.show($(confirmDeleteAccountDialog));
-	});
-
-	//	Hide achievements progress
-	$('#achievements_progress').hide();
 });
