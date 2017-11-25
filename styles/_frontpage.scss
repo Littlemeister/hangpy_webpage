@@ -45,9 +45,9 @@ $paid_events_list_width: $article_width + $article_margin * 2;
   min-height: 320px; /* Space for loading */
 
   /* Injected paid events are gone on large screen */
-  .paid {
+  /*.paid {
     display: none;
-  }
+  }*/
 
   /* Fade in */
   .article_preview {
@@ -68,10 +68,10 @@ $paid_events_list_width: $article_width + $article_margin * 2;
 
 @media screen and (max-width: #{1112px + $article_margin * 6}) {
   /* Main events to take all columns */
-  
+
   #frontpage_page {
     padding-right: 0;
-    
+
     #paid_events {
       display: none;
     }
@@ -106,7 +106,7 @@ $paid_events_list_width: $article_width + $article_margin * 2;
   margin-bottom: 15px;
   border-radius: 15px;
   padding: 18px;
-  margin-top: 64px;
+  //margin-top: 64px;
 
   h1 {
     color: #FAFAFA;

@@ -87,7 +87,7 @@ $event_filters_height: 64px;
 	div,
 	p,
 	h2 {
-		text-align: center;	
+		text-align: center;
 	}
 }
 
@@ -105,15 +105,21 @@ $event_filters_height: 64px;
 	div,
 	p,
 	h2 {
-		text-align: center;	
+		text-align: center;
 	}
 }
 
 #start_filter_input_c {
 	display: inline-block;
+	margin-bottom: 20px;
 	p {
 		display: inline-block;
 	}
+}
+
+/* checkbox ID */
+#start_filter_checkbox{
+	margin-left:-40px;
 }
 
 /* Days dropdown */
@@ -126,7 +132,7 @@ $event_filters_height: 64px;
 
 #location_filter_dialog {
 	padding: 24px;
-	
+
 	h2 {
 		margin: 36px 0 18px 0;
 	}

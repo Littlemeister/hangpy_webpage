@@ -28,13 +28,13 @@ $google_map_api_key = 'AIzaSyDUu1X38QVzgDxgNdo0jzsQhFdKoVz4hQY';
 <script src="scripts/frontpage.js"></script>
 <script src="scripts/login.js"></script>
 <script src="scripts/notification.js"></script>
-<script src="scripts/paid_event_setup.js"></script>
+<!--<script src="scripts/paid_event_setup.js"></script>-->
 
-<script src="https://js.stripe.com/v3/"></script>
+<!--<script src="https://js.stripe.com/v3/"></script>-->
 
-<script src="https://www.paypalobjects.com/api/checkout.js"></script>
+<!--<script src="https://www.paypalobjects.com/api/checkout.js"></script>-->
 
-<script async 
+<script async
 		src="https://maps.googleapis.com/maps/api/js?key=<?php echo $google_map_api_key ?>&callback=Global.initAllMaps&libraries=places">
 </script>
 

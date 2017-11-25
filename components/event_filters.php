@@ -14,10 +14,10 @@
 			<div id="location_filter_map"></div>
 			<input id="locaiton_filter_find" type="text" placeholder="Find place">
 		</div>
-		
+
 		<h2>
 			<?php
-			
+
 			echo $from_lang([
 				"en" => "Filter events within",
 				"se" => "Visa evenemang inom"
@@ -25,16 +25,16 @@
 
 			?>
 		</h2>
-		<p id="distance_label">/p>
+		<p id="distance_label">-</p>
 
 		<div>
 			<input id="location_distance_input" type="range" min="500" max="100000" step="500" />
 		</div>
-		
+
 		<div>
 			<button id="location_filter_confirm" class="confirm_btn">
 			<?php
-			
+
 			echo $from_lang([
 				"en" => "Confirm",
 				"se" => "Bekräfta"
@@ -43,7 +43,7 @@
 			?>
 			</button>
 		</div>
-			
+
 		<div class="close_dialog">
 		</div>
 	</div>
@@ -53,7 +53,7 @@
 	<div id="attendees_filter_dialog" class="dialog">
 		<h2>
 		<?php
-		
+
 		echo $from_lang([
 			"en" => "Filter events with",
 			"se" => "Visa evenemang med"
@@ -62,12 +62,12 @@
 		?>
 		</h2>
 		<div>
-			
+
 			<?php
-			
+
 			$dropdown = function($id) {
 				return <<<EOD
-				
+
 				<select id="$id">
 					<option>10</option>
 					<option>20</option>
@@ -79,24 +79,24 @@
 					<option>200</option>
 					<option>300</option>
 				</select>
-				
+
 EOD;
 			};
-			
+
 			echo $dropdown("attendees_filter_min");
 			echo "<p>", $from_lang([
 				"en" => "to",
 				"se" => "till"
 			]), "</p>";
 			echo $dropdown("attendees_filter_max");
-			
+
 			?>
-		
+
 		</div>
-		
+
 		<p>
 		<?php
-		
+
 		echo $from_lang([
 			"en" => "attendees",
 			"se" => "intresserade"
@@ -104,11 +104,11 @@ EOD;
 
 		?>
 		</p>
-		
+
 		<div>
 			<button id="attendees_filter_confirm" class="confirm_btn">
 			<?php
-			
+
 			echo $from_lang([
 				"en" => "Confirm",
 				"se" => "Bekräfta"
@@ -117,7 +117,7 @@ EOD;
 			?>
 			</button>
 		</div>
-			
+
 		<div class="close_dialog">
 		</div>
 	</div>
@@ -127,7 +127,7 @@ EOD;
 	<div id="start_filter_dialog" class="dialog">
 		<h2>
 		<?php
-		
+
 		echo $from_lang([
 			"en" => "Filter events starting",
 			"se" => "Visa evenemang som börjar"
@@ -135,15 +135,15 @@ EOD;
 
 		?>
 		</h2>
-		
+
 		<div>
-			
+
 			<input type="checkbox" id="start_filter_checkbox" checked>
-			
+
 			<div id="start_filter_input_c">
 				<p>
 				<?php
-				
+
 				echo $from_lang([
 					"en" => "around",
 					"se" => "runt"
@@ -153,14 +153,14 @@ EOD;
 				</p>
 				<input type="time" id="star_filter_input">
 			</div>
-			
+
 		</div>
-		
+
 		<div>
-			
+
 			<span>
 			<?php
-			
+
 			echo $from_lang([
 				"en" => "within",
 				"se" => "inom"
@@ -178,7 +178,7 @@ EOD;
 			</select>
 			<span>
 			<?php
-			
+
 			echo $from_lang([
 				"en" => "days",
 				"se" => "dagar"
@@ -186,13 +186,13 @@ EOD;
 
 			?>
 			</span>
-			
+
 		</div>
-		
+
 		<div>
 			<button id="start_filter_confirm" class="confirm_btn">
 			<?php
-			
+
 			echo $from_lang([
 				"en" => "Confirm",
 				"se" => "Bekräfta"
@@ -201,7 +201,7 @@ EOD;
 			?>
 			</button>
 		</div>
-		
+
 		<div class="close_dialog">
 		</div>
 	</div>

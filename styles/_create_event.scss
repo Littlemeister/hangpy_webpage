@@ -27,7 +27,7 @@
     transition: opacity 250ms $ease;
     border: none;
     text-align: left;
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2); 
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
 }
 
 #create_event_map_search:focus,
@@ -63,6 +63,11 @@
 /* Used to input event name */
 #event_name_input {
     width: 360px;
+}
+
+/* Used for the back button */
+#create_event_back {
+  cursor: pointer;
 }
 
 /* Suggestion container for event name */

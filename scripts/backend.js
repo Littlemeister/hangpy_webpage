@@ -51,4 +51,9 @@ Backend.onRequestFailed = function(){
     Notification.show(Strings.genericError);
 }
 
-Backend.BASE_URL = "http://192.168.1.174/scripts/hangpy/backend.php?debug&";
+Backend.BASE_URL = "http://partlight.tech/scripts/hangpy/backend.php?debug&";
+
+
+/**
+*http://192.168.1.174/scripts/hangpy/backend.php?debug&";
+*/
