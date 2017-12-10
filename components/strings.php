@@ -2,7 +2,7 @@
 
 /**
 *   STRINGS
-*   
+*
 *   This component isn't necessarily visible to the user, but defines language independent
 *   strings used in both JS and PHP.
 *
@@ -14,7 +14,7 @@ $languages = [
     "se"
 ];
 
-$req_uri = str_replace('/hangpy_web', '', $_SERVER['REQUEST_URI']);
+$req_uri = str_replace('/hangpy', '', $_SERVER['REQUEST_URI']);
 foreach ($languages as $language) {
     if (preg_match("/\/$language\//", $req_uri)){
         //  Lang specified in url
@@ -26,7 +26,7 @@ foreach ($languages as $language) {
 if (!isset($lang)){
     //  Redirect with language specified
     $lang = isset($_COOKIE['ui_lang']) ? $_COOKIE['ui_lang'] : 'en';
-    header("Location: http://localhost/hangpy_web/$lang$req_uri");
+    header("Location: http://hangpy/$lang$req_uri");
     die();
 }
 
@@ -144,7 +144,7 @@ str.createEvent = {
         "en" => "Add photo",
         "se" => "Lägg till foto"
     ])}",
-    
+
     duration: {
         base:"{$from_lang([
             "en" => "Event will last $",
@@ -187,12 +187,12 @@ str.createEvent = {
             "se" => "$ dagar och $ timmar"
         ])}",
     },
-    
+
     nameSuggestion:"{$from_lang([
         "en" => "$0 on $1",
         "se" => "$0 på $1"
     ])}",
-    
+
     invalidField: {
         location:"{$from_lang([
             "en" => "Where is your event located?",
